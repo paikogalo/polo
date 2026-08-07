@@ -1,0 +1,8 @@
+.next
+node_modules
+outputs
+public/video-campana.mov
+public/hipolito-carrera.png
+*.log
+.env
+.env.local
