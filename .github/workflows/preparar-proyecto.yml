@@ -1,0 +1,26 @@
+name: Preparar plataforma
+
+on:
+  push:
+    paths:
+      - "hipolito-project.zip"
+
+permissions:
+  contents: write
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descomprimir proyecto
+        run: |
+          unzip -o hipolito-project.zip -d .
+          rm hipolito-project.zip
+      - name: Guardar plataforma completa
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Publicar plataforma completa con video"
+          git push
