@@ -19,7 +19,12 @@ const constantTimeEqual=(left:string,right:string)=>{
   return a.length===b.length&&timingSafeEqual(a,b);
 };
 
+/** Solo en vistas previas de Vercel (nunca en producción) y sin cuentas configuradas: cuenta demo. */
+const isPreviewDemo=()=>process.env.VERCEL_ENV==="preview"&&!process.env.ESCUCHA_USERS;
+const PREVIEW_DEMO_USER={email:"demo@escucha.prueba",passwordHash:createHash("sha256").update("PruebaEscucha2026").digest("hex")};
+
 export function escuchaUsers():EscuchaUser[]{
+  if(isPreviewDemo())return [PREVIEW_DEMO_USER];
   return (process.env.ESCUCHA_USERS||"")
     .split(",")
     .map(entry=>entry.trim())
@@ -32,7 +37,7 @@ export function escuchaUsers():EscuchaUser[]{
     .slice(0,MAX_USERS);
 }
 
-const sessionSecret=()=>process.env.ESCUCHA_SESSION_SECRET||"";
+const sessionSecret=()=>process.env.ESCUCHA_SESSION_SECRET||(isPreviewDemo()?createHash("sha256").update(`escucha-preview:${process.env.VERCEL_GIT_COMMIT_SHA||"local"}`).digest("hex"):"");
 
 export function escuchaIsConfigured(){
   return escuchaUsers().length>0&&sessionSecret().length>=32;
