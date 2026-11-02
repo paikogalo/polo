@@ -15,7 +15,7 @@ export type MedioCotopaxi={id:string;name:string;canton:string;category:string;p
 export const MEDIOS_COTOPAXI=medios as MedioCotopaxi[];
 
 const googleNews=(query:string)=>{
-  const params=new URLSearchParams({q:`${query} when:2d`,hl:"es-419",gl:"EC",ceid:"EC:es-419"});
+  const params=new URLSearchParams({q:`${query} when:7d`,hl:"es-419",gl:"EC",ceid:"EC:es-419"});
   return `https://news.google.com/rss/search?${params.toString()}`;
 };
 
@@ -44,11 +44,8 @@ function localMediaFeeds():Source[]{
 export function escuchaSources(config:EscuchaConfig):Source[]{
   const active=config.keywords.filter(keyword=>keyword.active);
   const priority=active.filter(keyword=>keyword.level==="rojo"||keyword.level==="naranja").map(keyword=>asQuery(keyword.term));
-  const queries:Source[]=[];
-  for(let index=0;index<priority.length;index+=5){
-    const chunk=priority.slice(index,index+5);
-    queries.push({id:`gn-${index/5+1}`,name:`Google News · ${chunk.length} palabras clave`,url:googleNews(chunk.map(term=>`(${term})`).join(" OR ")),kind:"buscador"});
-  }
+  // Una búsqueda por palabra clave (Google News no responde bien a consultas OR largas). Máximo 25.
+  const queries:Source[]=[...new Set(priority)].slice(0,25).map((term,index)=>({id:`gn-${index+1}`,name:`Google News · ${term.replace(/"/g,"")}`,url:googleNews(term),kind:"buscador" as const}));
   queries.push({id:"gn-territorio",name:"Google News · Cotopaxi",url:googleNews("Cotopaxi (Latacunga OR Salcedo OR Pujilí OR Saquisilí OR Sigchos OR Pangua OR \"La Maná\" OR prefectura)"),kind:"buscador"});
 
   const accounts=config.accounts.filter(account=>account.active&&account.feedUrl).map(account=>({id:`cuenta-${account.id}`,name:account.name,url:account.feedUrl,kind:"cuenta" as const,canton:account.canton}));
