@@ -22,7 +22,7 @@ const seed=(term:string,level:Level,group:string):Keyword=>({id:randomUUID(),ter
 export const DEFAULT_KEYWORDS:Keyword[]=[
   seed("Hipólito Carrera","rojo","Campaña"),
   seed("Polo Carrera","rojo","Campaña"),
-  seed("De Polo a Polo","rojo","Campaña"),
+  seed("De Polo a Polo + Cotopaxi","rojo","Campaña"),
   seed("Tibán + denuncia","rojo","Lourdes Tibán"),
   seed("Tibán + Contraloría","rojo","Lourdes Tibán"),
   seed("Tibán + Fiscalía","rojo","Lourdes Tibán"),
