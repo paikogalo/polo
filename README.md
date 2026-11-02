@@ -103,3 +103,25 @@ Todos los avisos administrativos se envían al buzón definido en `CONTACT_TO_EM
 Para habilitar los envíos configura `RESEND_API_KEY` y al menos un remitente verificado: `APPLICATIONS_FROM_EMAIL` para formularios y/o `COMMUNITY_FROM_EMAIL` para comunidad. El destinatario no necesita ser el mismo dominio que el remitente verificado.
 
 Los reenvíos del buzón deben configurarse en el proveedor que recibe el correo según los registros MX públicos. Crear un reenviador en cPanel no tendrá efecto si los MX del dominio apuntan a GoDaddy, Microsoft 365, Google Workspace u otro servicio. Antes de cambiar el enrutamiento, confirma el proveedor activo para no interrumpir la recepción existente.
+
+## Escucha digital (módulo privado)
+
+Ruta privada: `/escuchadigital`. No aparece en el menú, el sitio ni el mapa del sitio, se marca `noindex` y exige inicio de sesión propio. Solo pueden entrar las cuentas definidas en `ESCUCHA_USERS` (máximo tres). Retirar una cuenta de la variable invalida su sesión de inmediato.
+
+**Qué hace:** reúne cada 10 minutos notas públicas sobre Lourdes Tibán, la Prefectura de Cotopaxi, la campaña de Hipólito Carrera, el proceso electoral y los siete cantones; las clasifica por tema e impacto (palabras clave) y permite copiar o compartir un resumen por WhatsApp de forma manual.
+
+**Fuentes gratuitas:** búsquedas RSS de Google News (edición Ecuador) y los feeds que se agreguen en `ESCUCHA_EXTRA_FEEDS` (RSS de medios de Cotopaxi, Google Alerts o Talkwalker Alerts con salida RSS, canales de YouTube). Facebook, Instagram, TikTok y X no ofrecen lectura gratuita de cuentas ajenas; su contenido entra solo cuando un medio o un buscador lo indexa.
+
+**Reportes y alertas:**
+- `vercel.json` programa dos tareas diarias (Vercel Hobby permite una ejecución diaria por tarea y no garantiza el minuto exacto): mañana ≈ 06:30 y noche ≈ 20:30, hora de Ecuador.
+- Alertas casi en tiempo real: un programador externo gratuito (cron-job.org o GitHub Actions) debe llamar cada 15 minutos a `GET /api/escucha/cron?tipo=alertas&minutos=20` con la cabecera `Authorization: Bearer <CRON_SECRET>`.
+- La entrega automática se hace a un grupo de Telegram (`ESCUCHA_TELEGRAM_BOT_TOKEN`, `ESCUCHA_TELEGRAM_CHAT_ID`). WhatsApp no se automatiza: la política de WhatsApp Business prohíbe su plataforma a candidatos y campañas, y los clientes no oficiales exponen el número a bloqueo.
+
+**Crear las cuentas:** para cada persona, calcula el SHA-256 de su contraseña y guarda en Vercel `correo:hash` (tres entradas separadas por comas):
+
+```sh
+node -e "console.log(require('node:crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" 'CONTRASEÑA_SEGURA'
+openssl rand -hex 32   # ESCUCHA_SESSION_SECRET y CRON_SECRET
+```
+
+Ética: solo se monitorean medios, figuras públicas e instituciones. No se perfila a ciudadanos privados ni se almacenan datos personales.

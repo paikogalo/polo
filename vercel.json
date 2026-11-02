@@ -1,0 +1,6 @@
+{
+  "crons": [
+    { "path": "/api/escucha/cron?tipo=manana", "schedule": "30 11 * * *" },
+    { "path": "/api/escucha/cron?tipo=noche", "schedule": "30 1 * * *" }
+  ]
+}

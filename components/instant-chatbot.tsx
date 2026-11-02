@@ -67,7 +67,7 @@ export function InstantChatbot(){
     return()=>window.removeEventListener("keydown",escape);
   },[open]);
 
-  if(pathname.startsWith("/admin"))return null;
+  if(pathname.startsWith("/admin")||pathname.startsWith("/escuchadigital"))return null;
 
   const append=(...items:Array<Omit<Message,"id">>)=>setMessages(current=>[...current,...items.map(item=>({...item,id:nextId.current++}))]);
   const chooseRoute=(choice:RouteChoice)=>{

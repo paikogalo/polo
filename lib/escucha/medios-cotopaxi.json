@@ -1,0 +1,965 @@
+[
+ {
+  "id": "media-001",
+  "name": "La Maná TV",
+  "canton": "La Maná",
+  "category": "Televisión",
+  "profiles": [
+   {
+    "platform": "X",
+    "url": "https://x.com/lamanatvcanal45"
+   }
+  ]
+ },
+ {
+  "id": "media-002",
+  "name": "Elite Televisión",
+  "canton": "Latacunga",
+  "category": "Televisión",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://eliteradioytelevision.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/profile.php?id=100038565650782"
+   },
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/@elitetelevisioncanal45"
+   }
+  ]
+ },
+ {
+  "id": "media-003",
+  "name": "TV MICC",
+  "canton": "Latacunga",
+  "category": "Televisión comunitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://miccotopaxiec.wordpress.com/portfolio/tv-micc/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/143956319077900"
+   }
+  ]
+ },
+ {
+  "id": "media-004",
+  "name": "Color TV",
+  "canton": "Latacunga",
+  "category": "Televisión",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "http://tvcolor36.com"
+   }
+  ]
+ },
+ {
+  "id": "media-005",
+  "name": "Radio La Voz de Pangua",
+  "canton": "Pangua",
+  "category": "Radio",
+  "profiles": []
+ },
+ {
+  "id": "media-006",
+  "name": "Radio Runatacuyac",
+  "canton": "Latacunga",
+  "category": "Radio comunitaria",
+  "profiles": []
+ },
+ {
+  "id": "media-007",
+  "name": "Radio Elite FM 103.3",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://eliteradioytelevision.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/profile.php?id=100038565650782"
+   },
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/@elitetelevisioncanal45"
+   }
+  ]
+ },
+ {
+  "id": "media-008",
+  "name": "Radio Latacunga AM",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radiolatacunga.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/radiolatacunga/"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/radiolatacunga/"
+   },
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@radiolatacunga"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/radiolatacunga"
+   }
+  ]
+ },
+ {
+  "id": "media-009",
+  "name": "Radio Nuevos Horizontes",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://rnh146.wixsite.com/rnh146"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/rnh146/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/RNH_Latacunga"
+   }
+  ]
+ },
+ {
+  "id": "media-010",
+  "name": "Radio Latacunga FM",
+  "canton": "Latacunga",
+  "category": "Radio comunitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radiolatacunga.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/radiolatacunga/"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/radiolatacunga/"
+   },
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@radiolatacunga"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/radiolatacunga"
+   }
+  ]
+ },
+ {
+  "id": "media-011",
+  "name": "Radio Color Stereo 105.3",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.colorstereo1053.com/web/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/color.stere.1053"
+   }
+  ]
+ },
+ {
+  "id": "media-012",
+  "name": "Radio Stereo Popular Bonita",
+  "canton": "La Maná",
+  "category": "Radio",
+  "profiles": []
+ },
+ {
+  "id": "media-013",
+  "name": "Saquisilí FM Stereo",
+  "canton": "Saquisilí",
+  "category": "Radio",
+  "profiles": []
+ },
+ {
+  "id": "media-014",
+  "name": "Radio Cotopaxi",
+  "canton": "Latacunga",
+  "category": "Radio pública",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radiocotopaxi.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/radiocotopaxi"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/radiocotopaxi/"
+   },
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@radio.cotopaxi"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/RadioCotopaxi"
+   }
+  ]
+ },
+ {
+  "id": "media-015",
+  "name": "Radio Excelencia 94.7 / Radio Pública La Maná",
+  "canton": "La Maná",
+  "category": "Radio pública",
+  "profiles": [
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/ExcelenciaRadio94.7/"
+   }
+  ]
+ },
+ {
+  "id": "media-016",
+  "name": "Estéreo San Miguel",
+  "canton": "Salcedo",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radiosanmiguelsalcedo.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/StereoSanMiguel/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/radiosan_miguel"
+   },
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/channel/UCEWEYxZNTSU1FMkmgvKp_AQ"
+   }
+  ]
+ },
+ {
+  "id": "media-017",
+  "name": "Radio Soberana 98.7 FM",
+  "canton": "La Maná",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.radiosoberana987.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/Soberana98.7/"
+   }
+  ]
+ },
+ {
+  "id": "media-018",
+  "name": "Radio Latina 90.1 FM",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.radiolatinalatacunga.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/profile.php?id=100085174336099"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/radiolatinalapoderosa/"
+   },
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/channel/UC87aj8ZdmBoqqv2Yp5hblqg"
+   }
+  ]
+ },
+ {
+  "id": "media-019",
+  "name": "VTV Radio 93.7 FM",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/profile.php?id=100079142343712&locale=es_LA"
+   }
+  ]
+ },
+ {
+  "id": "media-020",
+  "name": "RQ Radio Quilotoa 105.7 / La Voz de Quilotoa",
+  "canton": "Latacunga",
+  "category": "Radio comunitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radioquilotoa976519298.wordpress.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/radioquilotoa.fm"
+   }
+  ]
+ },
+ {
+  "id": "media-021",
+  "name": "Radio Municipal Sigchos",
+  "canton": "Sigchos",
+  "category": "Radio pública",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://gadmsigchos.gob.ec/new/index.php?Itemid=237&id=44&option=com_content&view=article"
+   }
+  ]
+ },
+ {
+  "id": "media-022",
+  "name": "Radio Hechizo FM",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "http://radiohechizofm.com"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/520009131483723"
+   }
+  ]
+ },
+ {
+  "id": "media-023",
+  "name": "Radio Integración AM",
+  "canton": "Salcedo",
+  "category": "Radio comunitaria",
+  "profiles": [
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/channel/UCaGJpK54Pnj9Q6Ec_8FOgZg"
+   }
+  ]
+ },
+ {
+  "id": "media-024",
+  "name": "La Maná FM",
+  "canton": "La Maná",
+  "category": "Radio",
+  "profiles": []
+ },
+ {
+  "id": "media-025",
+  "name": "Radio Novedades AM 1100",
+  "canton": "Latacunga",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radionovedades1100.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/185439561580270"
+   }
+  ]
+ },
+ {
+  "id": "media-026",
+  "name": "Radio El Sol",
+  "canton": "Pujilí",
+  "category": "Radio",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radioelsolpujili.wixsite.com/radioelsol"
+   }
+  ]
+ },
+ {
+  "id": "media-027",
+  "name": "Al Día Online",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://aldiaonline.net/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/Al-Dia-Online-El-Noticiero-de-Cotopaxi-en-L%C3%ADnea-244112835737626/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/AlDiaOnline1"
+   }
+  ]
+ },
+ {
+  "id": "media-028",
+  "name": "CDL Noticias / Ciudad de Latacunga Online",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://ciudadelatacungaonline.com.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/Cdlnoticias"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/CDLNoticias_/"
+   },
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@CDL_ONLINE"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/CDL_NOTICIAS"
+   }
+  ]
+ },
+ {
+  "id": "media-029",
+  "name": "Curiquingue TV",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://curiquinguetv.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/CuriquingueTVOficial2020"
+   },
+   {
+    "platform": "YOUTUBE",
+    "url": "https://www.youtube.com/@curiquinguetvoficial5339"
+   }
+  ]
+ },
+ {
+  "id": "media-030",
+  "name": "Marca TV",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://marcatv.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/MarcaTv.ec"
+   }
+  ]
+ },
+ {
+  "id": "media-031",
+  "name": "Cotopaxi Noticias",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.cotopaxinoticias.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/CotopaxiNoticias/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/CotopaxiNoticia"
+   }
+  ]
+ },
+ {
+  "id": "media-032",
+  "name": "Radio Activa Latacunga",
+  "canton": "Latacunga",
+  "category": "Internet",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://activaturadio.net/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/RadioActiva.Ltga"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/activaturadio"
+   }
+  ]
+ },
+ {
+  "id": "media-033",
+  "name": "La Primicia EC",
+  "canton": "Latacunga",
+  "category": "Impreso / digital",
+  "profiles": [
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@dayanaortize"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/Dayanaortize"
+   }
+  ]
+ },
+ {
+  "id": "media-034",
+  "name": "Salcedo Al Día",
+  "canton": "Salcedo",
+  "category": "Impreso / digital",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://salcedoaldia.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-035",
+  "name": "La Gaceta",
+  "canton": "Latacunga",
+  "category": "Periódico / digital",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://lagaceta.com.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/LaGacetaCotopaxi/"
+   },
+   {
+    "platform": "TIKTOK",
+    "url": "https://www.tiktok.com/@la.gaceta_cotopaxi"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/LaGacetaL"
+   }
+  ]
+ },
+ {
+  "id": "media-036",
+  "name": "Salcedo TV",
+  "canton": "Salcedo",
+  "category": "AVS / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-037",
+  "name": "Cotopaxi Al Aire TV",
+  "canton": "Latacunga",
+  "category": "AVS / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-038",
+  "name": "Multicanal Salcedo",
+  "canton": "Salcedo",
+  "category": "AVS / TV",
+  "profiles": [
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/MulticanalSalcedo"
+   }
+  ]
+ },
+ {
+  "id": "media-039",
+  "name": "Latacunga Informativa AlDía",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.latacungainformativa.com/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/latacungainformativa0/"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/latacunga_informativa/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/LatacungaI"
+   }
+  ]
+ },
+ {
+  "id": "media-040",
+  "name": "Mi Zona News Latacunga Rural",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://mizonanewslatacungarural.wordpress.com/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/MiZonaNews"
+   }
+  ]
+ },
+ {
+  "id": "media-041",
+  "name": "El Comunicador EC Digital",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://elcomunicador.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/ElComunicadorEcdigital"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/ComunicadorEc/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/Ec_Comunicador"
+   }
+  ]
+ },
+ {
+  "id": "media-042",
+  "name": "LatacungaTV",
+  "canton": "Latacunga",
+  "category": "Digital / TV",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://latacungatv.com/"
+   },
+   {
+    "platform": "X",
+    "url": "https://x.com/LatacungaTv"
+   }
+  ]
+ },
+ {
+  "id": "media-043",
+  "name": "Radio Municipal de Pujilí",
+  "canton": "Pujilí",
+  "category": "Radio pública / online",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://tvradiopujili.radio12345.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-044",
+  "name": "UTC Radio Online 102.9 FM",
+  "canton": "Latacunga",
+  "category": "Radio universitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://radiofm.utc.edu.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/universidadtecnicadecotopaxi"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/utc_cotopaxi"
+   }
+  ]
+ },
+ {
+  "id": "media-045",
+  "name": "UTC TV",
+  "canton": "Latacunga",
+  "category": "TV universitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.utc.edu.ec/"
+   },
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/universidadtecnicadecotopaxi"
+   },
+   {
+    "platform": "INSTAGRAM",
+    "url": "https://www.instagram.com/utc_cotopaxi"
+   }
+  ]
+ },
+ {
+  "id": "media-046",
+  "name": "Visión Cotopaxi",
+  "canton": "Pujilí",
+  "category": "Impreso / digital / TV",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://www.visioncotopaxi.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-047",
+  "name": "Cotopaxi Digital",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://cotopaxidigital.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-048",
+  "name": "Cotopaxi Magazine",
+  "canton": "Latacunga",
+  "category": "Revista / digital",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://cotopaximagazine.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-049",
+  "name": "El Cotopaxense EC",
+  "canton": "Latacunga",
+  "category": "Revista / digital cultural",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://elcotopaxenseecuador.blogspot.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-050",
+  "name": "Radio MICC",
+  "canton": "Latacunga",
+  "category": "Radio comunitaria",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://miccotopaxiec.wordpress.com/"
+   }
+  ]
+ },
+ {
+  "id": "media-051",
+  "name": "HB Producciones TV Online",
+  "canton": "Latacunga",
+  "category": "Digital / TV online",
+  "profiles": []
+ },
+ {
+  "id": "media-052",
+  "name": "El Emisario / Emisario EC",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "X",
+    "url": "https://x.com/EmisarioEc"
+   }
+  ]
+ },
+ {
+  "id": "media-053",
+  "name": "ILinizatv Medio de Comunicación Digital",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": [
+   {
+    "platform": "FACEBOOK",
+    "url": "https://www.facebook.com/photo.php?fbid=461461915990746&set=a.322613996542206&type=3&theater"
+   }
+  ]
+ },
+ {
+  "id": "media-054",
+  "name": "Red NotiEc",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-055",
+  "name": "Perspectiva Digital",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-056",
+  "name": "La Exclusiva Radio",
+  "canton": "Latacunga",
+  "category": "Radio online",
+  "profiles": []
+ },
+ {
+  "id": "media-057",
+  "name": "Circular TV",
+  "canton": "Latacunga",
+  "category": "Digital / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-058",
+  "name": "Aláquez Noticias Online",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-059",
+  "name": "Guay Stream",
+  "canton": "Latacunga",
+  "category": "Digital / noticias / deportes",
+  "profiles": []
+ },
+ {
+  "id": "media-060",
+  "name": "Digital Media 107",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-061",
+  "name": "Ormiguero TV",
+  "canton": "Latacunga",
+  "category": "Digital / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-062",
+  "name": "Informativo Latacungueño",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-063",
+  "name": "ANKA TV",
+  "canton": "Latacunga",
+  "category": "Digital / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-064",
+  "name": "La Señal Radio Online",
+  "canton": "Latacunga",
+  "category": "Radio online",
+  "profiles": []
+ },
+ {
+  "id": "media-065",
+  "name": "Tribuna Ciudadana Cotopaxi",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-066",
+  "name": "TV Digital La Clave de la Información",
+  "canton": "Latacunga",
+  "category": "Digital / TV",
+  "profiles": []
+ },
+ {
+  "id": "media-067",
+  "name": "Novedades en las vías EC",
+  "canton": "Latacunga",
+  "category": "Digital / tránsito",
+  "profiles": []
+ },
+ {
+  "id": "media-068",
+  "name": "GT Comunicación",
+  "canton": "Latacunga",
+  "category": "Digital / comunicación",
+  "profiles": []
+ },
+ {
+  "id": "media-069",
+  "name": "Cotopaxi_lee",
+  "canton": "Latacunga",
+  "category": "Digital / cultura",
+  "profiles": []
+ },
+ {
+  "id": "media-070",
+  "name": "MAGMA - 05",
+  "canton": "Latacunga",
+  "category": "Digital / noticias",
+  "profiles": []
+ },
+ {
+  "id": "media-071",
+  "name": "ANC / Agencia de Noticias Cotopaxi",
+  "canton": "Latacunga",
+  "category": "Agencia digital",
+  "profiles": [
+   {
+    "platform": "WEB",
+    "url": "https://ancecuador.com/"
+   }
+  ]
+ }
+]
