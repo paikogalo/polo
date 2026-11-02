@@ -3,3 +3,14 @@ node_modules
 .env
 .env.local
 *.log
+outputs
+public/video-campana.mov
+public/video-campana.mp4
+public/hipolito-carrera.png
+tsconfig.tsbuildinfo
+_respaldos_claude
+package-lock.json
+public/video-parts
+public/hipolito-carrera-v2-source.png
+public/hipolito-carrera-v2.png
+ffmpeg2pass-0.log.mbtree

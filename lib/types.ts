@@ -1,0 +1,4 @@
+export const categories=["Vialidad y caminos","Producción","Agricultura","Ganadería","Empleo","Riego","Agua","Ambiente","Gestión de riesgos","Turismo","Atención social","Seguridad","Salud","Educación","Transporte","Otro"] as const;
+export const urgencies=["Baja","Media","Alta","Urgente"] as const;
+export const statuses=["Nuevo","En revisión","Priorizado","En gestión","Atendido","Archivado"] as const;
+export type Report={id:string;registration_code:string;created_at:string;full_name:string;phone:string;email:string;province:string;canton:string;parish:string;neighborhood:string;community:string;precinct:string;address_reference:string;category:string;urgency:string;description:string;latitude:number|null;longitude:number|null;status:string;source:string;consent:boolean;assigned_to:string;internal_notes:string;images?:string[]};

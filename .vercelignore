@@ -2,7 +2,11 @@
 node_modules
 outputs
 public/video-campana.mov
+public/video-campana.mp4
 public/hipolito-carrera.png
+public/hipolito-carrera-v2-source.png
+public/hipolito-carrera-v2.png
+public/video-parts
 *.log
 .env
 .env.local
