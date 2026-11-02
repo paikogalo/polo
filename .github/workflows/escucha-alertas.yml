@@ -1,0 +1,18 @@
+name: Escucha digital · alertas rojas
+# Revisa cada 10 minutos y envía al grupo de Telegram las alertas 🔴 nuevas.
+# Requiere el secreto del repositorio ESCUCHA_CRON_SECRET (mismo valor que CRON_SECRET en Vercel).
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  alertas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Disparar revisión
+        env:
+          CRON_SECRET: ${{ secrets.ESCUCHA_CRON_SECRET }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then echo "Falta ESCUCHA_CRON_SECRET"; exit 0; fi
+          curl -fsS -m 60 -H "Authorization: Bearer $CRON_SECRET" "https://www.depoloapoloavanzamoscotopaxi.com/api/escucha/cron?tipo=rojo"

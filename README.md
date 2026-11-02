@@ -106,22 +106,27 @@ Los reenvíos del buzón deben configurarse en el proveedor que recibe el correo
 
 ## Escucha digital (módulo privado)
 
-Ruta privada: `/escuchadigital`. No aparece en el menú, el sitio ni el mapa del sitio, se marca `noindex` y exige inicio de sesión propio. Solo pueden entrar las cuentas definidas en `ESCUCHA_USERS` (máximo tres). Retirar una cuenta de la variable invalida su sesión de inmediato.
+Ruta privada: `/escuchadigital` (sin enlaces públicos, `noindex`, inicio de sesión propio).
 
-**Qué hace:** reúne cada 10 minutos notas públicas sobre Lourdes Tibán, la Prefectura de Cotopaxi, la campaña de Hipólito Carrera, el proceso electoral y los siete cantones; las clasifica por tema e impacto (palabras clave) y permite copiar o compartir un resumen por WhatsApp de forma manual.
+**Semáforo** (configurable desde el panel, pestaña “Palabras clave”):
+- 🔴 Rojo → alerta inmediata al grupo de Telegram (GitHub Actions revisa cada 10 minutos).
+- 🟠 Naranja → resumen del mediodía (Vercel Cron, 12:00–12:59 Ecuador).
+- 🟢 Verde → resumen de la noche (Vercel Cron, 20:00–20:59 Ecuador).
+- Excluir → descarta notas con ese término. Un término con “+” exige todas sus partes (`Tibán + denuncia`).
 
-**Fuentes gratuitas:** búsquedas RSS de Google News (edición Ecuador) y los feeds que se agreguen en `ESCUCHA_EXTRA_FEEDS` (RSS de medios de Cotopaxi, Google Alerts o Talkwalker Alerts con salida RSS, canales de YouTube). Facebook, Instagram, TikTok y X no ofrecen lectura gratuita de cuentas ajenas; su contenido entra solo cuando un medio o un buscador lo indexa.
+**Panel:** resumen con semáforo, menciones con filtros y reenvío a WhatsApp, palabras clave (alta, nivel, pausa, baja), cuentas y medios a seguir (web, RSS y YouTube se leen solos; Facebook, Instagram, TikTok y X quedan para revisión manual), conexión con Telegram con prueba e historial, y usuarios con roles (administrador/analista).
 
-**Reportes y alertas:**
-- `vercel.json` programa dos tareas diarias (Vercel Hobby permite una ejecución diaria por tarea y no garantiza el minuto exacto): mañana ≈ 06:30 y noche ≈ 20:30, hora de Ecuador.
-- Alertas casi en tiempo real: un programador externo gratuito (cron-job.org o GitHub Actions) debe llamar cada 15 minutos a `GET /api/escucha/cron?tipo=alertas&minutos=20` con la cabecera `Authorization: Bearer <CRON_SECRET>`.
-- La entrega automática se hace a un grupo de Telegram (`ESCUCHA_TELEGRAM_BOT_TOKEN`, `ESCUCHA_TELEGRAM_CHAT_ID`). WhatsApp no se automatiza: la política de WhatsApp Business prohíbe su plataforma a candidatos y campañas, y los clientes no oficiales exponen el número a bloqueo.
+**Fuentes gratuitas:** Google News RSS armado con las palabras rojas y naranjas, RSS de los sitios del directorio de 71 medios de Cotopaxi, cuentas agregadas en el panel y `ESCUCHA_EXTRA_FEEDS`.
 
-**Crear las cuentas:** para cada persona, calcula el SHA-256 de su contraseña y guarda en Vercel `correo:hash` (tres entradas separadas por comas):
+**Variables en Vercel:**
+- `ESCUCHA_USERS`: cuentas principales (administradores), `correo:SHA256` separadas por comas.
+- `ESCUCHA_SESSION_SECRET` y `CRON_SECRET`: `openssl rand -hex 32`.
+- Almacenamiento: Vercel → Storage → Upstash Redis (gratis) crea `KV_REST_API_URL` y `KV_REST_API_TOKEN`. Sin esto los cambios del panel no se guardan.
+- `ESCUCHA_TELEGRAM_BOT_TOKEN`: token del bot creado con @BotFather. El grupo se elige desde el panel.
+- GitHub → Settings → Secrets → Actions: `ESCUCHA_CRON_SECRET` con el mismo valor de `CRON_SECRET`.
 
 ```sh
 node -e "console.log(require('node:crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" 'CONTRASEÑA_SEGURA'
-openssl rand -hex 32   # ESCUCHA_SESSION_SECRET y CRON_SECRET
 ```
 
-Ética: solo se monitorean medios, figuras públicas e instituciones. No se perfila a ciudadanos privados ni se almacenan datos personales.
+WhatsApp no se automatiza: la política de WhatsApp Business prohíbe su plataforma a candidatos y campañas. Solo se monitorea información pública de medios, figuras públicas e instituciones.

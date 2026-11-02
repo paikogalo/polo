@@ -1,15 +1,46 @@
+import {getJson,setJson} from "@/lib/escucha/store";
+
 /**
  * Entrega automática al grupo de Telegram del equipo (Bot API oficial y gratuita).
- * Requiere ESCUCHA_TELEGRAM_BOT_TOKEN y ESCUCHA_TELEGRAM_CHAT_ID en Vercel.
+ * ESCUCHA_TELEGRAM_BOT_TOKEN vive solo en Vercel. El grupo se elige desde el panel
+ * (o con ESCUCHA_TELEGRAM_CHAT_ID).
  *
- * WhatsApp no se automatiza: la política de WhatsApp Business prohíbe su plataforma
- * a candidatos y campañas, y los clientes no oficiales provocan bloqueos de número.
- * El panel ofrece un botón "Compartir por WhatsApp" para reenvío manual.
+ * WhatsApp no se automatiza: su política prohíbe la plataforma a candidatos y campañas.
  */
 
 const LIMIT=3900;
+const CHAT_KEY="escucha:telegram-chat";
+type ChatSetting={id:string;title:string};
 
-export const telegramIsConfigured=()=>Boolean(process.env.ESCUCHA_TELEGRAM_BOT_TOKEN&&process.env.ESCUCHA_TELEGRAM_CHAT_ID);
+const botToken=()=>process.env.ESCUCHA_TELEGRAM_BOT_TOKEN||"";
+const api=(method:string)=>`https://api.telegram.org/bot${botToken()}/${method}`;
+
+export async function telegramChat():Promise<ChatSetting|null>{
+  const stored=await getJson<ChatSetting|null>(CHAT_KEY,null);
+  if(stored)return stored;
+  return process.env.ESCUCHA_TELEGRAM_CHAT_ID?{id:process.env.ESCUCHA_TELEGRAM_CHAT_ID,title:"Grupo configurado en Vercel"}:null;
+}
+
+export async function telegramStatus(){
+  const chat=await telegramChat();
+  return {token:Boolean(botToken()),chat};
+}
+
+export async function setTelegramChat(chat:ChatSetting){await setJson(CHAT_KEY,chat);}
+
+/** Lista los grupos donde se agregó el bot y alguien escribió recientemente. */
+export async function detectChats(){
+  if(!botToken())throw new Error("Falta ESCUCHA_TELEGRAM_BOT_TOKEN en Vercel.");
+  const response=await fetch(api("getUpdates"),{cache:"no-store"});
+  const data=await response.json() as {ok:boolean;result?:{message?:{chat:{id:number;title?:string;type:string}};my_chat_member?:{chat:{id:number;title?:string;type:string}}}[]};
+  if(!data.ok)throw new Error("Telegram rechazó el token del bot.");
+  const chats=new Map<string,ChatSetting>();
+  for(const update of data.result||[]){
+    const chat=update.message?.chat||update.my_chat_member?.chat;
+    if(chat&&chat.type!=="private")chats.set(String(chat.id),{id:String(chat.id),title:chat.title||String(chat.id)});
+  }
+  return [...chats.values()];
+}
 
 function chunks(text:string){
   const parts:string[]=[];let current="";
@@ -22,13 +53,11 @@ function chunks(text:string){
 }
 
 export async function sendTelegram(text:string){
-  if(!telegramIsConfigured())return {sent:0,skipped:true as const};
+  const chat=await telegramChat();
+  if(!botToken()||!chat)return {sent:0,skipped:true as const};
   let sent=0;
   for(const part of chunks(text)){
-    const response=await fetch(`https://api.telegram.org/bot${process.env.ESCUCHA_TELEGRAM_BOT_TOKEN}/sendMessage`,{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({chat_id:process.env.ESCUCHA_TELEGRAM_CHAT_ID,text:part,disable_web_page_preview:true}),
-    });
+    const response=await fetch(api("sendMessage"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:chat.id,text:part,disable_web_page_preview:true})});
     if(!response.ok)throw new Error(`Telegram respondió HTTP ${response.status}`);
     sent+=1;
   }

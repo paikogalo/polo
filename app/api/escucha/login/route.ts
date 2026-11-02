@@ -8,9 +8,9 @@ export async function POST(request:Request){
   if(!rateLimit(`escucha-login:${requestIp(request)}`,5,15*60*1000))return Response.json({error:"Demasiados intentos. Espera unos minutos."},{status:429,headers:privateHeaders});
   if(!escuchaIsConfigured())return Response.json({error:"El acceso todavía no está configurado."},{status:503,headers:privateHeaders});
   const parsed=schema.safeParse(await request.json().catch(()=>null));
-  const email=parsed.success?validateEscuchaLogin(parsed.data.email,parsed.data.password):null;
-  if(!email)return Response.json({error:"Usuario o contraseña incorrectos."},{status:401,headers:privateHeaders});
-  const session=createEscuchaSession(email);
+  const user=parsed.success?await validateEscuchaLogin(parsed.data.email,parsed.data.password):null;
+  if(!user)return Response.json({error:"Usuario o contraseña incorrectos."},{status:401,headers:privateHeaders});
+  const session=createEscuchaSession(user.email);
   const secure=process.env.NODE_ENV==="production"?"; Secure":"";
-  return Response.json({ok:true,email},{headers:{...privateHeaders,"Set-Cookie":`${ESCUCHA_SESSION_COOKIE}=${session.token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${session.maxAge}${secure}`}});
+  return Response.json({ok:true,user},{headers:{...privateHeaders,"Set-Cookie":`${ESCUCHA_SESSION_COOKIE}=${session.token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${session.maxAge}${secure}`}});
 }

@@ -1,7 +1,7 @@
-import {authorizeEscuchaRequest,privateHeaders} from "@/lib/escucha/auth";
+import {authorizeEscuchaRequest,denied,privateHeaders} from "@/lib/escucha/auth";
 
 export async function GET(request:Request){
-  const user=authorizeEscuchaRequest(request);
-  if(!user)return Response.json({error:"No autorizado."},{status:401,headers:privateHeaders});
-  return Response.json({ok:true,email:user.email},{headers:privateHeaders});
+  const user=await authorizeEscuchaRequest(request);
+  if(!user)return denied();
+  return Response.json({ok:true,user},{headers:privateHeaders});
 }
