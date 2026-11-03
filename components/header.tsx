@@ -5,13 +5,13 @@ import {useEffect,useRef,useState} from "react";
 import {LOGO_SRC} from "@/lib/image-src";
 
 const antes=[["Inicio","#inicio"],["Participa","#participa"]];
-const despues=[["Ejes de trabajo","#ejes"],["Plan de trabajo","/plan-de-trabajo"],["Redes y videos","/redes"],["Trabaja","/trabaja"]];
+const despues=[["Ejes de trabajo","#ejes"],["Plan de trabajo","/plan-de-trabajo"],["Lo que haremos","/compromisos"],["Redes y videos","/redes"],["Trabaja","/trabaja"]];
 const candidato=[
   {label:"El lado humano",desc:"Familia, raíces y cercanía",href:"/candidato/humano",icon:Heart,color:"bg-coral text-white"},
   {label:"El político",desc:"Experiencia de gobierno local",href:"/candidato/politico",icon:Landmark,color:"bg-ocean text-deep"},
   {label:"El empresario",desc:"Más de 20 años en el campo",href:"/candidato/empresario",icon:BriefcaseBusiness,color:"bg-yellow text-deep"},
 ];
-const linkCls="whitespace-nowrap text-[13px] font-bold hover:text-ocean 2xl:text-sm";
+const linkCls="whitespace-nowrap text-[13px] font-bold hover:text-ocean";
 
 export function Header(){
   const [open,setOpen]=useState(false);
@@ -29,8 +29,8 @@ export function Header(){
 
   return <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/95 backdrop-blur">
     <div className="section flex h-20 items-center justify-between gap-4">
-      <a href="#inicio" className="flex shrink-0 items-center gap-3" aria-label="Ir al inicio"><Image src={LOGO_SRC} alt="El Polo Carrera" width={54} height={54} unoptimized className="h-12 w-12 object-contain"/><span><b className="block text-sm leading-tight text-deep">Hipólito Carrera</b><span className="text-xs text-ocean">De POLO a POLO recorremos tu territorio</span></span></a>
-      <nav className="hidden items-center gap-4 xl:flex" aria-label="Navegación principal">
+      <a href="#inicio" className="flex shrink-0 items-center gap-3" aria-label="Ir al inicio"><Image src={LOGO_SRC} alt="El Polo Carrera" width={54} height={54} unoptimized className="h-12 w-12 object-contain"/><span><b className="block text-sm leading-tight text-deep">Hipólito Carrera</b><span className="text-xs text-ocean xl:hidden">De POLO a POLO recorremos tu territorio</span></span></a>
+      <nav className="hidden items-center gap-3 xl:flex" aria-label="Navegación principal">
         {antes.map(([name,href])=><a key={href} href={href} className={linkCls}>{name}</a>)}
         <div className="relative" ref={ref}>
           <button type="button" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-haspopup="true" aria-controls="menu-candidato" className={`${linkCls} inline-flex items-center gap-1`}>TU CANDIDATO<ChevronDown size={16} aria-hidden="true" className={`transition ${menu?"rotate-180":""}`}/></button>
@@ -40,7 +40,7 @@ export function Header(){
           </div>}
         </div>
         {despues.map(([name,href])=><a key={href} href={href} className={linkCls}>{name}</a>)}
-        <a href="/admin" aria-label="Dashboard" className="inline-flex items-center gap-2 rounded-full border border-ocean/30 bg-mist px-3 py-3 text-sm font-extrabold text-deep transition hover:border-ocean hover:bg-ocean hover:text-white 2xl:px-4"><LayoutDashboard size={17} aria-hidden="true"/><span className="hidden 2xl:inline">Dashboard</span></a>
+        <a href="/admin" aria-label="Dashboard" className="inline-flex items-center gap-2 rounded-full border border-ocean/30 bg-mist px-3 py-3 text-sm font-extrabold text-deep transition hover:border-ocean hover:bg-ocean hover:text-white"><LayoutDashboard size={17} aria-hidden="true"/></a>
         <a href="#participa" className="whitespace-nowrap rounded-full bg-coral px-5 py-3 text-sm font-extrabold text-white shadow-sm">Cuéntanos qué necesitas</a>
       </nav>
       <button onClick={()=>setOpen(!open)} className="rounded-xl p-2 xl:hidden" aria-label={open?"Cerrar menú":"Abrir menú"} aria-expanded={open} aria-controls="menu-movil">{open?<X aria-hidden="true"/>:<Menu aria-hidden="true"/>}</button>
