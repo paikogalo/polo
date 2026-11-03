@@ -1,7 +1,10 @@
 import {randomUUID} from "node:crypto";
 import {z} from "zod";
 import {authorizeEscuchaRequest,denied,privateHeaders} from "@/lib/escucha/auth";
+import {runRedAlerts} from "@/lib/escucha/alerts";
 import {getConfig,saveConfig} from "@/lib/escucha/config";
+
+export const maxDuration=30;
 
 const level=z.enum(["rojo","naranja","verde","excluir"]);
 const schema=z.discriminatedUnion("action",[
@@ -26,5 +29,9 @@ export async function POST(request:Request){
     if(!keyword)return Response.json({error:"No existe."},{status:404,headers:privateHeaders});
     Object.assign(keyword,Object.fromEntries(Object.entries(input).filter(([key,value])=>key!=="action"&&key!=="id"&&value!==undefined)));
   }else config.keywords=config.keywords.filter(item=>item.id!==input.id);
-  return Response.json({ok:true,config:await saveConfig(config,user.email)},{headers:privateHeaders});
+  const saved=await saveConfig(config,user.email);
+  // Una palabra nueva o cambiada a rojo se busca de inmediato y, si aparece, se avisa al grupo.
+  const becameRed=(input.action==="add"&&input.level==="rojo")||(input.action==="update"&&input.level==="rojo");
+  const scan=becameRed?await runRedAlerts(user.email).catch(()=>null):null;
+  return Response.json({ok:true,config:saved,scan},{headers:privateHeaders});
 }

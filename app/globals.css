@@ -10,3 +10,5 @@
 .reveal-ready .reveal-zoom{transform:translate3d(0,24px,0) scale(.96)}
 .reveal-ready .reveal.reveal-in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal-ready .reveal{opacity:1!important;transform:none!important;transition:none!important}.scroll-progress{display:none}}
+
+@media print{@page{margin:12mm}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}

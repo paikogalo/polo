@@ -18,7 +18,24 @@ const api=(method:string)=>`https://api.telegram.org/bot${botToken()}/${method}`
 export async function telegramChat():Promise<ChatSetting|null>{
   const stored=await getJson<ChatSetting|null>(CHAT_KEY,null);
   if(stored)return stored;
-  return process.env.ESCUCHA_TELEGRAM_CHAT_ID?{id:process.env.ESCUCHA_TELEGRAM_CHAT_ID,title:"Grupo configurado en Vercel"}:null;
+  if(process.env.ESCUCHA_TELEGRAM_CHAT_ID)return {id:process.env.ESCUCHA_TELEGRAM_CHAT_ID,title:"Grupo configurado en Vercel"};
+  return autoConnect();
+}
+
+/**
+ * Conexión automática: si el bot ya está en un grupo, lo toma (prefiere el que se llama "Escucha…"),
+ * lo guarda y envía un mensaje de bienvenida. No hace falta configurar nada en el panel.
+ */
+async function autoConnect():Promise<ChatSetting|null>{
+  if(!botToken())return null;
+  try{
+    const chats=await detectChats();
+    const chat=chats.find(item=>/escucha/i.test(item.title))||(chats.length===1?chats[0]:null);
+    if(!chat)return null;
+    await setTelegramChat(chat);
+    await fetch(api("sendMessage"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:chat.id,text:"✅ Escucha digital · De POLO a POLO conectada a este grupo.\n🔴 Alertas inmediatas\n🟠 Resumen del mediodía\n🟢 Resumen de la noche"})});
+    return chat;
+  }catch{return null;}
 }
 
 export async function telegramStatus(){
