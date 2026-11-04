@@ -118,15 +118,10 @@ Ruta privada: `/escuchadigital` (sin enlaces públicos, `noindex`, inicio de ses
 
 **Fuentes gratuitas:** Google News RSS armado con las palabras rojas y naranjas, RSS de los sitios del directorio de 71 medios de Cotopaxi, cuentas agregadas en el panel y `ESCUCHA_EXTRA_FEEDS`.
 
-**Variables en Vercel:**
-- `ESCUCHA_USERS`: cuentas principales (administradores), `correo:SHA256` separadas por comas.
-- `ESCUCHA_SESSION_SECRET` y `CRON_SECRET`: `openssl rand -hex 32`.
-- Almacenamiento: Vercel → Storage → Upstash Redis (gratis) crea `KV_REST_API_URL` y `KV_REST_API_TOKEN`. Sin esto los cambios del panel no se guardan.
-- `ESCUCHA_TELEGRAM_BOT_TOKEN`: token del bot creado con @BotFather. El grupo se elige desde el panel.
-- GitHub → Settings → Secrets → Actions: `ESCUCHA_CRON_SECRET` con el mismo valor de `CRON_SECRET`.
-
-```sh
-node -e "console.log(require('node:crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" 'CONTRASEÑA_SEGURA'
-```
+**Configuración (sin claves manuales):**
+- Vercel → Storage → **Upstash for Redis** (plan Free) conectado al proyecto: crea `KV_REST_API_URL` y `KV_REST_API_TOKEN`. Guarda palabras clave, cuentas, usuarios, historial y el secreto de sesión (se genera solo).
+- `ESCUCHA_USERS` (no es secreta): cuentas principales `correo:SHA256` separadas por comas.
+- `ESCUCHA_TELEGRAM_BOT_TOKEN`: token del bot. El grupo se detecta solo cuando el bot está en un grupo cuyo nombre contiene "Escucha" y recibe un comando (`/start@Bot`).
+- Programación: `.github/workflows/escucha-alertas.yml` (🔴 cada 10 min, 🟠 12:00, 🟢 20:00) se autentica con un token **OIDC** firmado por GitHub; no requiere secretos. `CRON_SECRET` es opcional.
 
 WhatsApp no se automatiza: la política de WhatsApp Business prohíbe su plataforma a candidatos y campañas. Solo se monitorea información pública de medios, figuras públicas e instituciones.

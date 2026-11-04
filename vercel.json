@@ -1,6 +1,3 @@
 {
-  "crons": [
-    { "path": "/api/escucha/cron?tipo=mediodia", "schedule": "0 17 * * *" },
-    { "path": "/api/escucha/cron?tipo=noche", "schedule": "0 1 * * *" }
-  ]
+  "crons": []
 }

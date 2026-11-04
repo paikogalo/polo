@@ -1,18 +1,34 @@
-name: Escucha digital · alertas rojas
-# Revisa cada 10 minutos y envía al grupo de Telegram las alertas 🔴 nuevas.
-# Requiere el secreto del repositorio ESCUCHA_CRON_SECRET (mismo valor que CRON_SECRET en Vercel).
+name: Escucha digital · alertas y resúmenes
+# 🔴 cada 10 minutos · 🟠 12:00 · 🟢 20:00 (hora de Ecuador = UTC-5).
+# Se autentica con un token OIDC firmado por GitHub: no requiere secretos.
 on:
   schedule:
     - cron: "*/10 * * * *"
+    - cron: "0 17 * * *"
+    - cron: "0 1 * * *"
   workflow_dispatch:
+    inputs:
+      tipo:
+        description: "rojo, mediodia o noche"
+        default: "rojo"
+permissions:
+  id-token: write
+  contents: read
 jobs:
-  alertas:
+  enviar:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Disparar revisión
+      - name: Disparar envío
         env:
-          CRON_SECRET: ${{ secrets.ESCUCHA_CRON_SECRET }}
+          EVENTO: ${{ github.event.schedule }}
+          MANUAL: ${{ github.event.inputs.tipo }}
         run: |
-          if [ -z "$CRON_SECRET" ]; then echo "Falta ESCUCHA_CRON_SECRET"; exit 0; fi
-          curl -fsS -m 60 -H "Authorization: Bearer $CRON_SECRET" "https://www.depoloapoloavanzamoscotopaxi.com/api/escucha/cron?tipo=rojo"
+          case "$EVENTO" in
+            "0 17 * * *") TIPO=mediodia ;;
+            "0 1 * * *") TIPO=noche ;;
+            "") TIPO=${MANUAL:-rojo} ;;
+            *) TIPO=rojo ;;
+          esac
+          TOKEN=$(curl -fsS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=escucha-digital" | python3 -c 'import sys,json;print(json.load(sys.stdin)["value"])')
+          curl -fsS -m 60 -H "Authorization: Bearer $TOKEN" "https://www.depoloapoloavanzamoscotopaxi.com/api/escucha/cron?tipo=$TIPO"

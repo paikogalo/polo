@@ -6,12 +6,13 @@ export const maxDuration=30;
 
 /**
  * Tareas automáticas protegidas con CRON_SECRET (Authorization: Bearer ...).
- *   ?tipo=rojo     → alertas inmediatas (GitHub Actions cada 10 minutos)
- *   ?tipo=mediodia → resumen naranja (Vercel Cron, 12:00 Ecuador)
- *   ?tipo=noche    → resumen verde (Vercel Cron, 20:00 Ecuador)
+ *   ?tipo=rojo     → alertas inmediatas (cada 10 minutos)
+ *   ?tipo=mediodia → resumen naranja (12:00 Ecuador)
+ *   ?tipo=noche    → resumen verde (20:00 Ecuador)
+ * Las tres las dispara GitHub Actions con un token OIDC firmado: no hay claves que cargar a mano.
  */
 export async function GET(request:Request){
-  if(!authorizeCronRequest(request))return denied();
+  if(!await authorizeCronRequest(request))return denied();
   const tipo=new URL(request.url).searchParams.get("tipo");
   if(tipo==="rojo")return Response.json(await runRedAlerts(),{headers:privateHeaders});
   if(tipo==="mediodia"||tipo==="noche")return Response.json(await runDigest(tipo),{headers:privateHeaders});

@@ -1,5 +1,6 @@
 import {createHash,createHmac,randomBytes,scryptSync,timingSafeEqual} from "node:crypto";
-import {getJson,setJson} from "@/lib/escucha/store";
+import {verifyGithubOidc} from "@/lib/escucha/oidc";
+import {getJson,setJson,storeIsPersistent} from "@/lib/escucha/store";
 
 /**
  * Acceso privado del módulo de Escucha Digital.
@@ -79,12 +80,21 @@ export async function resetUserPassword(email:string,password:string){
   await setJson(USERS_KEY,users);
 }
 
-// Secreto de sesión: ESCUCHA_SESSION_SECRET o, si no existe, derivado de CRON_SECRET (una variable menos que cargar).
-const sessionSecret=()=>process.env.ESCUCHA_SESSION_SECRET||((process.env.CRON_SECRET||"").length>=32?sha256(`escucha-session:${process.env.CRON_SECRET}`):"")||(isPreviewDemo()?sha256(`escucha-preview:${process.env.VERCEL_GIT_COMMIT_SHA||"local"}`):"");
+// Secreto de sesión: ESCUCHA_SESSION_SECRET, derivado de CRON_SECRET, o uno aleatorio que se crea y guarda en Redis.
+let storedSecret="";
+const envSecret=()=>process.env.ESCUCHA_SESSION_SECRET||((process.env.CRON_SECRET||"").length>=32?sha256(`escucha-session:${process.env.CRON_SECRET}`):"")||(isPreviewDemo()?sha256(`escucha-preview:${process.env.VERCEL_GIT_COMMIT_SHA||"local"}`):"");
+const sessionSecret=()=>envSecret()||storedSecret;
+export async function ensureSessionSecret(){
+  if(envSecret()||storedSecret||!storeIsPersistent())return;
+  let value=await getJson<string>("escucha:session-secret","");
+  if(!value){value=randomBytes(32).toString("hex");await setJson("escucha:session-secret",value);value=await getJson<string>("escucha:session-secret",value);}
+  storedSecret=value;
+}
 
 export function escuchaIsConfigured(){return principalUsers().length>0&&sessionSecret().length>=32;}
 
 export async function validateEscuchaLogin(email:string,password:string){
+  await ensureSessionSecret();
   if(!escuchaIsConfigured())return null;
   const submitted=email.trim().toLowerCase();
   let match:StoredUser|null=null;
@@ -105,6 +115,7 @@ export function createEscuchaSession(email:string){
 const cookieValue=(request:Request,name:string)=>request.headers.get("cookie")?.split(";").map(value=>value.trim()).find(value=>value.startsWith(`${name}=`))?.slice(name.length+1);
 
 export async function authorizeEscuchaRequest(request:Request):Promise<EscuchaUser|null>{
+  await ensureSessionSecret();
   if(!escuchaIsConfigured())return null;
   const token=cookieValue(request,ESCUCHA_SESSION_COOKIE);
   if(!token)return null;
@@ -124,10 +135,11 @@ export async function authorizeEscuchaRequest(request:Request):Promise<EscuchaUs
 export const privateHeaders={"Cache-Control":"private, no-store","Vary":"Cookie","X-Robots-Tag":"noindex, nofollow"};
 export const denied=(status=401,error="No autorizado.")=>Response.json({error},{status,headers:privateHeaders});
 
-/** Autoriza las llamadas automáticas (Vercel Cron o GitHub Actions) con CRON_SECRET. */
-export function authorizeCronRequest(request:Request){
-  const secret=process.env.CRON_SECRET||"";
-  if(secret.length<16)return false;
+/** Autoriza las tareas automáticas: token OIDC de GitHub Actions o, si existe, CRON_SECRET. */
+export async function authorizeCronRequest(request:Request){
   const header=request.headers.get("authorization")?.replace(/^Bearer\s+/i,"")||"";
-  return constantTimeEqual(header,secret);
+  if(!header)return false;
+  const secret=process.env.CRON_SECRET||"";
+  if(secret.length>=16&&constantTimeEqual(header,secret))return true;
+  return verifyGithubOidc(header);
 }
