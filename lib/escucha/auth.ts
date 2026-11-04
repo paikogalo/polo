@@ -1,4 +1,5 @@
 import {createHash,createHmac,randomBytes,scryptSync,timingSafeEqual} from "node:crypto";
+import {CUENTAS_PRINCIPALES} from "@/lib/escucha/cuentas";
 import {verifyGithubOidc} from "@/lib/escucha/oidc";
 import {getJson,setJson,storeIsPersistent} from "@/lib/escucha/store";
 
@@ -25,10 +26,11 @@ const constantTimeEqual=(left:string,right:string)=>{
 
 /** Solo en vistas previas de Vercel (nunca en producción) y sin cuentas configuradas: cuenta demo. */
 const isPreviewDemo=()=>process.env.VERCEL_ENV==="preview"&&!process.env.ESCUCHA_USERS;
+const PREVIEW_DEMO:StoredUser={email:"demo@escucha.prueba",role:"admin",name:"Cuenta de prueba",source:"principal",createdAt:"",secret:`sha256$${createHash("sha256").update("PruebaEscucha2026").digest("hex")}`};
 const sha256=(value:string)=>createHash("sha256").update(value).digest("hex");
 
 function principalUsers():StoredUser[]{
-  if(isPreviewDemo())return [{email:"demo@escucha.prueba",role:"admin",name:"Cuenta de prueba",source:"principal",createdAt:"",secret:`sha256$${sha256("PruebaEscucha2026")}`}];
+  if(!process.env.ESCUCHA_USERS)return [...CUENTAS_PRINCIPALES.map(user=>({...user,role:"admin" as const,source:"principal" as const,createdAt:""})),...(isPreviewDemo()?[PREVIEW_DEMO]:[])];
   return (process.env.ESCUCHA_USERS||"").split(",").map(entry=>entry.trim()).filter(Boolean).map(entry=>{
     const separator=entry.lastIndexOf(":");
     const email=entry.slice(0,separator).trim().toLowerCase();
@@ -38,8 +40,10 @@ function principalUsers():StoredUser[]{
 
 async function panelUsers(){return getJson<StoredUser[]>(USERS_KEY,[]);}
 
+const OVERRIDES_KEY="escucha:principal-passwords";
 async function allUsers(){
-  const principal=principalUsers();
+  const overrides=await getJson<Record<string,string>>(OVERRIDES_KEY,{});
+  const principal=principalUsers().map(user=>overrides[user.email]?{...user,secret:overrides[user.email]}:user);
   const emails=new Set(principal.map(user=>user.email));
   return [...principal,...(await panelUsers()).filter(user=>!emails.has(user.email))];
 }
@@ -67,15 +71,21 @@ export async function addUser(input:{email:string;name:string;role:Role;password
 
 export async function removeUser(email:string){
   const target=email.trim().toLowerCase();
-  if(principalUsers().some(user=>user.email===target))throw new Error("Las cuentas principales se administran en Vercel.");
+  if(principalUsers().some(user=>user.email===target))throw new Error("Las cuentas principales no se pueden eliminar desde el panel.");
   await setJson(USERS_KEY,(await panelUsers()).filter(user=>user.email!==target));
 }
 
 export async function resetUserPassword(email:string,password:string){
   const target=email.trim().toLowerCase();
+  if(principalUsers().some(user=>user.email===target)){
+    const overrides=await getJson<Record<string,string>>(OVERRIDES_KEY,{});
+    overrides[target]=hashPassword(password);
+    await setJson(OVERRIDES_KEY,overrides);
+    return;
+  }
   const users=await panelUsers();
   const user=users.find(item=>item.email===target);
-  if(!user)throw new Error("Solo se puede cambiar la contraseña de cuentas creadas en el panel.");
+  if(!user)throw new Error("No existe esa cuenta.");
   user.secret=hashPassword(password);
   await setJson(USERS_KEY,users);
 }

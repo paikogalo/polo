@@ -408,8 +408,8 @@ function Usuarios({users,me,onChange,flash}:{users:EscuchaUser[];me:string;onCha
       <ul className="divide-y divide-esc-ink/10">{users.map(user=><li key={user.email} className="flex flex-wrap items-center gap-2 py-2">
         <span className="flex-1"><b className="text-esc-ink">{user.name}</b><span className="ml-2 text-xs text-esc-ink/50">{user.email}</span></span>
         <span className={`chip ${user.role==="admin"?"bg-esc-purple text-white":"bg-esc-mist text-esc-tealDark"}`}>{user.role==="admin"?"Administrador":"Analista"}</span>
+        <Button tone="ghost" disabled={busy} onClick={()=>reset(user.email)}><KeyRound size={14}/>Contraseña</Button>
         {user.source==="principal"?<span className="chip bg-esc-sand text-esc-ink/60">Cuenta principal</span>:<>
-          <Button tone="ghost" disabled={busy} onClick={()=>reset(user.email)}><KeyRound size={14}/>Contraseña</Button>
           {user.email!==me?<button disabled={busy} onClick={()=>{if(confirmDelete(user.email))act({action:"delete",email:user.email},"Usuario eliminado.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-esc-redDark"><Trash2 size={14}/></button>:null}
         </>}
       </li>)}</ul>
