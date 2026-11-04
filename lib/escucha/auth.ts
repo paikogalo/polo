@@ -79,7 +79,8 @@ export async function resetUserPassword(email:string,password:string){
   await setJson(USERS_KEY,users);
 }
 
-const sessionSecret=()=>process.env.ESCUCHA_SESSION_SECRET||(isPreviewDemo()?sha256(`escucha-preview:${process.env.VERCEL_GIT_COMMIT_SHA||"local"}`):"");
+// Secreto de sesión: ESCUCHA_SESSION_SECRET o, si no existe, derivado de CRON_SECRET (una variable menos que cargar).
+const sessionSecret=()=>process.env.ESCUCHA_SESSION_SECRET||((process.env.CRON_SECRET||"").length>=32?sha256(`escucha-session:${process.env.CRON_SECRET}`):"")||(isPreviewDemo()?sha256(`escucha-preview:${process.env.VERCEL_GIT_COMMIT_SHA||"local"}`):"");
 
 export function escuchaIsConfigured(){return principalUsers().length>0&&sessionSecret().length>=32;}
 
