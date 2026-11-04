@@ -12,10 +12,10 @@ type ConfigResponse={user:EscuchaUser;config:EscuchaConfig;log:AlertRun[];telegr
 type Tab="resumen"|"menciones"|"palabras"|"cuentas"|"usuarios";
 
 const LEVELS:Record<Level,{label:string;dot:string;chip:string;border:string;when:string}>={
-  rojo:{label:"Rojo",dot:"bg-coral",chip:"bg-coral text-white",border:"border-l-coral",when:"Alerta inmediata a Telegram"},
-  naranja:{label:"Naranja",dot:"bg-yellow",chip:"bg-yellow text-deep",border:"border-l-yellow",when:"Resumen del mediodía"},
-  verde:{label:"Verde",dot:"bg-ocean",chip:"bg-ocean text-white",border:"border-l-ocean",when:"Resumen de la noche"},
-  excluir:{label:"Excluir",dot:"bg-navy/40",chip:"bg-navy/10 text-navy",border:"border-l-navy/30",when:"Descarta la nota (ruido)"},
+  rojo:{label:"Rojo",dot:"bg-esc-red",chip:"bg-esc-red text-white",border:"border-l-esc-red",when:"Alerta inmediata a Telegram"},
+  naranja:{label:"Naranja",dot:"bg-esc-amber",chip:"bg-esc-amber text-esc-ink",border:"border-l-esc-amber",when:"Resumen del mediodía"},
+  verde:{label:"Verde",dot:"bg-esc-teal",chip:"bg-esc-teal text-white",border:"border-l-esc-teal",when:"Resumen de la noche"},
+  excluir:{label:"Excluir",dot:"bg-esc-ink/40",chip:"bg-esc-ink/10 text-esc-ink",border:"border-l-navy/30",when:"Descarta la nota (ruido)"},
 };
 const PLATFORMS:Record<Platform,string>={web:"Sitio web",rss:"Feed RSS",youtube:"YouTube",facebook:"Facebook",instagram:"Instagram",tiktok:"TikTok",x:"X",otra:"Otra"};
 const RANGES=[{hours:12,label:"12 h"},{hours:24,label:"24 h"},{hours:48,label:"48 h"},{hours:168,label:"7 días"}];
@@ -30,9 +30,9 @@ async function post<T>(url:string,body:unknown):Promise<T>{
 
 function Dot({level}:{level:Level}){return <span className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${LEVELS[level].dot}`} aria-hidden="true"/>;}
 function Card({children,className=""}:{children:React.ReactNode;className?:string}){return <section className={`rounded-3xl bg-white p-4 shadow-soft sm:p-5 ${className}`}>{children}</section>;}
-function Title({icon,children,hint}:{icon:React.ReactNode;children:React.ReactNode;hint?:string}){return <div className="mb-4"><h2 className="flex items-center gap-2 text-lg font-black text-deep"><span className="text-ocean">{icon}</span>{children}</h2>{hint?<p className="mt-1 text-sm text-navy/60">{hint}</p>:null}</div>;}
+function Title({icon,children,hint}:{icon:React.ReactNode;children:React.ReactNode;hint?:string}){return <div className="mb-4"><h2 className="flex items-center gap-2 text-lg font-black text-esc-ink"><span className="text-esc-teal">{icon}</span>{children}</h2>{hint?<p className="mt-1 text-sm text-esc-ink/60">{hint}</p>:null}</div>;}
 function Button({children,tone="primary",...props}:React.ButtonHTMLAttributes<HTMLButtonElement>&{tone?:"primary"|"soft"|"danger"|"ghost"}){
-  const tones={primary:"bg-coral text-white hover:bg-coralDark",soft:"bg-mist text-deep hover:bg-ocean hover:text-white",danger:"bg-red-50 text-coralDark hover:bg-coral hover:text-white",ghost:"bg-sand text-navy hover:bg-navy/10"};
+  const tones={primary:"bg-esc-red text-white hover:bg-esc-redDark",soft:"bg-esc-mist text-esc-ink hover:bg-esc-teal hover:text-white",danger:"bg-red-50 text-esc-redDark hover:bg-esc-red hover:text-white",ghost:"bg-esc-sand text-esc-ink hover:bg-esc-ink/10"};
   return <button {...props} className={`inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold transition disabled:opacity-50 ${tones[tone]} ${props.className||""}`}>{children}</button>;
 }
 
@@ -41,16 +41,16 @@ function MentionCard({item}:{item:MonitorItem}){
   return <article className={`rounded-2xl border-l-[6px] bg-white p-4 shadow-soft ${LEVELS[item.level].border}`}>
     <div className="flex flex-wrap items-center gap-2 text-xs">
       <span className={`chip ${LEVELS[item.level].chip}`}>{item.level==="rojo"?<AlertTriangle size={12} className="mr-1" aria-hidden="true"/>:null}{LEVELS[item.level].label}</span>
-      {item.matches.slice(0,4).map(match=><span key={match.term} className="chip bg-sand text-navy/80">{match.term}</span>)}
-      <span className="ml-auto text-navy/50">{time(item.publishedAt)}</span>
+      {item.matches.slice(0,4).map(match=><span key={match.term} className="chip bg-esc-sand text-esc-ink/80">{match.term}</span>)}
+      <span className="ml-auto text-esc-ink/50">{time(item.publishedAt)}</span>
     </div>
-    <h3 className="mt-2 font-extrabold leading-snug text-deep">{item.title}</h3>
-    {item.summary?<p className="mt-1 line-clamp-2 text-sm text-navy/65">{item.summary}</p>:null}
+    <h3 className="mt-2 font-extrabold leading-snug text-esc-ink">{item.title}</h3>
+    {item.summary?<p className="mt-1 line-clamp-2 text-sm text-esc-ink/65">{item.summary}</p>:null}
     <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
-      <span className="font-bold text-navy/60">{item.outlet}{item.canton?` · ${item.canton}`:""} · {item.sourceKind==="medio"?"Medio de Cotopaxi":item.sourceKind==="cuenta"?"Cuenta seguida":"Buscador"}</span>
+      <span className="font-bold text-esc-ink/60">{item.outlet}{item.canton?` · ${item.canton}`:""} · {item.sourceKind==="medio"?"Medio de Cotopaxi":item.sourceKind==="cuenta"?"Cuenta seguida":"Buscador"}</span>
       <span className="flex gap-2">
         <a href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noreferrer" className="chip bg-[#25D366] text-white">WhatsApp</a>
-        <a href={item.url} target="_blank" rel="noreferrer" className="chip bg-mist text-oceanDark">Abrir nota <ExternalLink size={12} className="ml-1" aria-hidden="true"/></a>
+        <a href={item.url} target="_blank" rel="noreferrer" className="chip bg-esc-mist text-esc-tealDark">Abrir nota <ExternalLink size={12} className="ml-1" aria-hidden="true"/></a>
       </span>
     </div>
   </article>;
@@ -100,29 +100,30 @@ export function EscuchaDashboard({onLogout}:{email:string;onLogout:()=>void}){
   ];
   const updateConfig=(config:EscuchaConfig)=>{setSettings(current=>current?{...current,config}:current);loadFeed(hours);};
 
-  return <main className="min-h-screen bg-sand pb-20">
-    <header className="brand-gradient text-white print:hidden">
+  return <main className="min-h-screen bg-esc-sand pb-20">
+    <div className="escucha-band h-1.5 print:hidden" aria-hidden="true"/>
+    <header className="escucha-gradient text-white print:hidden">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4">
         <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white/20"><Radio aria-hidden="true"/></span>
-          <div><p className="text-[11px] font-extrabold uppercase tracking-widest text-white/80">De POLO a POLO</p><h1 className="text-xl font-black leading-tight">Escucha digital</h1></div>
+          <span className="rounded-2xl bg-white px-3 py-2 shadow-soft"><img src="/escucha-logo.png" alt="Escucha Digital" width={150} height={42} className="h-9 w-auto"/></span>
+          <p className="hidden text-[11px] font-extrabold uppercase tracking-widest text-white/75 sm:block">De POLO a POLO<br/><span className="font-bold normal-case tracking-normal text-white/60">Monitor privado</span></p>
         </div>
         <div className="flex items-center gap-2">
           <span className="hidden text-right text-xs sm:block"><b className="block">{settings?.user.name||"…"}</b><span className="text-white/75">{settings?.user.role==="admin"?"Administrador":"Analista"}</span></span>
-          <Button className="!bg-white !text-coralDark" onClick={()=>setAlertOpen(true)}><AlertTriangle size={16} aria-hidden="true"/>Palabras de alerta</Button>
+          <Button className="!bg-white !text-esc-redDark" onClick={()=>setAlertOpen(true)}><AlertTriangle size={16} aria-hidden="true"/>Palabras de alerta</Button>
           <Button tone="ghost" className="!bg-white/15 !text-white" onClick={()=>loadFeed(hours)} disabled={loading} aria-label="Actualizar"><RefreshCw size={16} className={loading?"animate-spin":""} aria-hidden="true"/><span className="hidden sm:inline">Actualizar</span></Button>
           <Button tone="ghost" className="!bg-white/15 !text-white" onClick={onLogout} aria-label="Salir"><LogOut size={16} aria-hidden="true"/><span className="hidden sm:inline">Salir</span></Button>
         </div>
       </div>
       <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 pb-3" aria-label="Secciones">
-        {tabs.map(item=><button key={item.id} onClick={()=>setTab(item.id)} aria-current={tab===item.id?"page":undefined} className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold transition ${tab===item.id?"bg-white text-deep":"text-white/85 hover:bg-white/15"}`}>{item.icon}{item.label}</button>)}
+        {tabs.map(item=><button key={item.id} onClick={()=>setTab(item.id)} aria-current={tab===item.id?"page":undefined} className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold transition ${tab===item.id?"bg-white text-esc-ink":"text-white/85 hover:bg-white/15"}`}>{item.icon}{item.label}</button>)}
       </nav>
     </header>
 
     <div className="mx-auto max-w-7xl space-y-5 px-4 pt-5">
       {alertOpen&&settings?<AlertWords config={settings.config} onClose={()=>setAlertOpen(false)} onSaved={updateConfig} flash={flash}/>:null}
-      {settings&&!settings.persistent?<p className="print:hidden rounded-2xl bg-yellow/20 p-3 text-sm text-navy"><b>Modo prueba:</b> los cambios se guardan solo en memoria y pueden perderse. En producción se activa el almacenamiento permanente.</p>:null}
-      {notice?<p role="status" className={`fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full px-5 py-3 text-sm font-bold shadow-2xl ${notice.error?"bg-coral text-white":"bg-deep text-white"}`}>{notice.text}</p>:null}
+      {settings&&!settings.persistent?<p className="print:hidden rounded-2xl bg-esc-amber/20 p-3 text-sm text-esc-ink"><b>Modo prueba:</b> los cambios se guardan solo en memoria y pueden perderse. En producción se activa el almacenamiento permanente.</p>:null}
+      {notice?<p role="status" className={`fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full px-5 py-3 text-sm font-bold shadow-2xl ${notice.error?"bg-esc-red text-white":"bg-esc-ink text-white"}`}>{notice.text}</p>:null}
 
       {tab==="resumen"?<Resumen items={items} counts={counts} loading={loading&&!feed} settings={settings} feed={feed} hours={hours} setHours={setHours} go={setTab}/>:null}
       {tab==="menciones"?<Menciones items={items} hours={hours} setHours={setHours} loading={loading}/>:null}
@@ -134,8 +135,8 @@ export function EscuchaDashboard({onLogout}:{email:string;onLogout:()=>void}){
 }
 
 type ChartKind="pastel"|"barras"|"tabla";
-const PALETTE=["#27A9AD","#E63B32","#F7A713","#73439A","#2471C8","#D87DB4","#183247","#0F6E73"];
-const LEVEL_COLOR:Record<Semaforo,string>={rojo:"#E63B32",naranja:"#F7A713",verde:"#27A9AD"};
+const PALETTE=["#41989C","#CF5343","#E9A73E","#684688","#B57B9F","#162837","#2F7276","#A8402F"];
+const LEVEL_COLOR:Record<Semaforo,string>={rojo:"#CF5343",naranja:"#E9A73E",verde:"#41989C"};
 type Datum={name:string;value:number;color?:string};
 
 function countBy(items:MonitorItem[],key:(item:MonitorItem)=>string[]):Datum[]{
@@ -152,19 +153,19 @@ function ChartCard({title,hint,data,initial="barras",limit=8}:{title:string;hint
   const options:[ChartKind,React.ReactNode,string][]=[["pastel",<PieIcon key="p" size={14}/>,"Pastel"],["barras",<BarChart3 key="b" size={14}/>,"Barras"],["tabla",<Table2 key="t" size={14}/>,"Tabla"]];
   return <section className="break-inside-avoid rounded-3xl bg-white p-4 shadow-soft sm:p-5">
     <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-      <div><h3 className="font-black text-deep">{title}</h3>{hint?<p className="text-xs text-navy/55">{hint}</p>:null}</div>
-      <div className="flex rounded-full bg-sand p-1 print:hidden" role="group" aria-label={`Tipo de gráfico: ${title}`}>
-        {options.map(([key,icon,label])=><button key={key} onClick={()=>setKind(key)} aria-pressed={kind===key} title={label} className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${kind===key?"bg-deep text-white":"text-navy"}`}>{icon}<span className="hidden sm:inline">{label}</span></button>)}
+      <div><h3 className="font-black text-esc-ink">{title}</h3>{hint?<p className="text-xs text-esc-ink/55">{hint}</p>:null}</div>
+      <div className="flex rounded-full bg-esc-sand p-1 print:hidden" role="group" aria-label={`Tipo de gráfico: ${title}`}>
+        {options.map(([key,icon,label])=><button key={key} onClick={()=>setKind(key)} aria-pressed={kind===key} title={label} className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${kind===key?"bg-esc-ink text-white":"text-esc-ink"}`}>{icon}<span className="hidden sm:inline">{label}</span></button>)}
       </div>
     </div>
-    {!rows.length?<p className="grid h-48 place-items-center rounded-2xl bg-sand text-sm text-navy/50">Sin datos en este periodo.</p>:
-    kind==="tabla"?<table className="w-full text-sm"><thead><tr className="text-left text-xs text-navy/50"><th className="py-1">Categoría</th><th className="py-1 text-right">Notas</th><th className="py-1 text-right">%</th></tr></thead>
-      <tbody>{rows.map((item,index)=><tr key={item.name} className="border-t border-navy/10"><td className="py-1.5"><span className="mr-2 inline-block h-2.5 w-2.5 rounded-full" style={{background:color(item,index)}}/>{item.name}</td><td className="py-1.5 text-right font-black">{item.value}</td><td className="py-1.5 text-right text-navy/60">{total?Math.round(item.value*100/total):0}%</td></tr>)}</tbody></table>:
+    {!rows.length?<p className="grid h-48 place-items-center rounded-2xl bg-esc-sand text-sm text-esc-ink/50">Sin datos en este periodo.</p>:
+    kind==="tabla"?<table className="w-full text-sm"><thead><tr className="text-left text-xs text-esc-ink/50"><th className="py-1">Categoría</th><th className="py-1 text-right">Notas</th><th className="py-1 text-right">%</th></tr></thead>
+      <tbody>{rows.map((item,index)=><tr key={item.name} className="border-t border-esc-ink/10"><td className="py-1.5"><span className="mr-2 inline-block h-2.5 w-2.5 rounded-full" style={{background:color(item,index)}}/>{item.name}</td><td className="py-1.5 text-right font-black">{item.value}</td><td className="py-1.5 text-right text-esc-ink/60">{total?Math.round(item.value*100/total):0}%</td></tr>)}</tbody></table>:
     <div className="h-56"><ResponsiveContainer width="100%" height="100%">
       {kind==="pastel"?<PieChart><Pie data={rows} dataKey="value" nameKey="name" innerRadius="45%" outerRadius="80%" paddingAngle={2} isAnimationActive={false}>{rows.map((item,index)=><Cell key={item.name} fill={color(item,index)}/>)}</Pie><Tooltip formatter={(value:number)=>[`${value} notas`,""]}/></PieChart>:
-      <BarChart data={rows} layout="vertical" margin={{left:8,right:16}}><CartesianGrid horizontal={false} stroke="#18324715"/><XAxis type="number" allowDecimals={false} tick={{fontSize:11}}/><YAxis type="category" dataKey="name" width={120} tick={{fontSize:11}}/><Tooltip formatter={(value:number)=>[`${value} notas`,""]}/><Bar dataKey="value" radius={[0,8,8,0]} isAnimationActive={false}>{rows.map((item,index)=><Cell key={item.name} fill={color(item,index)}/>)}</Bar></BarChart>}
+      <BarChart data={rows} layout="vertical" margin={{left:8,right:16}}><CartesianGrid horizontal={false} stroke="#16283715"/><XAxis type="number" allowDecimals={false} tick={{fontSize:11}}/><YAxis type="category" dataKey="name" width={120} tick={{fontSize:11}}/><Tooltip formatter={(value:number)=>[`${value} notas`,""]}/><Bar dataKey="value" radius={[0,8,8,0]} isAnimationActive={false}>{rows.map((item,index)=><Cell key={item.name} fill={color(item,index)}/>)}</Bar></BarChart>}
     </ResponsiveContainer></div>}
-    {kind==="pastel"&&rows.length?<ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-navy/70">{rows.map((item,index)=><li key={item.name} className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{background:color(item,index)}}/>{item.name} ({item.value})</li>)}</ul>:null}
+    {kind==="pastel"&&rows.length?<ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-esc-ink/70">{rows.map((item,index)=><li key={item.name} className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{background:color(item,index)}}/>{item.name} ({item.value})</li>)}</ul>:null}
   </section>;
 }
 
@@ -184,29 +185,29 @@ function Resumen({items,counts,loading,settings,feed,hours,setHours,go}:{items:M
   const ok=feed?.sources.filter(source=>source.ok).length||0;
   const printedAt=new Intl.DateTimeFormat("es-EC",{timeZone:"America/Guayaquil",dateStyle:"long",timeStyle:"short"}).format(new Date());
   return <>
-    <div className="hidden print:block"><h1 className="text-2xl font-black text-deep">Escucha digital · De POLO a POLO</h1><p className="text-sm text-navy/60">Reporte del monitor · últimas {hours===168?"7 días":`${hours} horas`} · {printedAt}</p></div>
+    <div className="hidden print:block"><img src="/escucha-logo.png" alt="Escucha Digital" width={220} height={61} className="mb-2 h-14 w-auto"/><h1 className="text-xl font-black text-esc-ink">Reporte · De POLO a POLO</h1><p className="text-sm text-esc-ink/60">Reporte del monitor · últimas {hours===168?"7 días":`${hours} horas`} · {printedAt}</p></div>
     <div className="flex flex-wrap items-center gap-2 print:hidden">
-      {RANGES.map(range=><button key={range.hours} onClick={()=>setHours(range.hours)} aria-pressed={hours===range.hours} className={`chip ${hours===range.hours?"bg-deep text-white":"bg-white text-navy shadow-soft"}`}>{range.label}</button>)}
+      {RANGES.map(range=><button key={range.hours} onClick={()=>setHours(range.hours)} aria-pressed={hours===range.hours} className={`chip ${hours===range.hours?"bg-esc-ink text-white":"bg-white text-esc-ink shadow-soft"}`}>{range.label}</button>)}
       <Button tone="soft" className="ml-auto" onClick={()=>window.print()}><Printer size={16}/>Imprimir / PDF</Button>
     </div>
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {(["rojo","naranja","verde"] as Semaforo[]).map(level=><button key={level} onClick={()=>go("menciones")} className={`break-inside-avoid rounded-3xl border-l-[8px] bg-white p-4 text-left shadow-soft transition hover:-translate-y-0.5 ${LEVELS[level].border}`}>
-        <span className="flex items-center gap-2 text-sm font-extrabold text-navy"><Dot level={level}/>{LEVELS[level].label}</span>
-        <p className="mt-1 text-4xl font-black text-deep">{loading?"–":counts[level]}</p>
-        <p className="text-xs font-bold text-navy/55">{LEVELS[level].when}</p>
+        <span className="flex items-center gap-2 text-sm font-extrabold text-esc-ink"><Dot level={level}/>{LEVELS[level].label}</span>
+        <p className="mt-1 text-4xl font-black text-esc-ink">{loading?"–":counts[level]}</p>
+        <p className="text-xs font-bold text-esc-ink/55">{LEVELS[level].when}</p>
       </button>)}
-      <div className="break-inside-avoid rounded-3xl border-l-[8px] border-l-purple bg-white p-4 shadow-soft">
-        <span className="text-sm font-extrabold text-navy">Total de notas</span>
-        <p className="mt-1 text-4xl font-black text-deep">{loading?"–":total}</p>
-        <p className="text-xs font-bold text-navy/55">{ok} de {feed?.sources.length||0} fuentes leídas</p>
+      <div className="break-inside-avoid rounded-3xl border-l-[8px] border-l-esc-purple bg-white p-4 shadow-soft">
+        <span className="text-sm font-extrabold text-esc-ink">Total de notas</span>
+        <p className="mt-1 text-4xl font-black text-esc-ink">{loading?"–":total}</p>
+        <p className="text-xs font-bold text-esc-ink/55">{ok} de {feed?.sources.length||0} fuentes leídas</p>
       </div>
     </div>
     <div className="grid gap-5 lg:grid-cols-2 print:grid-cols-2">
       <ChartCard title="Semáforo" hint="Cómo se reparten las notas por nivel de alerta." data={semaforo} initial="pastel"/>
       <section className="break-inside-avoid rounded-3xl bg-white p-4 shadow-soft sm:p-5">
-        <h3 className="font-black text-deep">Evolución por día</h3><p className="mb-3 text-xs text-navy/55">Notas publicadas cada día, por color.</p>
-        {byDay.length?<div className="h-56"><ResponsiveContainer width="100%" height="100%"><BarChart data={byDay}><CartesianGrid vertical={false} stroke="#18324715"/><XAxis dataKey="name" tick={{fontSize:11}}/><YAxis allowDecimals={false} tick={{fontSize:11}}/><Tooltip/>
-          <Bar dataKey="verde" name="Verde" stackId="a" fill={LEVEL_COLOR.verde} isAnimationActive={false}/><Bar dataKey="naranja" name="Naranja" stackId="a" fill={LEVEL_COLOR.naranja} isAnimationActive={false}/><Bar dataKey="rojo" name="Rojo" stackId="a" fill={LEVEL_COLOR.rojo} radius={[6,6,0,0]} isAnimationActive={false}/></BarChart></ResponsiveContainer></div>:<p className="grid h-48 place-items-center rounded-2xl bg-sand text-sm text-navy/50">Sin datos en este periodo.</p>}
+        <h3 className="font-black text-esc-ink">Evolución por día</h3><p className="mb-3 text-xs text-esc-ink/55">Notas publicadas cada día, por color.</p>
+        {byDay.length?<div className="h-56"><ResponsiveContainer width="100%" height="100%"><BarChart data={byDay}><CartesianGrid vertical={false} stroke="#16283715"/><XAxis dataKey="name" tick={{fontSize:11}}/><YAxis allowDecimals={false} tick={{fontSize:11}}/><Tooltip/>
+          <Bar dataKey="verde" name="Verde" stackId="a" fill={LEVEL_COLOR.verde} isAnimationActive={false}/><Bar dataKey="naranja" name="Naranja" stackId="a" fill={LEVEL_COLOR.naranja} isAnimationActive={false}/><Bar dataKey="rojo" name="Rojo" stackId="a" fill={LEVEL_COLOR.rojo} radius={[6,6,0,0]} isAnimationActive={false}/></BarChart></ResponsiveContainer></div>:<p className="grid h-48 place-items-center rounded-2xl bg-esc-sand text-sm text-esc-ink/50">Sin datos en este periodo.</p>}
       </section>
       <ChartCard title="Medios con más notas" data={byOutlet}/>
       <ChartCard title="Palabras clave que más suenan" data={byTerm}/>
@@ -216,9 +217,9 @@ function Resumen({items,counts,loading,settings,feed,hours,setHours,go}:{items:M
     <Card className="break-inside-avoid">
       <Title icon={<AlertTriangle size={18}/>} hint="Lo último que exige reacción del equipo.">Alertas rojas recientes</Title>
       <div className="space-y-3">{items.filter(item=>item.level==="rojo").slice(0,5).map(item=><MentionCard key={item.id} item={item}/>)}
-        {!loading&&!counts.rojo?<p className="rounded-2xl bg-sand p-4 text-center text-sm text-navy/60">Sin alertas rojas en este periodo.</p>:null}</div>
+        {!loading&&!counts.rojo?<p className="rounded-2xl bg-esc-sand p-4 text-center text-sm text-esc-ink/60">Sin alertas rojas en este periodo.</p>:null}</div>
     </Card>
-    <p className="text-center text-xs text-navy/50 print:block">Telegram: {settings?.telegram.chat&&settings.telegram.token?`conectado a “${settings.telegram.chat.title}”`:"pendiente de conexión"} · Actualizado {time(feed?.generatedAt)} · Clasificación automática por palabras clave; verificar antes de reaccionar.</p>
+    <p className="text-center text-xs text-esc-ink/50 print:block">Telegram: {settings?.telegram.chat&&settings.telegram.token?`conectado a “${settings.telegram.chat.title}”`:"pendiente de conexión"} · Actualizado {time(feed?.generatedAt)} · Clasificación automática por palabras clave; verificar antes de reaccionar.</p>
   </>;
 }
 
@@ -235,18 +236,18 @@ function AlertWords({config,onClose,onSaved,flash}:{config:EscuchaConfig;onClose
     finally{setBusy(false);}
   };
   const add=async(event:React.FormEvent)=>{event.preventDefault();await act({action:"add",term,level:"rojo",group:"Alertas"},"Palabra de alerta agregada.");setTerm("");};
-  return <div className="fixed inset-0 z-50 grid place-items-center bg-deep/60 p-4 print:hidden" role="dialog" aria-modal="true" aria-labelledby="alertas-titulo" onClick={onClose}>
+  return <div className="fixed inset-0 z-50 grid place-items-center bg-esc-ink/60 p-4 print:hidden" role="dialog" aria-modal="true" aria-labelledby="alertas-titulo" onClick={onClose}>
     <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white p-5 shadow-2xl" onClick={event=>event.stopPropagation()}>
       <div className="flex items-start justify-between gap-3">
-        <div><h2 id="alertas-titulo" className="flex items-center gap-2 text-xl font-black text-deep"><Dot level="rojo"/>Palabras de alerta</h2><p className="mt-1 text-sm text-navy/60">Cuando el monitor detecte una de estas palabras en un medio, llega <b>de inmediato</b> al grupo de Telegram. Usa “+” para exigir dos palabras juntas: <i>Tibán + denuncia</i>.</p></div>
-        <button onClick={onClose} aria-label="Cerrar" className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-sand text-navy"><X size={18}/></button>
+        <div><h2 id="alertas-titulo" className="flex items-center gap-2 text-xl font-black text-esc-ink"><Dot level="rojo"/>Palabras de alerta</h2><p className="mt-1 text-sm text-esc-ink/60">Cuando el monitor detecte una de estas palabras en un medio, llega <b>de inmediato</b> al grupo de Telegram. Usa “+” para exigir dos palabras juntas: <i>Tibán + denuncia</i>.</p></div>
+        <button onClick={onClose} aria-label="Cerrar" className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-esc-sand text-esc-ink"><X size={18}/></button>
       </div>
       <form onSubmit={add} className="mt-4 flex gap-2"><label className="flex-1"><span className="sr-only">Nueva palabra de alerta</span><input className="field" autoFocus required minLength={2} maxLength={80} value={term} onChange={event=>setTerm(event.target.value)} placeholder="Ej.: debate + Cotopaxi"/></label><Button type="submit" disabled={busy}><Plus size={16}/>Agregar</Button></form>
-      <ul className="mt-4 divide-y divide-navy/10">{red.map(keyword=><li key={keyword.id} className="flex items-center gap-2 py-2">
-        <span className={`flex-1 font-bold ${keyword.active?"text-deep":"text-navy/40 line-through"}`}>{keyword.term}<span className="ml-2 text-xs font-normal text-navy/50">{keyword.group}</span></span>
-        <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,active:!keyword.active},keyword.active?"Palabra pausada.":"Palabra activada.")} aria-label={keyword.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${keyword.active?"bg-mist text-oceanDark":"bg-sand text-navy/40"}`}><Power size={14}/></button>
-        <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,level:"naranja"},"Pasó a naranja (resumen del mediodía).")} title="Bajar a naranja" className="rounded-full bg-yellow/20 px-3 py-1 text-xs font-extrabold text-navy">A naranja</button>
-        <button disabled={busy} onClick={()=>{if(confirmDelete(keyword.term))act({action:"delete",id:keyword.id},"Palabra eliminada.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-coralDark"><Trash2 size={14}/></button>
+      <ul className="mt-4 divide-y divide-esc-ink/10">{red.map(keyword=><li key={keyword.id} className="flex items-center gap-2 py-2">
+        <span className={`flex-1 font-bold ${keyword.active?"text-esc-ink":"text-esc-ink/40 line-through"}`}>{keyword.term}<span className="ml-2 text-xs font-normal text-esc-ink/50">{keyword.group}</span></span>
+        <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,active:!keyword.active},keyword.active?"Palabra pausada.":"Palabra activada.")} aria-label={keyword.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${keyword.active?"bg-esc-mist text-esc-tealDark":"bg-esc-sand text-esc-ink/40"}`}><Power size={14}/></button>
+        <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,level:"naranja"},"Pasó a naranja (resumen del mediodía).")} title="Bajar a naranja" className="rounded-full bg-esc-amber/20 px-3 py-1 text-xs font-extrabold text-esc-ink">A naranja</button>
+        <button disabled={busy} onClick={()=>{if(confirmDelete(keyword.term))act({action:"delete",id:keyword.id},"Palabra eliminada.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-esc-redDark"><Trash2 size={14}/></button>
       </li>)}</ul>
     </div>
   </div>;
@@ -263,15 +264,15 @@ function Menciones({items,hours,setHours,loading}:{items:MonitorItem[];hours:num
   return <>
     <Card>
       <div className="flex flex-col gap-3">
-        <label className="relative block"><Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-navy/40" aria-hidden="true"/><span className="sr-only">Buscar</span><input className="field pl-10" placeholder="Buscar en títulos y medios…" value={query} onChange={event=>setQuery(event.target.value)}/></label>
-        <div className="flex flex-wrap items-center gap-2"><ListFilter size={16} className="text-navy/40" aria-hidden="true"/>
-          <button onClick={()=>setLevel("todos")} aria-pressed={level==="todos"} className={`chip ${level==="todos"?"bg-deep text-white":"bg-sand text-navy"}`}>Todo ({items.length})</button>
-          {(["rojo","naranja","verde"] as Semaforo[]).map(key=><button key={key} onClick={()=>setLevel(key)} aria-pressed={level===key} className={`chip gap-1 ${level===key?LEVELS[key].chip:"bg-sand text-navy"}`}><Dot level={key}/>{LEVELS[key].label} ({items.filter(i=>i.level===key).length})</button>)}
+        <label className="relative block"><Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-esc-ink/40" aria-hidden="true"/><span className="sr-only">Buscar</span><input className="field pl-10" placeholder="Buscar en títulos y medios…" value={query} onChange={event=>setQuery(event.target.value)}/></label>
+        <div className="flex flex-wrap items-center gap-2"><ListFilter size={16} className="text-esc-ink/40" aria-hidden="true"/>
+          <button onClick={()=>setLevel("todos")} aria-pressed={level==="todos"} className={`chip ${level==="todos"?"bg-esc-ink text-white":"bg-esc-sand text-esc-ink"}`}>Todo ({items.length})</button>
+          {(["rojo","naranja","verde"] as Semaforo[]).map(key=><button key={key} onClick={()=>setLevel(key)} aria-pressed={level===key} className={`chip gap-1 ${level===key?LEVELS[key].chip:"bg-esc-sand text-esc-ink"}`}><Dot level={key}/>{LEVELS[key].label} ({items.filter(i=>i.level===key).length})</button>)}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {RANGES.map(range=><button key={range.hours} onClick={()=>setHours(range.hours)} aria-pressed={hours===range.hours} className={`chip ${hours===range.hours?"bg-ocean text-white":"bg-sand text-navy"}`}>{range.label}</button>)}
-          <span className="mx-1 h-5 w-px bg-navy/10" aria-hidden="true"/>
-          {([["todos","Todas las fuentes"],["medio","Medios de Cotopaxi"],["buscador","Buscadores"],["cuenta","Cuentas seguidas"]] as const).map(([key,label])=><button key={key} onClick={()=>setKind(key)} aria-pressed={kind===key} className={`chip ${kind===key?"bg-purple text-white":"bg-sand text-navy"}`}>{label}</button>)}
+          {RANGES.map(range=><button key={range.hours} onClick={()=>setHours(range.hours)} aria-pressed={hours===range.hours} className={`chip ${hours===range.hours?"bg-esc-teal text-white":"bg-esc-sand text-esc-ink"}`}>{range.label}</button>)}
+          <span className="mx-1 h-5 w-px bg-esc-ink/10" aria-hidden="true"/>
+          {([["todos","Todas las fuentes"],["medio","Medios de Cotopaxi"],["buscador","Buscadores"],["cuenta","Cuentas seguidas"]] as const).map(([key,label])=><button key={key} onClick={()=>setKind(key)} aria-pressed={kind===key} className={`chip ${kind===key?"bg-esc-purple text-white":"bg-esc-sand text-esc-ink"}`}>{label}</button>)}
           <span className="ml-auto flex gap-2">
             <Button tone="ghost" onClick={copy}>{copied?<Check size={14}/>:<Copy size={14}/>}{copied?"Copiado":"Copiar resumen"}</Button>
             <a href={`https://wa.me/?text=${encodeURIComponent(digest)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-extrabold text-white"><Send size={14} aria-hidden="true"/>WhatsApp</a>
@@ -281,7 +282,7 @@ function Menciones({items,hours,setHours,loading}:{items:MonitorItem[];hours:num
     </Card>
     <div className="space-y-3" aria-busy={loading}>
       {loading&&!items.length?Array.from({length:4}).map((_,index)=><div key={index} className="h-28 animate-pulse rounded-2xl bg-white"/>):null}
-      {!loading&&!filtered.length?<Card><p className="text-center text-sm text-navy/60">Sin menciones con este filtro.</p></Card>:null}
+      {!loading&&!filtered.length?<Card><p className="text-center text-sm text-esc-ink/60">Sin menciones con este filtro.</p></Card>:null}
       {filtered.map(item=><MentionCard key={item.id} item={item}/>)}
     </div>
   </>;
@@ -306,15 +307,15 @@ function Palabras({config,onSaved,flash}:{config:EscuchaConfig;onSaved:(c:Escuch
       <form onSubmit={add} className="grid gap-3 md:grid-cols-[2fr_1fr_1fr_auto]">
         <label><span className="label">Palabra o frase</span><input className="field" required minLength={2} maxLength={80} value={term} onChange={event=>setTerm(event.target.value)} placeholder="Ej.: vía Angamarca"/></label>
         <label><span className="label">Grupo</span><input className="field" list="grupos" maxLength={40} value={group} onChange={event=>setGroup(event.target.value)}/><datalist id="grupos">{groups.map(item=><option key={item} value={item}/>)}</datalist></label>
-        <fieldset><legend className="label">Semáforo</legend><div className="flex flex-wrap gap-1">{(Object.keys(LEVELS) as Level[]).map(key=><button type="button" key={key} onClick={()=>setLevel(key)} aria-pressed={level===key} className={`chip gap-1 ${level===key?LEVELS[key].chip:"bg-sand text-navy"}`}><Dot level={key}/>{LEVELS[key].label}</button>)}</div></fieldset>
+        <fieldset><legend className="label">Semáforo</legend><div className="flex flex-wrap gap-1">{(Object.keys(LEVELS) as Level[]).map(key=><button type="button" key={key} onClick={()=>setLevel(key)} aria-pressed={level===key} className={`chip gap-1 ${level===key?LEVELS[key].chip:"bg-esc-sand text-esc-ink"}`}><Dot level={key}/>{LEVELS[key].label}</button>)}</div></fieldset>
         <div className="flex items-end"><Button type="submit" disabled={busy} className="w-full"><Plus size={16}/>Agregar</Button></div>
       </form>
-      <p className="mt-3 text-xs text-navy/55">{LEVELS[level].label}: {LEVELS[level].when}.</p>
+      <p className="mt-3 text-xs text-esc-ink/55">{LEVELS[level].label}: {LEVELS[level].when}.</p>
     </Card>
     <div className="grid gap-5 lg:grid-cols-2">
       {(Object.keys(LEVELS) as Level[]).map(key=>{const list=config.keywords.filter(keyword=>keyword.level===key);return <Card key={key} className={`border-l-[8px] ${LEVELS[key].border}`}>
         <Title icon={<Dot level={key}/>} hint={LEVELS[key].when}>{LEVELS[key].label} ({list.length})</Title>
-        <ul className="divide-y divide-navy/10">{list.map(keyword=><KeywordRow key={keyword.id} keyword={keyword} busy={busy} act={act}/>)}{!list.length?<li className="py-2 text-sm text-navy/50">Sin palabras en este nivel.</li>:null}</ul>
+        <ul className="divide-y divide-esc-ink/10">{list.map(keyword=><KeywordRow key={keyword.id} keyword={keyword} busy={busy} act={act}/>)}{!list.length?<li className="py-2 text-sm text-esc-ink/50">Sin palabras en este nivel.</li>:null}</ul>
       </Card>;})}
     </div>
   </>;
@@ -322,11 +323,11 @@ function Palabras({config,onSaved,flash}:{config:EscuchaConfig;onSaved:(c:Escuch
 
 function KeywordRow({keyword,busy,act}:{keyword:Keyword;busy:boolean;act:(body:Record<string,unknown>,message:string)=>void}){
   return <li className="flex flex-wrap items-center gap-2 py-2">
-    <span className={`flex-1 font-bold ${keyword.active?"text-deep":"text-navy/40 line-through"}`}>{keyword.term}<span className="ml-2 text-xs font-normal text-navy/50">{keyword.group}</span></span>
+    <span className={`flex-1 font-bold ${keyword.active?"text-esc-ink":"text-esc-ink/40 line-through"}`}>{keyword.term}<span className="ml-2 text-xs font-normal text-esc-ink/50">{keyword.group}</span></span>
     <label className="sr-only" htmlFor={`nivel-${keyword.id}`}>Nivel</label>
-    <select id={`nivel-${keyword.id}`} disabled={busy} value={keyword.level} onChange={event=>act({action:"update",id:keyword.id,level:event.target.value},"Nivel actualizado.")} className="rounded-full border border-navy/15 bg-white px-2 py-1 text-xs font-bold text-navy">{(Object.keys(LEVELS) as Level[]).map(key=><option key={key} value={key}>{LEVELS[key].label}</option>)}</select>
-    <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,active:!keyword.active},keyword.active?"Palabra pausada.":"Palabra activada.")} aria-label={keyword.active?"Pausar":"Activar"} title={keyword.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${keyword.active?"bg-mist text-oceanDark":"bg-sand text-navy/40"}`}><Power size={14}/></button>
-    <button disabled={busy} onClick={()=>{if(confirmDelete(keyword.term))act({action:"delete",id:keyword.id},"Palabra eliminada.");}} aria-label="Eliminar" title="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-coralDark"><Trash2 size={14}/></button>
+    <select id={`nivel-${keyword.id}`} disabled={busy} value={keyword.level} onChange={event=>act({action:"update",id:keyword.id,level:event.target.value},"Nivel actualizado.")} className="rounded-full border border-esc-ink/15 bg-white px-2 py-1 text-xs font-bold text-esc-ink">{(Object.keys(LEVELS) as Level[]).map(key=><option key={key} value={key}>{LEVELS[key].label}</option>)}</select>
+    <button disabled={busy} onClick={()=>act({action:"update",id:keyword.id,active:!keyword.active},keyword.active?"Palabra pausada.":"Palabra activada.")} aria-label={keyword.active?"Pausar":"Activar"} title={keyword.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${keyword.active?"bg-esc-mist text-esc-tealDark":"bg-esc-sand text-esc-ink/40"}`}><Power size={14}/></button>
+    <button disabled={busy} onClick={()=>{if(confirmDelete(keyword.term))act({action:"delete",id:keyword.id},"Palabra eliminada.");}} aria-label="Eliminar" title="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-esc-redDark"><Trash2 size={14}/></button>
   </li>;
 }
 
@@ -348,7 +349,7 @@ function Cuentas({config,feed,onSaved,flash}:{config:EscuchaConfig;feed:MonitorR
   };
   const add=async(event:React.FormEvent)=>{event.preventDefault();await act({action:"add",...form},"Cuenta agregada.");setForm({...form,name:"",url:""});};
   const medios=MEDIOS_COTOPAXI.filter(medio=>(canton==="Todos"||medio.canton===canton)&&(!query||medio.name.toLowerCase().includes(query.toLowerCase())));
-  const sourceStatus=(id:string)=>{const source=status.get(id);return source?(source.ok?<span className="chip bg-mist text-oceanDark">Leyendo · {source.count}</span>:<span className="chip bg-red-50 text-coralDark" title={source.error}>Sin RSS</span>):null;};
+  const sourceStatus=(id:string)=>{const source=status.get(id);return source?(source.ok?<span className="chip bg-esc-mist text-esc-tealDark">Leyendo · {source.count}</span>:<span className="chip bg-red-50 text-esc-redDark" title={source.error}>Sin RSS</span>):null;};
   return <>
     <Card>
       <Title icon={<Plus size={18}/>} hint="Sitios web, feeds RSS y canales de YouTube se leen solos. Facebook, Instagram, TikTok y X no permiten lectura gratuita: quedan en la lista para revisión manual.">Seguir una cuenta o medio</Title>
@@ -362,19 +363,19 @@ function Cuentas({config,feed,onSaved,flash}:{config:EscuchaConfig;feed:MonitorR
     </Card>
     <Card>
       <Title icon={<Radio size={18}/>}>Cuentas seguidas ({config.accounts.length})</Title>
-      <ul className="divide-y divide-navy/10">{config.accounts.map(account=><li key={account.id} className="flex flex-wrap items-center gap-2 py-2">
-        <span className="flex-1"><a href={account.url} target="_blank" rel="noreferrer" className={`font-bold ${account.active?"text-deep":"text-navy/40 line-through"}`}>{account.name}</a><span className="ml-2 text-xs text-navy/50">{PLATFORMS[account.platform]}{account.canton?` · ${account.canton}`:""}</span></span>
-        {account.feedUrl?sourceStatus(`cuenta-${account.id}`)||<span className="chip bg-mist text-oceanDark">Automática</span>:<span className="chip bg-yellow/20 text-navy">Revisión manual</span>}
-        <button disabled={busy} onClick={()=>act({action:"toggle",id:account.id,active:!account.active},account.active?"Cuenta pausada.":"Cuenta activada.")} aria-label={account.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${account.active?"bg-mist text-oceanDark":"bg-sand text-navy/40"}`}><Power size={14}/></button>
-        <button disabled={busy} onClick={()=>{if(confirmDelete(account.name))act({action:"delete",id:account.id},"Cuenta eliminada.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-coralDark"><Trash2 size={14}/></button>
-      </li>)}{!config.accounts.length?<li className="py-2 text-sm text-navy/50">Aún no sigues cuentas adicionales. Agrega las cuentas oficiales que quieras vigilar.</li>:null}</ul>
+      <ul className="divide-y divide-esc-ink/10">{config.accounts.map(account=><li key={account.id} className="flex flex-wrap items-center gap-2 py-2">
+        <span className="flex-1"><a href={account.url} target="_blank" rel="noreferrer" className={`font-bold ${account.active?"text-esc-ink":"text-esc-ink/40 line-through"}`}>{account.name}</a><span className="ml-2 text-xs text-esc-ink/50">{PLATFORMS[account.platform]}{account.canton?` · ${account.canton}`:""}</span></span>
+        {account.feedUrl?sourceStatus(`cuenta-${account.id}`)||<span className="chip bg-esc-mist text-esc-tealDark">Automática</span>:<span className="chip bg-esc-amber/20 text-esc-ink">Revisión manual</span>}
+        <button disabled={busy} onClick={()=>act({action:"toggle",id:account.id,active:!account.active},account.active?"Cuenta pausada.":"Cuenta activada.")} aria-label={account.active?"Pausar":"Activar"} className={`grid h-8 w-8 place-items-center rounded-full ${account.active?"bg-esc-mist text-esc-tealDark":"bg-esc-sand text-esc-ink/40"}`}><Power size={14}/></button>
+        <button disabled={busy} onClick={()=>{if(confirmDelete(account.name))act({action:"delete",id:account.id},"Cuenta eliminada.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-esc-redDark"><Trash2 size={14}/></button>
+      </li>)}{!config.accounts.length?<li className="py-2 text-sm text-esc-ink/50">Aún no sigues cuentas adicionales. Agrega las cuentas oficiales que quieras vigilar.</li>:null}</ul>
     </Card>
     <Card>
       <Title icon={<Newspaper size={18}/>} hint="Directorio base de la provincia. Los sitios web con RSS se leen automáticamente.">Medios de Cotopaxi ({MEDIOS_COTOPAXI.length})</Title>
-      <div className="mb-3 flex flex-col gap-2 sm:flex-row"><input className="field sm:max-w-xs" placeholder="Buscar medio…" value={query} onChange={event=>setQuery(event.target.value)}/><div className="flex flex-wrap gap-2">{cantones.map(item=><button key={item} onClick={()=>setCanton(item)} aria-pressed={canton===item} className={`chip ${canton===item?"bg-deep text-white":"bg-sand text-navy"}`}>{item}</button>)}</div></div>
-      <ul className="divide-y divide-navy/10">{medios.map(medio=><li key={medio.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-        <span><b className="text-deep">{medio.name}</b> <span className="text-xs text-navy/50">· {medio.category} · {medio.canton}</span></span>
-        <span className="flex flex-wrap items-center gap-2">{sourceStatus(`medio-${medio.id}`)}{medio.profiles.map(profile=><a key={profile.url} href={profile.url} target="_blank" rel="noreferrer" className="chip bg-sand text-navy">{profile.platform==="WEB"?"Web":profile.platform.charAt(0)+profile.platform.slice(1).toLowerCase()}</a>)}{!medio.profiles.length?<span className="text-xs text-navy/40">Sin enlace verificado</span>:null}</span>
+      <div className="mb-3 flex flex-col gap-2 sm:flex-row"><input className="field sm:max-w-xs" placeholder="Buscar medio…" value={query} onChange={event=>setQuery(event.target.value)}/><div className="flex flex-wrap gap-2">{cantones.map(item=><button key={item} onClick={()=>setCanton(item)} aria-pressed={canton===item} className={`chip ${canton===item?"bg-esc-ink text-white":"bg-esc-sand text-esc-ink"}`}>{item}</button>)}</div></div>
+      <ul className="divide-y divide-esc-ink/10">{medios.map(medio=><li key={medio.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+        <span><b className="text-esc-ink">{medio.name}</b> <span className="text-xs text-esc-ink/50">· {medio.category} · {medio.canton}</span></span>
+        <span className="flex flex-wrap items-center gap-2">{sourceStatus(`medio-${medio.id}`)}{medio.profiles.map(profile=><a key={profile.url} href={profile.url} target="_blank" rel="noreferrer" className="chip bg-esc-sand text-esc-ink">{profile.platform==="WEB"?"Web":profile.platform.charAt(0)+profile.platform.slice(1).toLowerCase()}</a>)}{!medio.profiles.length?<span className="text-xs text-esc-ink/40">Sin enlace verificado</span>:null}</span>
       </li>)}</ul>
     </Card>
   </>;
@@ -404,12 +405,12 @@ function Usuarios({users,me,onChange,flash}:{users:EscuchaUser[];me:string;onCha
     </Card>
     <Card>
       <Title icon={<Users size={18}/>}>Usuarios con acceso ({users.length})</Title>
-      <ul className="divide-y divide-navy/10">{users.map(user=><li key={user.email} className="flex flex-wrap items-center gap-2 py-2">
-        <span className="flex-1"><b className="text-deep">{user.name}</b><span className="ml-2 text-xs text-navy/50">{user.email}</span></span>
-        <span className={`chip ${user.role==="admin"?"bg-purple text-white":"bg-mist text-oceanDark"}`}>{user.role==="admin"?"Administrador":"Analista"}</span>
-        {user.source==="principal"?<span className="chip bg-sand text-navy/60">Cuenta principal</span>:<>
+      <ul className="divide-y divide-esc-ink/10">{users.map(user=><li key={user.email} className="flex flex-wrap items-center gap-2 py-2">
+        <span className="flex-1"><b className="text-esc-ink">{user.name}</b><span className="ml-2 text-xs text-esc-ink/50">{user.email}</span></span>
+        <span className={`chip ${user.role==="admin"?"bg-esc-purple text-white":"bg-esc-mist text-esc-tealDark"}`}>{user.role==="admin"?"Administrador":"Analista"}</span>
+        {user.source==="principal"?<span className="chip bg-esc-sand text-esc-ink/60">Cuenta principal</span>:<>
           <Button tone="ghost" disabled={busy} onClick={()=>reset(user.email)}><KeyRound size={14}/>Contraseña</Button>
-          {user.email!==me?<button disabled={busy} onClick={()=>{if(confirmDelete(user.email))act({action:"delete",email:user.email},"Usuario eliminado.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-coralDark"><Trash2 size={14}/></button>:null}
+          {user.email!==me?<button disabled={busy} onClick={()=>{if(confirmDelete(user.email))act({action:"delete",email:user.email},"Usuario eliminado.");}} aria-label="Eliminar" className="grid h-8 w-8 place-items-center rounded-full bg-red-50 text-esc-redDark"><Trash2 size={14}/></button>:null}
         </>}
       </li>)}</ul>
     </Card>

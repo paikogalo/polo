@@ -106,9 +106,11 @@ export async function runMonitor(config:EscuchaConfig,options:{sinceHours?:numbe
 
 const hour=(iso:string|null)=>iso?new Intl.DateTimeFormat("es-EC",{timeZone:"America/Guayaquil",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}).format(new Date(iso)):"sin fecha";
 const DOT:Record<Semaforo,string>={rojo:"🔴",naranja:"🟠",verde:"🟢"};
+/** Enlace corto para Telegram: los de Google News son muy largos; se reemplazan por una búsqueda del titular. */
+const shortLink=(item:MonitorItem)=>/news\.google\.com/.test(item.url)?`https://www.google.com/search?q=${encodeURIComponent(item.title.slice(0,90))}`.slice(0,140):item.url;
 
 export function formatAlert(items:MonitorItem[]){
-  return ["🔴 ALERTA · ESCUCHA DIGITAL",...items.flatMap(item=>["",`${item.title}`,`Medio: ${item.outlet} · ${hour(item.publishedAt)}`,`Coincide: ${item.matches.map(match=>match.term).join(", ")}`,item.url])].join("\n");
+  return ["🔴 ALERTA · ESCUCHA DIGITAL · De POLO a POLO",...items.flatMap(item=>["",`${item.title}`,`Medio: ${item.outlet} · ${hour(item.publishedAt)}`,`Coincide: ${item.matches.map(match=>match.term).join(", ")}`,shortLink(item)])].join("\n");
 }
 
 export function formatDigest(items:MonitorItem[],title:string,max=25){
@@ -119,7 +121,7 @@ export function formatDigest(items:MonitorItem[],title:string,max=25){
   items.slice(0,max).forEach(item=>{const key=item.matches[0]?.group||"Otros";groups.set(key,[...(groups.get(key)||[]),item]);});
   for(const [group,list] of groups){
     lines.push(`▪️ ${group.toUpperCase()} (${list.length})`);
-    list.forEach(item=>lines.push(`${DOT[item.level]} ${item.title} — ${item.outlet}`,`   ${item.url}`));
+    list.forEach(item=>lines.push(`${DOT[item.level]} ${item.title} — ${item.outlet}`,`   ${shortLink(item)}`));
     lines.push("");
   }
   if(items.length>max)lines.push(`… y ${items.length-max} notas más en el panel.`);

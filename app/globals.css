@@ -12,3 +12,4 @@
 @media (prefers-reduced-motion:reduce){.reveal-ready .reveal{opacity:1!important;transform:none!important;transition:none!important}.scroll-progress{display:none}}
 
 @media print{@page{margin:12mm}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.escucha-gradient{background:linear-gradient(120deg,#162837 0%,#1f3a4d 55%,#2F7276 100%)}.escucha-band{background:linear-gradient(90deg,#41989C 0 25%,#CF5343 25% 45%,#E9A73E 45% 62%,#B57B9F 62% 80%,#684688 80%)}
