@@ -85,7 +85,7 @@ export function NodoRegistro(){
     if(primero)document.querySelector<HTMLElement>(`[name="${primero}"]`)?.focus();
   };
 
-  if(fueraDeEdad)return <div ref={rechazo} tabIndex={-1} role="status" className="rounded-[2rem] bg-white p-8 text-center shadow-soft outline-none sm:p-10">
+  if(fueraDeEdad)return <div ref={rechazo} tabIndex={-1} role="status" className="m-3 rounded-[1.6rem] bg-white p-6 text-center shadow-soft outline-none">
     <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-yellow text-2xl" aria-hidden="true">👋</span>
     <p className="mt-5 text-xl font-extrabold text-navy">{MENSAJE_FUERA_DE_EDAD}</p>
     <p className="mt-3 text-sm leading-6 text-navy/75">No guardamos ningún dato de este intento.</p>
@@ -99,12 +99,12 @@ export function NodoRegistro(){
       {red:"facebook",label:"Facebook",icon:Facebook,href:`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,cls:"bg-[#1D5FC9] text-white"},
       {red:"x",label:"X",icon:Twitter,href:`https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`,cls:"bg-navy text-white"},
     ];
-    return <div ref={exito} tabIndex={-1} role="status" className="rounded-[2rem] bg-white p-7 text-center shadow-soft outline-none sm:p-10">
+    return <div ref={exito} tabIndex={-1} role="status" className="m-3 rounded-[1.6rem] bg-white p-5 text-center shadow-soft outline-none">
       <CheckCircle2 className="mx-auto h-14 w-14 text-ocean" aria-hidden="true"/>
       <h3 className="mt-4 text-2xl font-extrabold text-navy">¡Tu registro está listo!</h3>
       <p className="mt-2 text-navy/75">Guarda tu código. Lo necesitarás si quieres consultar o borrar tus datos.</p>
       <div className="mx-auto mt-5 flex max-w-sm items-center justify-between gap-3 rounded-2xl border-2 border-dashed border-ocean bg-sand px-5 py-4">
-        <b className="whitespace-nowrap text-xl tracking-wider text-navy sm:text-2xl">{codigo}</b>
+        <b className="whitespace-nowrap text-lg tracking-wider text-navy">{codigo}</b>
         <button type="button" onClick={async()=>{try{await navigator.clipboard.writeText(codigo);setCopiado(true);}catch{/* sin portapapeles */}}} className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-navy px-3 text-xs font-extrabold text-white" aria-label="Copiar código"><Copy size={15} aria-hidden="true"/>{copiado?"Copiado":"Copiar"}</button>
       </div>
       {demo?<p className="mx-auto mt-4 max-w-md rounded-xl bg-yellow/25 p-3 text-xs font-bold text-navy">Modo de prueba local: este registro no se guardó.</p>:<p className="mx-auto mt-4 max-w-md text-sm leading-6 text-navy/75">Te enviamos un correo con tu código y los próximos pasos. El equipo de NODO te contactará cuando se conforme el piloto en tu cantón.</p>}
@@ -120,41 +120,41 @@ export function NodoRegistro(){
   const aria=(campo:keyof NodoRegistroInput)=>({"aria-invalid":Boolean(err(campo)),"aria-describedby":err(campo)?`${campo}-error`:undefined});
   const hoy=new Date().toISOString().slice(0,10);
 
-  return <form onSubmit={event=>{if(edadInvalida){event.preventDefault();setFueraDeEdad(true);trackNodo("nodo_registro_rechazado_edad");return;}handleSubmit(enviar,alFallar)(event);}} onFocusCapture={marcarInicio} noValidate className="rounded-[2rem] bg-white p-5 shadow-soft sm:p-8">
+  return <form onSubmit={event=>{if(edadInvalida){event.preventDefault();setFueraDeEdad(true);trackNodo("nodo_registro_rechazado_edad");return;}handleSubmit(enviar,alFallar)(event);}} onFocusCapture={marcarInicio} noValidate className="p-4">
     <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-px w-px opacity-0" {...register("website")}/>
 
-    <fieldset className="grid gap-5 sm:grid-cols-2">
-      <legend className="mb-4 text-lg font-extrabold text-navy">1 · Sobre ti</legend>
-      <label className="sm:col-span-2"><span className="label">Nombres y apellidos *</span><input className="field" autoComplete="name" {...register("nombres")} {...aria("nombres")}/><FieldError campo="nombres"/></label>
+    <fieldset className="grid gap-5">
+      <legend className="mb-3 inline-flex items-center rounded-full bg-navy px-3 py-1 text-sm font-extrabold text-white">1 · Sobre ti</legend>
+      <label className=""><span className="label">Nombres y apellidos *</span><input className="field" autoComplete="name" {...register("nombres")} {...aria("nombres")}/><FieldError campo="nombres"/></label>
       <label><span className="label">Fecha de nacimiento *</span><input type="date" max={hoy} className="field" {...register("fecha_nacimiento")} {...aria("fecha_nacimiento")}/><FieldError campo="fecha_nacimiento"/>{edadInvalida&&!err("fecha_nacimiento")&&<p className="mt-1.5 text-sm font-semibold text-coralDark">{MENSAJE_FUERA_DE_EDAD}</p>}</label>
       <label><span className="label">Género (opcional)</span><select className="field" {...register("genero")}><option value="">Prefiero no responder</option>{generos.map(g=><option key={g}>{g}</option>)}</select></label>
       <label><span className="label">Cantón *</span><select className="field" {...register("canton")} {...aria("canton")} defaultValue=""><option value="" disabled>Elige tu cantón</option>{cantones.map(c=><option key={c}>{c}</option>)}</select><FieldError campo="canton"/></label>
       <label><span className="label">Parroquia *</span><input className="field" {...register("parroquia")} {...aria("parroquia")}/><FieldError campo="parroquia"/></label>
-      <label className="sm:col-span-2"><span className="label">Comunidad o barrio (opcional)</span><input className="field" {...register("comunidad_barrio")}/></label>
+      <label className=""><span className="label">Comunidad o barrio (opcional)</span><input className="field" {...register("comunidad_barrio")}/></label>
     </fieldset>
 
-    <fieldset className="mt-8 grid gap-5 sm:grid-cols-2">
-      <legend className="mb-4 text-lg font-extrabold text-navy">2 · Contacto</legend>
+    <fieldset className="mt-8 grid gap-5">
+      <legend className="mb-3 inline-flex items-center rounded-full bg-navy px-3 py-1 text-sm font-extrabold text-white">2 · Contacto</legend>
       <label><span className="label">Correo electrónico *</span><input type="email" inputMode="email" autoComplete="email" className="field" {...register("correo")} {...aria("correo")}/><FieldError campo="correo"/></label>
       <label><span className="label">WhatsApp *</span><input type="tel" inputMode="tel" autoComplete="tel" placeholder="09XXXXXXXX" className="field" {...register("whatsapp")} {...aria("whatsapp")}/><FieldError campo="whatsapp"/></label>
     </fieldset>
 
-    <fieldset className="mt-8 grid gap-5 sm:grid-cols-2">
-      <legend className="mb-4 text-lg font-extrabold text-navy">3 · Tu camino</legend>
+    <fieldset className="mt-8 grid gap-5">
+      <legend className="mb-3 inline-flex items-center rounded-full bg-navy px-3 py-1 text-sm font-extrabold text-white">3 · Tu camino</legend>
       <label><span className="label">Estudios *</span><select className="field" defaultValue="" {...register("estudios")} {...aria("estudios")}><option value="" disabled>Elige una opción</option>{estudiosOpciones.map(o=><option key={o}>{o}</option>)}</select><FieldError campo="estudios"/></label>
       <label><span className="label">Ocupación *</span><select className="field" defaultValue="" {...register("ocupacion")} {...aria("ocupacion")}><option value="" disabled>Elige una opción</option>{ocupaciones.map(o=><option key={o}>{o}</option>)}</select><FieldError campo="ocupacion"/></label>
-      <div className="sm:col-span-2" role="group" aria-labelledby="intereses-label" aria-describedby={err("intereses")?"intereses-error":undefined}>
+      <div className="" role="group" aria-labelledby="intereses-label" aria-describedby={err("intereses")?"intereses-error":undefined}>
         <span id="intereses-label" className="label">¿Qué te gustaría emprender? * <span className="font-semibold text-navy/70">(elige uno o varios)</span></span>
-        <div className="grid gap-2 sm:grid-cols-2">{intereses.map(i=><label key={i} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy has-[:checked]:border-ocean has-[:checked]:bg-mist/60"><input type="checkbox" value={i} className="h-5 w-5 accent-[#0F6E73]" {...register("intereses")}/>{i}</label>)}</div>
+        <div className="grid gap-2">{intereses.map(i=><label key={i} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy has-[:checked]:border-ocean has-[:checked]:bg-mist/60"><input type="checkbox" value={i} className="h-5 w-5 accent-[#0F6E73]" {...register("intereses")}/>{i}</label>)}</div>
         <FieldError campo="intereses"/>
       </div>
-      <div className="sm:col-span-2" role="radiogroup" aria-labelledby="etapa-label">
+      <div className="" role="radiogroup" aria-labelledby="etapa-label">
         <span id="etapa-label" className="label">¿En qué etapa estás? *</span>
-        <div className="grid gap-2 sm:grid-cols-3">{etapas.map(e=><label key={e} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy has-[:checked]:border-ocean has-[:checked]:bg-mist/60"><input type="radio" value={e} className="h-5 w-5 accent-[#0F6E73]" {...register("etapa")}/>{e}</label>)}</div>
+        <div className="grid gap-2">{etapas.map(e=><label key={e} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy has-[:checked]:border-ocean has-[:checked]:bg-mist/60"><input type="radio" value={e} className="h-5 w-5 accent-[#0F6E73]" {...register("etapa")}/>{e}</label>)}</div>
         <FieldError campo="etapa"/>
       </div>
-      <label className="sm:col-span-2"><span className="label">Tu idea (opcional)</span><textarea rows={3} maxLength={500} className="field resize-y" {...register("idea")} {...aria("idea")}/><span className="mt-1 block text-right text-xs text-navy/70">{idea.length}/500</span><FieldError campo="idea"/></label>
-      <label className="sm:col-span-2"><span className="label">¿Qué necesitarías para emprender en tu cantón? (opcional)</span><textarea rows={2} maxLength={300} className="field resize-y" {...register("necesidad")} {...aria("necesidad")}/><span className="mt-1 block text-right text-xs text-navy/70">{necesidad.length}/300</span><FieldError campo="necesidad"/></label>
+      <label className=""><span className="label">Tu idea (opcional)</span><textarea rows={3} maxLength={500} className="field resize-y" {...register("idea")} {...aria("idea")}/><span className="mt-1 block text-right text-xs text-navy/70">{idea.length}/500</span><FieldError campo="idea"/></label>
+      <label className=""><span className="label">¿Qué necesitarías para emprender en tu cantón? (opcional)</span><textarea rows={2} maxLength={300} className="field resize-y" {...register("necesidad")} {...aria("necesidad")}/><span className="mt-1 block text-right text-xs text-navy/70">{necesidad.length}/300</span><FieldError campo="necesidad"/></label>
       <div role="radiogroup" aria-labelledby="piloto-label">
         <span id="piloto-label" className="label">¿Te gustaría participar en el piloto? *</span>
         <div className="flex gap-2">{[["si","Sí"],["no","No por ahora"]].map(([v,l])=><label key={v} className="flex min-h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-navy/15 px-4 py-2.5 text-sm font-bold text-navy has-[:checked]:border-ocean has-[:checked]:bg-mist/60"><input type="radio" value={v} className="h-5 w-5 accent-[#0F6E73]" {...register("participaria_piloto")}/>{l}</label>)}</div>
@@ -163,7 +163,7 @@ export function NodoRegistro(){
       <label><span className="label">¿Cómo nos conociste?</span><select className="field" {...register("como_nos_conociste")}><option value="">Elige una opción</option>{comoNosConociste.map(o=><option key={o}>{o}</option>)}</select></label>
     </fieldset>
 
-    <fieldset className="mt-8 space-y-3 rounded-3xl bg-sand p-5">
+    <fieldset className="mt-8 space-y-3 rounded-3xl bg-white p-4">
       <legend className="sr-only">Autorizaciones</legend>
       <p className="flex items-center gap-2 text-sm font-extrabold text-navy"><ShieldCheck size={18} className="text-oceanDark" aria-hidden="true"/>Autorizaciones</p>
       {esAdolescente&&<label className="flex items-start gap-3 rounded-2xl border-2 border-yellow bg-white p-4 text-sm leading-6 text-navy"><input type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-[#0F6E73]" {...register("consentimiento_adolescente")} {...aria("consentimiento_adolescente")}/><span><b>Tengo 16 o 17 años, entiendo para qué se usarán mis datos y autorizo su tratamiento.</b> Tus datos solo sirven para conformar el piloto NODO y contactarte sobre el programa (art. 21 de la Ley Orgánica de Protección de Datos Personales).<FieldError campo="consentimiento_adolescente"/></span></label>}

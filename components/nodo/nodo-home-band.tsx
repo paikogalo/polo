@@ -5,8 +5,8 @@ import {nodoAssets} from "@/lib/nodo/assets";
 /** Franja destacada de NODO en la portada, debajo del hero. */
 export function NodoHomeBand(){
   const {logoBlancoSrc}=nodoAssets();
-  return <section id="nodo" aria-labelledby="nodo-home-title" className="relative overflow-clip bg-navy text-white">
-    <div className="flex h-1.5" aria-hidden="true"><span className="flex-1 bg-coral"/><span className="flex-1 bg-blue"/><span className="flex-[3] bg-ocean"/><span className="flex-1 bg-yellow"/></div>
+  return <section id="nodo" aria-labelledby="nodo-home-title" className="nodo-hero relative overflow-clip text-white">
+    <div className="nodo-gradient-ring h-1.5" aria-hidden="true"/>
     <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-ocean/20 blur-3xl" aria-hidden="true"/>
     <div className="absolute -bottom-28 left-10 h-64 w-64 rounded-full bg-yellow/15 blur-3xl" aria-hidden="true"/>
     <div className="section relative grid grid-cols-1 items-center gap-8 py-12 sm:py-14 lg:grid-cols-[1.25fr_1fr] lg:py-16 [&>*]:min-w-0">
@@ -21,8 +21,8 @@ export function NodoHomeBand(){
         <div className="mt-7 flex justify-center lg:justify-start"><NodoButton ubicacion="home" size="lg"/></div>
       </div>
       <ul className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-        {[[Rocket,"Escuela de emprendimiento","De la idea a tu primer producto"],[Cpu,"Laboratorio agro-digital","Computadoras, impresión 3D, sensores y drones"],[Sprout,"Fondo semilla concursable","Para empresas rurales juveniles"]].map(([I,t,d])=>{const Icon=I as typeof Rocket;return <li key={String(t)} className="flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[.06] p-4 text-left">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-yellow text-navy"><Icon size={22} aria-hidden="true"/></span>
+        {[[Rocket,"Escuela de emprendimiento","De la idea a tu primer producto"],[Cpu,"Laboratorio agro-digital","Computadoras, impresión 3D, sensores y drones"],[Sprout,"Fondo semilla concursable","Para empresas rurales juveniles"]].map(([I,t,d],i)=>{const Icon=I as typeof Rocket;return <li key={String(t)} className="flex items-center gap-4 rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm text-left">
+          <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${["bg-yellow","bg-ocean","bg-pink"][i]} text-navy`}><Icon size={22} aria-hidden="true"/></span>
           <span><b className="block text-base">{String(t)}</b><span className="text-sm text-white/75">{String(d)}</span></span>
         </li>})}
       </ul>

@@ -4,8 +4,8 @@ import {useEffect,useRef,useState} from "react";
 
 const datos=[
   {valor:7,texto:"nodos, uno por cantón",color:"bg-yellow text-navy"},
-  {valor:200,texto:"jóvenes por cantón",color:"bg-white text-navy"},
-  {valor:1400,texto:"jóvenes formados en 4 años",color:"bg-white text-navy"},
+  {valor:200,texto:"jóvenes por cantón",color:"bg-ocean text-navy"},
+  {valor:1400,texto:"jóvenes formados en 4 años",color:"bg-pink text-navy"},
   {valor:100,texto:"empresas rurales juveniles con fondo semilla",color:"bg-white text-navy"},
 ];
 
