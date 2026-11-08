@@ -34,5 +34,5 @@ export function rangoEdad(edad:number){
   return "25–30";
 }
 
-/** Ícono de la sección. Hoy es provisional; al copiar el kit se reemplaza en el mismo nombre de archivo. */
-export const NODO_ICON_SRC="/nodo/nodo-icono.svg";
+/** Ícono de la sección: la "o" con el nodo rojo del logotipo oficial. */
+export const NODO_ICON_SRC="/nodo/nodo-icono.png";

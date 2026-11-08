@@ -55,7 +55,7 @@ export default function NodoPage(){
   const descargas=[
     {archivo:"pdf" as const,titulo:"Propuesta NODO (PDF)",detalle:"El documento completo de la propuesta, 9 páginas.",href:a.pdf.href,nombreDescarga:"NODO-Jovenes-Cotopaxi-propuesta.pdf",tamano:formatoTamano(a.pdf.bytes)},
     {archivo:"mp4" as const,titulo:"Video en alta calidad",detalle:"Formato vertical 1080 × 1920, listo para compartir.",href:a.video1080.href,nombreDescarga:"NODO-Jovenes-Cotopaxi-video.mp4",tamano:formatoTamano(a.video1080.bytes)},
-    {archivo:"logo" as const,titulo:"Logotipo NODO",detalle:"Versión vectorial (SVG) para fondo claro.",href:a.logo.href,nombreDescarga:"NODO-logo.svg",tamano:formatoTamano(a.logo.bytes)},
+    {archivo:"logo" as const,titulo:"Logotipo NODO",detalle:"Logotipo oficial en PNG transparente para fondo claro.",href:a.logo.href,nombreDescarga:"NODO-logo.png",tamano:formatoTamano(a.logo.bytes)},
   ];
 
   return <div className="min-h-screen bg-[#F4F7FB] text-navy">
@@ -82,7 +82,7 @@ export default function NodoPage(){
           <span className="absolute right-6 top-6 hidden rotate-6 rounded-2xl bg-yellow px-3 py-2 text-sm font-extrabold text-navy shadow-lg sm:block">16–30 años</span>
           <span className="absolute bottom-8 right-10 hidden -rotate-6 rounded-2xl bg-pink px-3 py-2 text-sm font-extrabold text-navy shadow-lg md:block">7 cantones</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={a.logoBlancoSrc} alt="nodo" width={240} height={80} className="h-20 w-auto sm:h-24" fetchPriority="high"/>
+          <img src={a.logoBlancoSrc} alt="nodo" width={349} height={100} className="h-16 w-auto sm:h-20" fetchPriority="high"/>
           <h1 className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-extrabold uppercase tracking-[.25em] text-white"><Sparkles size={16} aria-hidden="true"/>Jóvenes Cotopaxi</h1>
           <p className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">Aprende - Emprende y <span className="text-yellow">Crece aquí</span></p>
           <p className="mt-5 max-w-xl text-lg leading-8 text-white/85">Plataforma de emprendimiento y tecnología para jóvenes de 16 a 30 años de los 7 cantones de Cotopaxi.</p>

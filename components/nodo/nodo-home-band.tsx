@@ -14,7 +14,7 @@ export function NodoHomeBand(){
         <span className="chip bg-yellow text-navy">Nuevo · Jóvenes de 16 a 30 años</span>
         <h2 id="nodo-home-title" className="mt-5 flex flex-col items-center gap-4 lg:items-start">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={logoBlancoSrc} alt="nodo" width={240} height={80} className="h-16 w-auto sm:h-20"/>
+          <img src={logoBlancoSrc} alt="nodo" width={349} height={100} className="h-14 w-auto sm:h-16"/>
           <span className="max-w-xl text-2xl font-black leading-tight sm:text-3xl">Plataforma de emprendimiento y tecnología para jóvenes de 16 a 30 años</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-white/80 lg:mx-0">Aprende - Emprende y Crece aquí: un nodo en cada cantón de Cotopaxi, para que emprender no signifique irse.</p>

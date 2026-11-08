@@ -24,8 +24,8 @@ function remotoOLocal(url:string|undefined,archivo:string):NodoAsset{
 }
 
 export function nodoAssets(){
-  const logoOficial=local("nodo-logo.svg");
-  const logoBlancoOficial=local("nodo-logo-blanco.svg");
+  const logoOficial=local("nodo-logo.png");
+  const logoBlancoOficial=local("nodo-logo-blanco.png");
   return {
     pdf:local("nodo-propuesta.pdf"),
     video720:remotoOLocal(process.env.NEXT_PUBLIC_NODO_VIDEO_720_URL,"nodo-video-720.mp4"),
@@ -33,8 +33,8 @@ export function nodoAssets(){
     poster:local("nodo-video-poster.jpg"),
     subtitulos:local("nodo-video-es.vtt"),
     logo:logoOficial,
-    /** Para mostrar en pantalla: el oficial si existe; si no, la versión provisional (nunca se ofrece para descargar). */
-    logoBlancoSrc:logoBlancoOficial.href??"/nodo/provisional/nodo-logo-blanco.svg",
+    /** Logotipo oficial en blanco (tomado de la propuesta NODO), para fondos oscuros. */
+    logoBlancoSrc:logoBlancoOficial.href??"/nodo/nodo-logo-blanco.png",
     kitCompleto:Boolean(logoOficial.href&&logoBlancoOficial.href),
   };
 }
