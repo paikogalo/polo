@@ -103,3 +103,25 @@ Todos los avisos administrativos se envían al buzón definido en `CONTACT_TO_EM
 Para habilitar los envíos configura `RESEND_API_KEY` y al menos un remitente verificado: `APPLICATIONS_FROM_EMAIL` para formularios y/o `COMMUNITY_FROM_EMAIL` para comunidad. El destinatario no necesita ser el mismo dominio que el remitente verificado.
 
 Los reenvíos del buzón deben configurarse en el proveedor que recibe el correo según los registros MX públicos. Crear un reenviador en cPanel no tendrá efecto si los MX del dominio apuntan a GoDaddy, Microsoft 365, Google Workspace u otro servicio. Antes de cambiar el enrutamiento, confirma el proveedor activo para no interrumpir la recepción existente.
+
+## NODO · Jóvenes Cotopaxi (`/nodo`)
+
+Sección de la plataforma de emprendimiento y tecnología para jóvenes de 16 a 30 años. Se presenta como plataforma de emprendimiento juvenil: ningún texto pide el voto, menciona listas o papeletas, ni ofrece premios, sorteos o beneficios a cambio del registro.
+
+**Accesos (todos con `utm_source`):** botón amarillo en el menú de escritorio y móvil (`menu`), franja destacada bajo el hero de la portada (`home`), opción “Soy joven y quiero registrarme en NODO” del chatbot (`chatbot`, abre `/nodo#registro`) y aplicativo móvil (`app`). El QR de los afiches debe apuntar a `/nodo?utm_source=afiche&utm_medium=qr`.
+
+**Archivos del kit (`public/nodo/`):** `nodo-propuesta.pdf`, `nodo-video-720.mp4`, `nodo-video-1080.mp4`, `nodo-video-poster.jpg`, `nodo-logo.svg`, `nodo-logo-blanco.svg`, `nodo-icono.svg` y, cuando exista, `nodo-video-es.vtt` (subtítulos). La página revisa en la compilación qué archivos existen: si falta alguno, muestra “Disponible pronto” en lugar de un enlace roto. `nodo-icono.svg` y `public/nodo/provisional/` son versiones provisionales hasta copiar el kit oficial; las provisionales nunca se ofrecen para descargar. El QR (`NODO_QR_afiches.png`, `NODO_QR_vector.svg`) no se publica.
+
+**Videos:** se sirven desde `public/nodo/` si su peso es razonable para el repositorio. Si no, se suben a Supabase Storage (bucket público `nodo`) y se configuran `NEXT_PUBLIC_NODO_VIDEO_720_URL` y `NEXT_PUBLIC_NODO_VIDEO_1080_URL`. Decisión vigente: pendiente hasta recibir el kit (se documentará aquí el peso final y el alojamiento elegido).
+
+**Registro para el piloto:** esquema Zod compartido en `lib/nodo/schema.ts`; ruta `POST /api/nodo/registro`. La edad se calcula en el servidor con la fecha de Ecuador; fuera de 16–30 no se guarda nada. Con 16 o 17 años se exige el consentimiento del art. 21 de la LOPDP (desde los 15 años el adolescente puede consentir de forma explícita si se le explican los fines). Incluye honeypot, límite de 5 envíos por IP por hora (en memoria) y un registro por correo (índice único `nodo_registros_correo_uq`). Al guardar se genera el código `NODO-XXXXXX` y se envía el correo de confirmación con Resend (`NODO_FROM_EMAIL` o los remitentes existentes).
+
+**Separación de datos:** `nodo_registros` es una tabla propia, con RLS activa y sin políticas públicas; solo el servidor (service role) inserta, lee, actualiza y borra. No se mezcla con `community_members` ni con listas de difusión de campaña: los registros de NODO solo se usan para conformar el piloto y contactar sobre el programa. No se pide cédula, dirección exacta, afiliación ni preferencia política, ni datos de salud.
+
+**Derecho de eliminación:** `/nodo/mis-datos` pide correo y código, envía un enlace de confirmación por Resend y el borrado se confirma con un botón (POST), para que los antivirus de correo no borren datos al abrir el enlace. El registro y sus tokens se eliminan por completo.
+
+**Base de datos:** ejecutar `supabase/migrations/20261108_nodo.sql` en el editor SQL de Supabase (también está al final de `supabase/schema.sql`; no ejecutes los datos de ejemplo de ese archivo en producción).
+
+**Dashboard:** pestaña “NODO · Jóvenes” en `/admin` (API `GET/PATCH /api/admin/nodo`, `?format=csv` para exportar). Requiere sesión de administrador; las gráficas muestran solo cifras agregadas y el CSV neutraliza fórmulas.
+
+**Analítica:** eventos de Vercel Web Analytics sin datos personales: `nodo_boton_click` (ubicacion), `nodo_video_play`, `nodo_video_50`, `nodo_video_100`, `nodo_descarga` (archivo), `nodo_registro_inicio`, `nodo_registro_enviado`, `nodo_registro_rechazado_edad`, `nodo_compartir` (red). Los eventos personalizados requieren el plan de Vercel que los incluya.

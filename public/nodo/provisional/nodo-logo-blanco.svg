@@ -1,0 +1,12 @@
+<!-- PROVISIONAL: reemplazar por nodo-logo-blanco.svg del kit oficial nodo_kit. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="nodo">
+  <g fill="none" stroke="#ffffff" stroke-width="11" stroke-linecap="round">
+    <path d="M14 66V36a15 15 0 0 1 30 0v30"/>
+    <circle cx="80" cy="47" r="19"/>
+    <circle cx="140" cy="47" r="19"/>
+    <path d="M159 14v52"/>
+    <circle cx="206" cy="47" r="19"/>
+  </g>
+  <circle cx="221" cy="24" r="9" fill="#E63B32" stroke="#183247" stroke-width="3"/>
+  <rect x="14" y="76" width="44" height="4" rx="2" fill="#2471C8"/>
+</svg>

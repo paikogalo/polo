@@ -1,0 +1,5 @@
+<!-- PROVISIONAL: reemplazar por nodo-icono.svg del kit oficial nodo_kit. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="NODO">
+  <circle cx="22" cy="26" r="13" fill="none" stroke="#183247" stroke-width="7"/>
+  <circle cx="36.5" cy="11.5" r="6.5" fill="#E63B32" stroke="#ffffff" stroke-width="2.5"/>
+</svg>

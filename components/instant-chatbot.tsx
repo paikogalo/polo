@@ -4,6 +4,8 @@ import {FormEvent,useEffect,useRef,useState} from "react";
 import {usePathname} from "next/navigation";
 import {Bot,BriefcaseBusiness,ExternalLink,Headphones,MapPin,MessageCircle,RotateCcw,Send,X} from "lucide-react";
 import {notifyChatPrefill,saveChatPrefill} from "@/lib/chat-prefill";
+import {NODO_ICON_SRC,nodoHref} from "@/lib/nodo/constants";
+import {trackNodo} from "@/lib/nodo/analytics";
 
 type RouteChoice="need"|"work";
 type Message={id:number;from:"assistant"|"visitor";text:string;href?:string;action?:string};
@@ -19,13 +21,14 @@ const whatsappChannels=[
   return {...channel,id:index+1,number:number.length>=7&&number.length<=15?number:""};
 });
 
-const initialMessage:Message={id:1,from:"assistant",text:"¡Hola! Soy el asistente de Hipólito. ¿Quieres contar una necesidad de tu territorio o trabajar con nosotros?"};
+const initialMessage:Message={id:1,from:"assistant",text:"¡Hola! Soy el asistente de Hipólito. ¿Quieres contar una necesidad de tu territorio, trabajar con nosotros o registrarte en NODO, la plataforma para jóvenes?"};
 const formHref=(route:RouteChoice)=>route==="work"?"/trabaja#formulario-trabajo":"/#participa";
 
 function normalize(value:string){return value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 
 function answerQuestion(question:string,route:RouteChoice):Omit<Message,"id"|"from"> & {human?:boolean}{
   const text=normalize(question);
+  if(/\bnodo\b|joven|jovenes|emprend/.test(text))return {text:"NODO es la plataforma de emprendimiento y tecnología para jóvenes de 16 a 30 años de los 7 cantones de Cotopaxi. Puedes registrarte gratis para el piloto.",href:nodoHref("chatbot","#registro"),action:"Registrarme en NODO"};
   if(/humano|persona|asesor|whatsapp|hablar|contacto/.test(text))return {text:"Claro. Puedes elegir manualmente uno de los canales de atención humana disponibles. WhatsApp no se abrirá hasta que tú lo decidas.",human:true};
   if(/privacidad|privado|datos|segur|confiden/.test(text))return {text:"Tu información es privada y solo será utilizada por el equipo autorizado para responder tu solicitud. No se publica y este chat no crea perfiles sobre tus intereses.",href:formHref(route),action:"Revisar el formulario"};
   if(/garantiza|contrat|seleccion|selección/.test(text))return {text:"Registrar un perfil no garantiza un puesto. Cualquier selección debe cumplir los requisitos, el mérito, la normativa y la transparencia.",href:"/trabaja#formulario-trabajo",action:"Ver formulario de perfiles"};
@@ -113,7 +116,7 @@ export function InstantChatbot(){
           {messages.map(message=><div key={message.id} className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-6 ${message.from==="assistant"?"bg-mist text-deep":"ml-auto bg-deep text-white"}`}><p>{message.text}</p>{message.href&&<a href={message.href} className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-extrabold text-ocean shadow-sm">{message.action}<ExternalLink size={13}/></a>}</div>)}
         </div>
 
-        {!route&&<div className="mt-4 grid gap-2"><button type="button" onClick={()=>chooseRoute("need")} className="flex items-center gap-3 rounded-2xl border border-ocean/25 bg-mist/50 p-4 text-left text-sm font-extrabold text-deep transition hover:border-ocean"><MapPin className="text-ocean"/>Contar una necesidad</button><button type="button" onClick={()=>chooseRoute("work")} className="flex items-center gap-3 rounded-2xl border border-purple/20 bg-purple/5 p-4 text-left text-sm font-extrabold text-deep transition hover:border-purple"><BriefcaseBusiness className="text-purple"/>Trabaja con nosotros</button></div>}
+        {!route&&<div className="mt-4 grid gap-2"><button type="button" onClick={()=>chooseRoute("need")} className="flex items-center gap-3 rounded-2xl border border-ocean/25 bg-mist/50 p-4 text-left text-sm font-extrabold text-deep transition hover:border-ocean"><MapPin className="text-ocean"/>Contar una necesidad</button><button type="button" onClick={()=>chooseRoute("work")} className="flex items-center gap-3 rounded-2xl border border-purple/20 bg-purple/5 p-4 text-left text-sm font-extrabold text-deep transition hover:border-purple"><BriefcaseBusiness className="text-purple"/>Trabaja con nosotros</button><a href={nodoHref("chatbot","#registro")} onClick={()=>trackNodo("nodo_boton_click",{ubicacion:"chatbot"})} className="flex items-center gap-3 rounded-2xl border-2 border-yellow bg-yellow/20 p-4 text-left text-sm font-extrabold text-deep transition hover:bg-yellow"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={NODO_ICON_SRC} alt="" width={24} height={24} className="h-6 w-6"/></span>Soy joven y quiero registrarme en NODO</a></div>}
 
         {route&&<>
           <div className="mt-4 flex flex-wrap gap-2" aria-label="Preguntas frecuentes">
