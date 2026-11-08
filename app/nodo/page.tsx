@@ -152,7 +152,7 @@ export default function NodoPage(){
         {/* 7. Video (ventana emergente) */}
         <section id="video" className="nodo-hero scroll-mt-24 overflow-clip rounded-[2.5rem] p-6 text-white sm:p-10" aria-labelledby="video-titulo">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div><span className="text-sm font-extrabold uppercase tracking-[.16em] text-white">Video</span><h2 id="video-titulo" className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">NODO en menos de dos minutos</h2><p className="mt-3 text-lg text-white/85">Míralo y compártelo con tus amigos.</p></div>
+            <div><span className="text-sm font-extrabold uppercase tracking-[.16em] text-white">Video</span><h2 id="video-titulo" className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">NODO en menos de un minuto</h2><p className="mt-3 text-lg text-white/85">Míralo y compártelo con tus amigos.</p></div>
             <NodoVideoTrigger className="group grid h-28 w-28 shrink-0 place-items-center rounded-full bg-yellow text-navy shadow-[0_0_0_10px_rgba(247,167,19,.25)] transition hover:scale-105 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transform-none"><PlayCircle size={56} aria-hidden="true"/><span className="sr-only">Ver el video de NODO</span></NodoVideoTrigger>
           </div>
         </section>

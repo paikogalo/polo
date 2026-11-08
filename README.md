@@ -125,3 +125,10 @@ Sección de la plataforma de emprendimiento y tecnología para jóvenes de 16 a 
 **Dashboard:** pestaña “NODO · Jóvenes” en `/admin` (API `GET/PATCH /api/admin/nodo`, `?format=csv` para exportar). Requiere sesión de administrador; las gráficas muestran solo cifras agregadas y el CSV neutraliza fórmulas.
 
 **Analítica:** eventos de Vercel Web Analytics sin datos personales: `nodo_boton_click` (ubicacion), `nodo_video_play`, `nodo_video_50`, `nodo_video_100`, `nodo_descarga` (archivo), `nodo_registro_inicio`, `nodo_registro_enviado`, `nodo_registro_rechazado_edad`, `nodo_compartir` (red). Los eventos personalizados requieren el plan de Vercel que los incluya.
+
+### Videos animados con el personaje (8 nov 2026)
+
+- `public/nodo/nodo-video-720.mp4` (web) y `nodo-video-1080.mp4` (descarga), con póster `nodo-video-poster.jpg`: video NODO con el personaje en vestuario deportivo. Se abre como ventana emergente en `/nodo`.
+- `public/videos/tutorial-plataforma.mp4` y `.jpg`: tutorial “¿Cómo funciona la plataforma?” con el personaje en vestuario formal. Es la ventana emergente de la portada (reemplaza a `video-campana-web.mp4`, que se conserva). `NEXT_PUBLIC_CAMPAIGN_VIDEO_URL` sigue teniendo prioridad si se configura.
+- Ambos videos son verticales 9:16, con subtítulos incrustados y narración de una voz sintética femenina (no es la voz del candidato). Arrancan en silencio por política de los navegadores; el botón “Activar sonido” reanuda con audio.
+- El personaje se anima en 2.5D a partir de las imágenes fijas del paquete `personaje_manual_y_fuentes_v1_2` (no hay modelo 3D ni rig).

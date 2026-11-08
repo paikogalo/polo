@@ -22,6 +22,7 @@ type Props={src:string|null;descarga:string|null;poster:string|null;subtitulos:s
  */
 export function NodoVideoModal({src,descarga,poster,subtitulos,tamanoDescarga}:Props){
   const [open,setOpen]=useState(false);
+  const [silencio,setSilencio]=useState(false);
   const cerrar=useRef<HTMLButtonElement>(null);
   const origen=useRef<Element|null>(null);
   const video=useRef<HTMLVideoElement>(null);
@@ -29,11 +30,12 @@ export function NodoVideoModal({src,descarga,poster,subtitulos,tamanoDescarga}:P
   const una=(e:"nodo_video_play"|"nodo_video_50"|"nodo_video_100")=>{if(!enviados.current.has(e)){enviados.current.add(e);trackNodo(e);}};
 
   useEffect(()=>{
-    const abrir=()=>{origen.current=document.activeElement;setOpen(true);};
-    window.addEventListener(EVENTO,abrir);
+    const abrir=(auto=false)=>{origen.current=document.activeElement;setSilencio(auto);setOpen(true);};
+    const alEvento=()=>abrir(false);
+    window.addEventListener(EVENTO,alEvento);
     let auto:number|undefined;
-    if(src){try{if(!sessionStorage.getItem(VISTO)){sessionStorage.setItem(VISTO,"1");auto=window.setTimeout(abrir,700);}}catch{/* sin almacenamiento */}}
-    return()=>{window.removeEventListener(EVENTO,abrir);window.clearTimeout(auto);};
+    if(src){try{if(!sessionStorage.getItem(VISTO)){sessionStorage.setItem(VISTO,"1");auto=window.setTimeout(()=>abrir(true),700);}}catch{/* sin almacenamiento */}}
+    return()=>{window.removeEventListener(EVENTO,alEvento);window.clearTimeout(auto);};
   },[src]);
 
   useEffect(()=>{
@@ -51,7 +53,7 @@ export function NodoVideoModal({src,descarga,poster,subtitulos,tamanoDescarga}:P
       <button ref={cerrar} type="button" onClick={()=>setOpen(false)} aria-label="Cerrar video" className="absolute -right-2 -top-2 z-10 grid h-11 w-11 place-items-center rounded-full bg-yellow text-navy shadow-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-white sm:-right-5 sm:-top-5"><X aria-hidden="true"/></button>
       <div className="nodo-gradient-ring rounded-[2.2rem] p-1.5 shadow-2xl">
         <div className="relative aspect-[9/16] max-h-[78vh] overflow-hidden rounded-[1.9rem] bg-navy">
-          {src?<video ref={video} className="h-full w-full object-cover" controls autoPlay playsInline preload="metadata" poster={poster??undefined}
+          {src?<video ref={video} className="h-full w-full object-cover" controls autoPlay muted={silencio} playsInline preload="metadata" onVolumeChange={e=>setSilencio(e.currentTarget.muted)} poster={poster??undefined}
             onPlay={()=>una("nodo_video_play")}
             onTimeUpdate={e=>{const v=e.currentTarget;if(!v.duration)return;const p=v.currentTime/v.duration;if(p>=.5)una("nodo_video_50");if(p>=.98)una("nodo_video_100");}}
             onEnded={()=>una("nodo_video_100")}>
@@ -61,6 +63,7 @@ export function NodoVideoModal({src,descarga,poster,subtitulos,tamanoDescarga}:P
           </video>:<div className="grid h-full place-items-center p-8 text-center text-white"><div><Clapperboard className="mx-auto h-14 w-14 text-yellow" aria-hidden="true"/><p className="mt-4 text-xl font-extrabold">El video se publicará muy pronto</p><p className="mt-2 text-sm text-white/80">Mientras tanto, regístrate para el piloto en la pantalla del teléfono.</p></div></div>}
         </div>
       </div>
+      {src&&silencio&&<button type="button" onClick={()=>{const v=video.current;if(!v)return;v.muted=false;setSilencio(false);void v.play();}} className="absolute left-1/2 top-5 z-10 inline-flex min-h-11 -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-yellow px-5 font-extrabold text-navy shadow-lg">Activar sonido</button>}
       {descarga&&<a href={descarga} download="NODO-Jovenes-Cotopaxi-video.mp4" onClick={()=>trackNodo("nodo_descarga",{archivo:"mp4"})} className="mt-4 flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-extrabold text-navy hover:bg-yellow"><Download size={18} aria-hidden="true"/>Descargar video (MP4){tamanoDescarga?` · ${tamanoDescarga}`:""}</a>}
     </div>
   </div>;
