@@ -1,0 +1,1324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kawsay Cotopaxi · El volcán está vivo</title>
+<meta name="description" content="Kawsay, prototipo de la promoción digital del destino Cotopaxi que propone Hipólito «Polo» Carrera: rutas, 7 cantones, negocios locales y planificador de viajes por voz.">
+<meta property="og:title" content="Kawsay Cotopaxi · El volcán está vivo">
+<meta property="og:description" content="Planifica tu viaje por Cotopaxi y Ecuador con tu voz. Rutas, cantones y negocios locales.">
+<meta property="og:image" content="https://www.depoloapoloavanzamoscotopaxi.com/kawsay/img/hero2.jpg">
+<meta property="og:url" content="https://www.depoloapoloavanzamoscotopaxi.com/kawsay">
+<meta name="theme-color" content="#183247">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0}[hidden]{display:none!important}
+
+/* Layout: guía de viaje provincial; franjas a todo lo ancho, contenido a 1240px, barra de pestañas inferior en el celular */
+:root{
+  --noche:#183247; --noche-2:#0B2233; --sol:#F7A713; --laguna:#27A9AD; --fuego:#E63B32;
+  --mortino:#73439A; --bosque:#0F6E73; --nieve:#DDF3FA; --mana:#3E8E41;
+  --bg:#FFFFFF; --bg-2:#F3F6F8; --line:#E1E7EC; --ink:#183247; --ink-2:#3B4D5E; --ink-3:#5A6B7B;
+  --ok-bg:#E3F4EC; --ok:#0B6B4F; --warn-bg:#FFF3DA; --warn:#7A4C00; --err:#B4261D; --err-bg:#FDECEA;
+  --display:'Sora', 'Segoe UI', system-ui, sans-serif;
+  --body:'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --r:16px; --r-lg:24px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--bosque)}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--laguna);outline-offset:2px}
+img{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico.sm{width:18px;height:18px}.ico.lg{width:28px;height:28px}
+
+/* alert + header */
+.alert{background:var(--bosque);color:#fff;font-size:15px}
+@media (max-width:640px){.alert{font-size:13px}.alert .wrap{padding-block:5px}}
+.alert .wrap{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;align-items:center;padding-block:8px}
+.alert b{font-weight:700}
+.alert button{background:none;border:0;color:#fff;text-decoration:underline;font-weight:700;padding:4px}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:20px;min-height:72px}
+.logo{display:flex;flex-direction:column;align-items:flex-start;text-decoration:none;color:var(--ink);background:none;border:0;padding:0}
+.logo .w{display:flex;align-items:baseline;font:800 28px/1 var(--display);letter-spacing:1px}
+.logo small{font:700 9px var(--display);letter-spacing:4px;margin-top:5px}
+.nav{display:flex;gap:4px;flex:1}
+.nav a{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;color:var(--ink);font:700 15px var(--display)}
+.nav a:hover{background:var(--bg-2)}
+.nav a[aria-current="page"]{background:var(--noche);color:#fff}
+.nav .count{background:var(--fuego);color:#fff;border-radius:999px;font-size:12px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
+.hdr-act{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;border:0;font:700 15px var(--display);text-decoration:none;white-space:nowrap}
+.btn-fuego{background:var(--fuego);color:#fff}.btn-fuego:hover{background:#cf3129}
+.btn-noche{background:var(--noche);color:#fff}.btn-noche:hover{background:#0f2536}
+.btn-sol{background:var(--sol);color:var(--noche)}
+.btn-line{background:#fff;color:var(--ink);border:1.5px solid #C7D1DA}.btn-line:hover{border-color:var(--ink)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.iconbtn{width:44px;height:44px;border-radius:999px;border:1.5px solid #C7D1DA;background:#fff;display:inline-flex;align-items:center;justify-content:center}
+.iconbtn.on{background:var(--fuego);border-color:var(--fuego);color:#fff}
+
+/* bottom tabs (phone) */
+.tabs{display:none}
+@media (max-width:860px){
+  .nav{display:none}
+  .hdr .wrap{min-height:62px;justify-content:space-between}
+  .hdr-act .btn-fuego{display:none}
+  .tabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:35;background:#fff;border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));justify-content:space-around}
+  .tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;text-decoration:none;color:var(--ink-3);font:700 11px var(--display);border-radius:12px;position:relative}
+  .tabs a[aria-current="page"]{color:var(--fuego)}
+  .tabs .count{position:absolute;top:2px;right:calc(50% - 22px);background:var(--fuego);color:#fff;border-radius:999px;font-size:10px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+  main{padding-bottom:84px}
+  .fab{bottom:calc(84px + env(safe-area-inset-bottom,0px)) !important}
+}
+
+/* sections */
+.sec{padding-block:56px}
+.sec-tight{padding-block:36px}
+.sec-alt{background:var(--bg-2)}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:24px}
+.kicker{font:700 13px var(--display);letter-spacing:3px;text-transform:uppercase;color:var(--fuego)}
+.h2{font-size:clamp(26px,3.2vw,36px);font-weight:800;line-height:1.1}
+.lead{font-size:19px;color:var(--ink-2);max-width:62ch}
+.link{display:inline-flex;align-items:center;gap:6px;font:700 16px var(--display);color:var(--bosque);text-decoration:none;background:none;border:0;padding:8px 0}
+.link:hover{text-decoration:underline}
+
+/* hero */
+.hero{background:var(--noche);color:#fff}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:stretch}
+.hero-txt{padding-block:56px;padding-right:40px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.hero h1{font-size:clamp(40px,5.4vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.02em}
+.hero h1 span{color:var(--laguna)}
+.hero .lead{color:var(--nieve)}
+.hero-img{position:relative;min-height:460px;border-radius:0;overflow:hidden}
+.cap{position:absolute;left:14px;bottom:14px;background:rgba(11,34,51,.86);color:#fff;font-size:13px;padding:6px 10px;border-radius:8px}
+.search{background:#fff;border-radius:20px;padding:8px;display:flex;gap:8px;align-items:center;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.search .ico{color:var(--ink-3);margin-left:10px}
+.search input{flex:1;min-width:0;border:0;font:500 18px var(--body);color:var(--ink);padding:12px 4px;background:transparent}
+.search input:focus{outline:none}
+.search:focus-within{outline:3px solid var(--laguna)}
+.chips-q{display:flex;flex-wrap:wrap;gap:8px}
+.chips-q button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:8px 14px;font:600 14px var(--body)}
+.chips-q button:hover{background:rgba(255,255,255,.22)}
+.stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:4px}
+.stats div{display:flex;flex-direction:column}
+.stats b{font:800 30px var(--display);color:var(--sol);font-variant-numeric:tabular-nums}
+.stats span{font-size:14px;color:var(--nieve)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero-txt{padding-right:0;padding-block:36px}.hero-img{min-height:260px;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)))}}
+
+/* category tiles */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.cat{display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left;border:0;background:var(--bg-2);border-radius:var(--r);padding:20px;min-height:140px;text-decoration:none;color:var(--ink);transition:transform .15s}
+.cat:hover{transform:translateY(-2px);background:#EAF0F4}
+.cat .dot{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff}
+.cat b{font:700 17px var(--display)}
+.cat small{color:var(--ink-3);font-size:14px;margin-top:-8px}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{display:flex;flex-direction:column;border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff;min-width:0}
+.ph{height:170px;position:relative;display:flex;align-items:flex-end;justify-content:space-between;padding:12px}
+.ph .tag{background:rgba(11,34,51,.86);color:#fff;font:600 12px var(--body);padding:4px 9px;border-radius:999px}
+.card .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:19px;font-weight:700;line-height:1.2}
+.card .meta{display:flex;align-items:center;gap:6px;color:var(--ink-3);font-size:15px}
+.card .desc{color:var(--ink-2);font-size:15px}
+.card .ft{display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:10px}
+.badge{display:inline-flex;align-items:center;gap:4px;font:700 12px var(--body);padding:4px 10px;border-radius:999px;align-self:flex-start}
+.b-list{background:#EEF1F4;color:var(--ink-2)}
+.b-ok{background:var(--ok-bg);color:var(--ok)}
+.b-rec{background:var(--warn-bg);color:var(--warn)}
+.illu{background:linear-gradient(135deg,var(--c1),var(--c2))}
+.illu .big{position:absolute;right:14px;top:12px;color:rgba(255,255,255,.9)}
+.illu .big .ico{width:44px;height:44px;stroke-width:1.6}
+.illu .mono{position:absolute;left:16px;top:10px;font:800 56px/1 var(--display);color:rgba(255,255,255,.28);letter-spacing:-.02em}
+
+/* explorer */
+.explore-top{background:var(--noche);color:#fff;padding-block:36px 28px}
+.explore-top h1{font-size:clamp(30px,4vw,44px);font-weight:800}
+.filters{position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.filters .wrap{display:flex;flex-direction:column;gap:10px;padding-block:12px}
+.row-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}
+.chip{flex:none;min-height:40px;padding:0 15px;border-radius:999px;border:1.5px solid #C7D1DA;background:#fff;font:700 14px var(--display);color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--noche);border-color:var(--noche);color:#fff}
+.chip .n{font:600 12px var(--body);opacity:.75}
+.results-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px;color:var(--ink-3)}
+.empty{border:2px dashed var(--line);border-radius:var(--r-lg);padding:40px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+@media (max-width:860px){.filters{top:calc(env(safe-area-inset-top,0px) + 62px)}}
+
+/* chugchucaras feature */
+.feature{border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1fr 1.2fr;background:var(--fuego);color:#fff}
+.feature .txt{padding:36px;display:flex;flex-direction:column;gap:14px}
+.feature .list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.feature .list button{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:12px;padding:12px 14px;text-align:left;font:600 16px var(--body)}
+.feature .list button:hover{background:rgba(255,255,255,.26)}
+.feature .list small{opacity:.85;font-size:13px}
+@media (max-width:860px){.feature{grid-template-columns:1fr}.feature .img{min-height:220px}}
+
+/* canton tiles */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.ctile{position:relative;min-height:200px;border-radius:20px;overflow:hidden;color:#fff;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;border-bottom:6px solid var(--cc)}
+.ctile b{font:800 24px var(--display)}
+.ctile span{font-size:14px}
+.ctile em{font-style:normal;font:700 12px var(--body);background:rgba(255,255,255,.2);padding:3px 8px;border-radius:999px;align-self:flex-start;margin-bottom:8px}
+
+/* page hero (canton/route) */
+.phero{min-height:360px;display:flex;align-items:flex-end;color:#fff;border-bottom:8px solid var(--cc,var(--sol))}
+.phero .wrap{width:100%;padding-block:36px;display:flex;flex-direction:column;gap:10px}
+.phero h1{font-size:clamp(40px,6vw,68px);font-weight:800;line-height:1}
+.back{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 14px var(--display);text-decoration:none}
+.ptabs{position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.ptabs .wrap{display:flex;gap:2px;overflow-x:auto}
+.ptabs button{flex:none;min-height:54px;padding:0 16px;border:0;background:none;font:700 15px var(--display);color:var(--ink);border-bottom:3px solid transparent}
+.ptabs button[aria-selected="true"]{border-bottom-color:var(--cc);color:var(--ink)}
+@media (max-width:860px){.ptabs{top:calc(env(safe-area-inset-top,0px) + 62px)}}
+
+/* route */
+.rlayout{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.stops{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.stops li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding-bottom:22px;position:relative}
+.stops li::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:var(--line)}
+.stops li:last-child::before{display:none}
+.stops .num{width:44px;height:44px;border-radius:50%;background:var(--cc);color:#fff;display:flex;align-items:center;justify-content:center;font:800 16px var(--display)}
+.stops .when{font:700 12px var(--display);letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+.side{position:sticky;top:110px;border:1.5px solid var(--line);border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 30px rgba(24,50,71,.08)}
+@media (max-width:860px){.rlayout{grid-template-columns:1fr}.side{position:static}}
+
+/* agenda */
+.ev{display:grid;grid-template-columns:120px 1fr auto;gap:18px;align-items:center;border:1.5px solid var(--line);border-radius:20px;padding:14px}
+.ev .d{border-radius:14px;min-height:96px;display:flex;align-items:flex-end;padding:10px;font:800 15px var(--display);color:#fff;background-size:cover;background-position:center}
+@media (max-width:640px){.ev{grid-template-columns:1fr}.ev .d{min-height:140px}}
+
+/* passport */
+.pass{background:var(--noche);color:#fff;border-radius:28px;padding:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.bar{height:14px;border-radius:7px;background:rgba(255,255,255,.18);overflow:hidden;max-width:520px}
+.bar i{display:block;height:100%;background:var(--sol);border-radius:7px;transition:width .4s}
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.stamp{border-radius:20px;min-height:160px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;border:2px dashed #C7D1DA;color:var(--ink-3);background:#fff;text-align:left;font:inherit}
+.stamp.on{border:0;color:#fff;border-bottom:6px solid var(--cc)}
+.stamp b{font:800 18px var(--display)}
+
+/* modal */
+dialog{border:0;padding:0;border-radius:26px;width:min(680px,calc(100vw - 24px));max-height:calc(100vh - 40px);box-shadow:0 30px 80px rgba(0,0,0,.35);color:var(--ink)}
+dialog::backdrop{background:rgba(11,34,51,.6)}
+.md-ph{height:200px;position:relative}
+.md-bd{padding:22px 24px 26px;display:flex;flex-direction:column;gap:12px}
+.md-close{position:absolute;right:12px;top:12px;background:#fff;border:0;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:16px}
+.kv dt{color:var(--ink-3);display:flex;align-items:center;gap:6px}
+.kv dd{margin:0}
+.note{background:var(--bg-2);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--ink-2)}
+.acts{display:flex;flex-wrap:wrap;gap:10px}
+
+/* form */
+.joinwrap{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;position:sticky;top:100px}
+.steps li button{width:100%;display:flex;gap:12px;align-items:center;text-align:left;border:0;background:none;padding:10px 12px;border-radius:14px;font:600 15px var(--body);color:var(--ink-3)}
+.steps li button .n{width:32px;height:32px;border-radius:50%;border:2px solid #C7D1DA;display:flex;align-items:center;justify-content:center;font:800 14px var(--display);flex:none}
+.steps li.cur button{background:var(--bg-2);color:var(--ink)}
+.steps li.cur .n{border-color:var(--fuego);background:var(--fuego);color:#fff}
+.steps li.done .n{border-color:var(--bosque);background:var(--bosque);color:#fff}
+.panel{background:#fff;border:1.5px solid var(--line);border-radius:var(--r-lg);padding:28px;display:flex;flex-direction:column;gap:22px}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}
+.fgrid .full{grid-column:1/-1}
+.f{display:flex;flex-direction:column;gap:6px}
+.f label,.f .lbl{font:700 15px var(--body)}
+.f .req{color:var(--fuego)}
+.f input,.f select,.f textarea{font:500 17px var(--body);color:var(--ink);padding:12px 14px;border:1.5px solid #C7D1DA;border-radius:12px;background:#fff;width:100%}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--laguna);box-shadow:0 0 0 3px rgba(39,169,173,.25)}
+.f.bad input,.f.bad select,.f.bad textarea{border-color:var(--err)}
+.f .err{color:var(--err);font-size:14px;font-weight:600;display:none}
+.f.bad .err{display:block}
+.f .hint{color:var(--ink-3);font-size:14px}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.choice{position:relative;display:flex;flex-direction:column;gap:6px;padding:18px;border:1.5px solid #C7D1DA;border-radius:18px;cursor:pointer;min-height:120px;background:#fff}
+.choice input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.choice b{font:700 17px var(--display)}
+.choice small{color:var(--ink-3);font-size:14px}
+.choice:has(input:checked){border-color:var(--noche);background:var(--noche);color:#fff}
+.choice:has(input:checked) small{color:var(--nieve)}
+.choice:has(input:focus-visible){outline:3px solid var(--laguna)}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.ck{display:inline-flex;align-items:center;gap:8px;border:1.5px solid #C7D1DA;border-radius:999px;padding:8px 14px;font:600 15px var(--body);cursor:pointer}
+.ck:has(input:checked){border-color:var(--bosque);background:var(--ok-bg);color:var(--ok)}
+.ck input{width:18px;height:18px;accent-color:var(--bosque)}
+.agree{display:flex;gap:12px;align-items:flex-start;border:1.5px solid #C7D1DA;border-radius:14px;padding:14px 16px;font-size:16px}
+.agree input{width:20px;height:20px;margin-top:3px;accent-color:var(--bosque);flex:none}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.slot{aspect-ratio:1;max-width:100%;border:2px dashed #C7D1DA;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font:600 14px var(--body);color:var(--ink-3);position:relative;overflow:hidden;background:#fff;cursor:pointer}
+.slot input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.slot.has{border-style:solid;border-color:var(--bosque)}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot .rm{position:absolute;top:6px;right:6px;z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.slot .lb{position:absolute;left:6px;bottom:6px;z-index:2;background:rgba(11,34,51,.86);color:#fff;font-size:12px;padding:3px 8px;border-radius:999px}
+.formnav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}
+.progress{height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--fuego);transition:width .3s}
+.review{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.review div{background:var(--bg-2);border-radius:14px;padding:14px}
+.review dt{font:700 12px var(--display);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3)}
+.review dd{margin:4px 0 0;word-break:break-word}
+.banner{display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:14px 16px;font-size:15px}
+.banner.info{background:#E8F5F6;color:#0A4F52}.banner.warn{background:var(--warn-bg);color:var(--warn)}.banner.err{background:var(--err-bg);color:var(--err)}.banner.ok{background:var(--ok-bg);color:var(--ok)}
+@media (max-width:860px){.joinwrap{grid-template-columns:1fr}.steps{position:static;flex-direction:row;overflow-x:auto}.steps li button{white-space:nowrap}.steps li button .t{display:none}.steps li.cur button .t{display:inline}.fgrid,.review{grid-template-columns:1fr}.panel{padding:20px}}
+
+/* why join */
+.why{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.why div{background:rgba(255,255,255,.08);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.why b{font:700 18px var(--display);color:var(--sol)}
+
+/* chat */
+.fab{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:36;width:64px;height:64px;border-radius:50%;border:0;background:var(--laguna);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(24,50,71,.3)}
+.chat{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:37;width:min(380px,calc(100vw - 32px));max-height:min(560px,calc(100vh - 140px));background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(24,50,71,.35);display:flex;flex-direction:column;overflow:hidden}
+@media (max-width:860px){.chat{bottom:calc(160px + env(safe-area-inset-bottom,0px))}}
+.chat-h{background:var(--laguna);color:#062A2C;padding:12px 12px 12px 18px;display:flex;justify-content:space-between;align-items:center}
+.chat-h b{font:800 16px var(--display)}
+.chat-h button{background:none;border:0;width:44px;height:44px;color:#062A2C}
+.chat-b{padding:14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
+.msg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15px;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--noche);color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:#EEF8F8;border-bottom-left-radius:4px}
+.chat-s{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.chat-s button{border:1.5px solid var(--laguna);background:#fff;color:var(--bosque);border-radius:999px;padding:6px 11px;font:700 13px var(--display)}
+.chat-f{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.chat-f input{flex:1;min-width:0;border:1.5px solid #C7D1DA;border-radius:999px;padding:10px 14px;font:500 16px var(--body)}
+
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--noche);color:#fff;padding:13px 20px;border-radius:14px;font-size:16px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:calc(100vw - 32px)}
+@media (max-width:860px){.toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}}
+
+footer{background:var(--noche-2);color:#C3D0DB;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 48px;justify-content:space-between;padding-block:40px}
+footer a,footer button{color:#E3ECF2;background:none;border:0;padding:0;text-align:left;font:inherit;text-decoration:underline}
+footer .col{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;scroll-behavior:auto !important}}
+
+
+/* planner */
+.voicecta{display:flex;align-items:center;gap:14px;text-align:left;background:var(--fuego);color:#fff;border:0;border-radius:20px;padding:14px 18px;box-shadow:0 10px 26px rgba(230,59,50,.35)}
+.voicecta .ico{width:34px;height:34px}
+.voicecta b{display:block;font:800 18px var(--display)}.voicecta small{font-size:14px;opacity:.92}
+.welcome{position:relative;padding:30px 28px 28px;display:flex;flex-direction:column;gap:14px;background:var(--noche);color:#fff}
+.welcome h2{font-size:clamp(26px,4vw,34px);font-weight:800;padding-right:44px}
+.welcome .wsub{color:var(--nieve);font-size:17px}
+.welcome .md-close{color:var(--ink)}
+.wbox{display:flex;gap:10px;align-items:stretch;background:#fff;border-radius:20px;padding:10px;border:1.5px solid var(--line)}
+.wbox.dark{border:0}
+.wbox textarea{flex:1;min-width:0;border:0;resize:vertical;font:500 17px var(--body);color:var(--ink);padding:8px 4px;background:transparent;min-height:72px}
+.wbox textarea:focus{outline:none}
+.wbox:focus-within{outline:3px solid var(--laguna)}
+.wbox .btn{align-self:flex-end}
+.mic{flex:none;width:64px;min-height:64px;border-radius:18px;border:0;background:var(--fuego);color:#fff;display:flex;align-items:center;justify-content:center;align-self:flex-start}
+.mic.on{background:var(--bosque);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(15,110,115,.6)}100%{box-shadow:0 0 0 14px rgba(15,110,115,0)}}
+.wst{font-size:14px;color:var(--nieve);min-height:1.2em}
+#rIn_st{color:var(--ink-3)}
+.wchips{display:flex;flex-wrap:wrap;gap:8px}
+.wchips button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:8px 13px;font:600 14px var(--body)}
+.wchips.light span{background:var(--bg-2);border-radius:999px;padding:8px 13px;font-size:15px}
+.spin{width:56px;height:56px;border-radius:50%;border:5px solid var(--bg-2);border-top-color:var(--fuego);animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.optabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.optabs button{display:flex;flex-direction:column;gap:4px;text-align:left;border:1.5px solid #C7D1DA;background:#fff;border-radius:18px;padding:16px 18px}
+.optabs button small{font:700 12px var(--display);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3)}
+.optabs button b{font:800 18px var(--display)}
+.optabs button span{font:700 16px var(--display);color:var(--fuego);font-variant-numeric:tabular-nums}
+.optabs button[aria-selected="true"]{background:var(--noche);border-color:var(--noche);color:#fff}
+.optabs button[aria-selected="true"] small{color:var(--nieve)}.optabs button[aria-selected="true"] span{color:var(--sol)}
+.plan-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+@media (max-width:860px){.plan-grid{grid-template-columns:1fr}}
+.regs{display:flex;flex-wrap:wrap;gap:8px}.regs span{color:#fff;border-radius:999px;padding:5px 12px;font:700 13px var(--display)}
+.day{border:1.5px solid var(--line);border-left:6px solid var(--rc);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.day .dh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.day .dn{background:var(--rc);color:#fff;border-radius:999px;padding:4px 11px;font:800 13px var(--display)}
+.day .rg{color:var(--ink-3);font:700 14px var(--display)}
+.day h3{font-size:19px}
+.day .kv{font-size:15px}
+.stack{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:2px;background:var(--bg-2)}
+@media (max-width:640px){.wbox{flex-wrap:wrap}.wbox textarea{flex:1 1 calc(100% - 80px)}.wbox .btn{flex:1 1 100%}.welcome{padding:24px 18px}}
+
+/* photos */
+.ph-ev1{--img:url('/kawsay/img/ev1.jpg')}
+.ph-ev2{--img:url('/kawsay/img/ev2.jpg')}
+.ph-ev5{--img:url('/kawsay/img/ev5.jpg')}
+.ph-ev6{--img:url('/kawsay/img/ev6.jpg')}
+.ph-hero2{--img:url('/kawsay/img/hero2.jpg')}
+.ph-lat{--img:url('/kawsay/img/lat.jpg')}
+.ph-lat_c1{--img:url('/kawsay/img/lat_c1.jpg')}
+.ph-lat_c2{--img:url('/kawsay/img/lat_c2.jpg')}
+.ph-lat_c3{--img:url('/kawsay/img/lat_c3.jpg')}
+.ph-lat_v1{--img:url('/kawsay/img/lat_v1.jpg')}
+.ph-lat_v2{--img:url('/kawsay/img/lat_v2.jpg')}
+.ph-lat_v3{--img:url('/kawsay/img/lat_v3.jpg')}
+.ph-man{--img:url('/kawsay/img/man.jpg')}
+.ph-man_c1{--img:url('/kawsay/img/man_c1.jpg')}
+.ph-man_c2{--img:url('/kawsay/img/man_c2.jpg')}
+.ph-man_c3{--img:url('/kawsay/img/man_c3.jpg')}
+.ph-man_d1{--img:url('/kawsay/img/man_d1.jpg')}
+.ph-man_d2{--img:url('/kawsay/img/man_d2.jpg')}
+.ph-man_d3{--img:url('/kawsay/img/man_d3.jpg')}
+.ph-man_e1{--img:url('/kawsay/img/man_e1.jpg')}
+.ph-man_e2{--img:url('/kawsay/img/man_e2.jpg')}
+.ph-man_v1{--img:url('/kawsay/img/man_v1.jpg')}
+.ph-man_v2{--img:url('/kawsay/img/man_v2.jpg')}
+.ph-man_v3{--img:url('/kawsay/img/man_v3.jpg')}
+.ph-pan{--img:url('/kawsay/img/pan.jpg')}
+.ph-pan_c1{--img:url('/kawsay/img/pan_c1.jpg')}
+.ph-pan_c2{--img:url('/kawsay/img/pan_c2.jpg')}
+.ph-pan_c3{--img:url('/kawsay/img/pan_c3.jpg')}
+.ph-pan_v1{--img:url('/kawsay/img/pan_v1.jpg')}
+.ph-pan_v2{--img:url('/kawsay/img/pan_v2.jpg')}
+.ph-pan_v3{--img:url('/kawsay/img/pan_v3.jpg')}
+.ph-puj{--img:url('/kawsay/img/puj.jpg')}
+.ph-puj_c1{--img:url('/kawsay/img/puj_c1.jpg')}
+.ph-puj_c2{--img:url('/kawsay/img/puj_c2.jpg')}
+.ph-puj_e1{--img:url('/kawsay/img/puj_e1.jpg')}
+.ph-puj_e2{--img:url('/kawsay/img/puj_e2.jpg')}
+.ph-puj_e3{--img:url('/kawsay/img/puj_e3.jpg')}
+.ph-puj_v1{--img:url('/kawsay/img/puj_v1.jpg')}
+.ph-puj_v2{--img:url('/kawsay/img/puj_v2.jpg')}
+.ph-puj_v3{--img:url('/kawsay/img/puj_v3.jpg')}
+.ph-r1{--img:url('/kawsay/img/r1.jpg')}
+.ph-r2{--img:url('/kawsay/img/r2.jpg')}
+.ph-r3{--img:url('/kawsay/img/r3.jpg')}
+.ph-r4{--img:url('/kawsay/img/r4.jpg')}
+.ph-r5{--img:url('/kawsay/img/r5.jpg')}
+.ph-r6{--img:url('/kawsay/img/r6.jpg')}
+.ph-r7{--img:url('/kawsay/img/r7.jpg')}
+.ph-r8{--img:url('/kawsay/img/r8.jpg')}
+.ph-sal{--img:url('/kawsay/img/sal.jpg')}
+.ph-sal_c1{--img:url('/kawsay/img/sal_c1.jpg')}
+.ph-sal_c2{--img:url('/kawsay/img/sal_c2.jpg')}
+.ph-sal_c3{--img:url('/kawsay/img/sal_c3.jpg')}
+.ph-sal_v1{--img:url('/kawsay/img/sal_v1.jpg')}
+.ph-sal_v2{--img:url('/kawsay/img/sal_v2.jpg')}
+.ph-sal_v3{--img:url('/kawsay/img/sal_v3.jpg')}
+.ph-saq{--img:url('/kawsay/img/saq.jpg')}
+.ph-saq_c1{--img:url('/kawsay/img/saq_c1.jpg')}
+.ph-saq_c2{--img:url('/kawsay/img/saq_c2.jpg')}
+.ph-saq_e1{--img:url('/kawsay/img/saq_e1.jpg')}
+.ph-saq_e2{--img:url('/kawsay/img/saq_e2.jpg')}
+.ph-saq_v1{--img:url('/kawsay/img/saq_v1.jpg')}
+.ph-saq_v2{--img:url('/kawsay/img/saq_v2.jpg')}
+.ph-saq_v3{--img:url('/kawsay/img/saq_v3.jpg')}
+.ph-sig{--img:url('/kawsay/img/sig.jpg')}
+.ph-sig_e1{--img:url('/kawsay/img/sig_e1.jpg')}
+.ph-sig_v1{--img:url('/kawsay/img/sig_v1.jpg')}
+.ph-sig_v2{--img:url('/kawsay/img/sig_v2.jpg')}
+.ph-sig_v3{--img:url('/kawsay/img/sig_v3.jpg')}
+[class*="ph-"]{background:var(--img) center/cover no-repeat}
+[class*="ph-"].sh{background:linear-gradient(180deg,rgba(11,34,51,.12) 0%,rgba(11,34,51,.84) 100%),var(--img) center/cover no-repeat}
+.phx{background-color:var(--noche)}
+</style>
+</head>
+<body>
+<script>window.KAWSAY_SITE=true;</script>
+
+
+<div class="alert"><div class="wrap"><span id="alertTxt"></span><button type="button" data-act="safety" id="alertBtn"></button></div></div>
+<header class="hdr"><div class="wrap">
+  <a class="logo" href="#inicio" aria-label="Kawsay Cotopaxi, inicio">
+    <span class="w"><span style="color:#183247">K</span><svg width="26" height="22" viewBox="0 0 160 140" aria-hidden="true" style="margin:0 1px"><polygon points="0,140 62,12 98,12 160,140" fill="#F7A713"/><polygon points="62,12 98,12 116,50 104,42 92,54 80,40 68,54 56,42 44,50" fill="#183247"/></svg><span style="color:#27A9AD">W</span><span style="color:#E63B32">S</span><span style="color:#73439A">A</span><span style="color:#0F6E73">Y</span></span>
+    <small>ALIVE · COTOPAXI</small>
+  </a>
+  <nav class="nav" aria-label="Principal" id="nav"></nav>
+  <div class="hdr-act">
+    <button type="button" class="iconbtn" data-act="lang" id="langBtn" aria-label="Cambiar idioma" style="font:700 14px var(--display)">EN</button>
+    <a class="btn btn-fuego" href="#unete" id="joinBtn">Únete a la red</a>
+  </div>
+</div></header>
+<main id="view" tabindex="-1"></main>
+<footer><div class="wrap">
+  <div class="col" style="flex:1 1 300px"><b style="font:800 20px var(--display);color:#fff;letter-spacing:1px">KAWSAY · ALIVE · COTOPAXI</b><span id="ftAbout"></span></div>
+  <div class="col"><a href="#explorar">Directorio</a><a href="#rutas">Rutas</a><a href="#agenda">Agenda</a><a href="#fuentes" id="ftSrc">Fuentes y créditos</a></div>
+  <div class="col"><a href="#unete">Registra tu negocio</a><span>Emergencias: ECU 911</span><a href="#panel" id="ftPanel" hidden>Panel de solicitudes</a></div>
+</div></footer>
+<nav class="tabs" aria-label="Principal móvil" id="tabs"></nav>
+<button type="button" class="fab" data-act="chat" aria-label="Abrir asistente Kawsay"><svg class="ico lg" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg></button>
+<div id="chatBox" hidden></div>
+<dialog id="dlg" aria-label="Ficha del negocio"></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const DATA = {"S": {"lamana": ["GAD Municipal de La Maná · Establecimientos turísticos", "https://lamana.gob.ec/establecimientos-turisticos/"], "gor_g": ["Goraymi · Gestores gastronómicos de Cotopaxi", "https://www.goraymi.com/es-ec/cotopaxi/gestores-gastronomicos/todas-publicaciones-e26e4d019"], "gor_h": ["Goraymi · Hosterías de Cotopaxi", "https://www.goraymi.com/es-ec/cotopaxi/hosterias/all-articles-ee654d019"], "wan": ["Wanderlog · Dónde almorzar en Latacunga", "https://wanderlog.com/list/geoCategory/321905/lunch"], "ta_lr": ["Tripadvisor · Restaurantes de Latacunga", "https://www.tripadvisor.com/Restaurants-g1202652-Latacunga_Cotopaxi_Province.html"], "ta_lh": ["Tripadvisor · Hoteles de Latacunga", "https://www.tripadvisor.com/Hotels-g1202652-Latacunga_Cotopaxi_Province-Hotels.html"], "ta_s": ["Tripadvisor · Salcedo", "https://www.tripadvisor.com/Restaurants-g3181859-Salcedo_Cotopaxi_Province.html"], "ta_sh": ["Tripadvisor · Turismo en Salcedo", "https://www.tripadvisor.com/Tourism-g3181859-Salcedo_Cotopaxi_Province-Vacations.html"], "ta_m": ["Tripadvisor · Hoteles de La Maná", "https://www.tripadvisor.com/Hotels-g3862483-La_Mana_Cotopaxi_Province-Hotels.html"], "bk_lasso": ["Booking · Alojamientos en Lasso", "https://www.booking.com/city/ec/lasso.html"], "bk_chug": ["Booking · Alojamientos en Chugchilán", "https://www.booking.com/city/ec/chugchilan.en-gb.html"], "bk_isin": ["Booking · Alojamientos en Isinliví y Sigchos", "https://hotel.routard.com/city/ec/isinlivi.en-gb.html?aid=304142"], "bk_quil": ["Booking · Alojamientos en Quilotoa", "https://hotel.routard.com/guest-house/city/ec/quilotoa.en-gb.html?aid=304142"], "bk_puj": ["Booking · Alojamientos cerca de Pujilí", "https://hotel.routard.com/city/ec/pujili.en-gb.html?aid=304142"], "turisec": ["Turisec · Chugchucaras Rosita", "https://www.turisec.com/las-chugchucaras-de-latacunga-no-tienen-copia-rosita-jimenez-tiene-su-secreto/"], "fsq": ["Foursquare · Chugchucaras La Mama Negra", "https://es.foursquare.com/v/chugchucaras-la-mama-negra/4be9b0086295c9b682878508"], "todoaki": ["Todoaki · Chugchucaras Anita", "https://www.todoaki.com/negocio/chugchucaras-anita"], "pangua": ["GAD Municipal de Pangua · Lugares turísticos", "https://pangua.gob.ec/lugares-turisticos-pangua-2020/"], "lf": ["Last Frontiers · Cotopaxi", "https://lastfrontiers.com/ecuador/regions/cotopaxi-and-papallacta"], "from": ["Frommer’s · Restaurantes de Latacunga", "https://www.frommers.com/destinations/latacunga/restaurants/"], "sab": ["South America Backpacker · Quilotoa Loop", "https://southamericabackpacker.com/quilotoa-loop/"]}, "D": [{"n": "Chugchucaras Rosita", "c": "comer", "s": "Chugchucaras", "k": "lat", "l": "Panamericana E35 (matriz y dos sucursales)", "d": "Negocio familiar desde los años setenta. Abre todos los días de 9:30 a 19:00, salvo Viernes Santo.", "f": "turisec", "id": "n000"}, {"n": "Chugchucaras La Mama Negra", "c": "comer", "s": "Chugchucaras", "k": "lat", "l": "Calle Quijano y Ordóñez", "d": "Chugchucaras a leña en la zona tradicional del plato.", "f": "fsq", "id": "n001"}, {"n": "Chugchucaras Aquí", "c": "comer", "s": "Chugchucaras", "k": "lat", "l": "Av. Unidad Nacional y Catalina Rivera", "d": "", "f": "wan", "id": "n002"}, {"n": "Chugchucaras Don Goy", "c": "comer", "s": "Chugchucaras", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n003"}, {"n": "Chugchucaras Anita", "c": "comer", "s": "Chugchucaras", "k": "lat", "l": "Latacunga", "d": "", "f": "todoaki", "id": "n004"}, {"n": "Las Allullas de La Estación", "c": "comer", "s": "Allullas y panaderías", "k": "lat", "l": "Sector La Estación", "d": "", "f": "gor_g", "id": "n005"}, {"n": "Panificadora La Estación", "c": "comer", "s": "Allullas y panaderías", "k": "lat", "l": "Sector La Estación", "d": "Allullas especiales.", "f": "gor_g", "id": "n006"}, {"n": "La Casa de las Allullas", "c": "comer", "s": "Allullas y panaderías", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n007"}, {"n": "Tienda San Agustín", "c": "comer", "s": "Allullas y panaderías", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n008"}, {"n": "Salón Rubí", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n009"}, {"n": "Paradero Los Pinos", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n010"}, {"n": "Club Cotopaxi Restaurante", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n011"}, {"n": "Helados La Chalupita", "c": "comer", "s": "Helados y postres", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n012"}, {"n": "Cunani Tienda Cafetería", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_g", "id": "n013"}, {"n": "Los Hornados de Riobamba", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Calle 2 de Mayo y Guayaquil", "d": "Hornado.", "f": "wan", "id": "n014"}, {"n": "Ancestral Cocina Ecuatoriana de Autor", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Latacunga", "d": "Cocina ecuatoriana de autor, ceviches y opciones veganas.", "f": "wan", "id": "n015"}, {"n": "Restaurante Di Fragole", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Av. Unidad Nacional", "d": "Almuerzos del día.", "f": "wan", "id": "n016"}, {"n": "Los Nevados", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Vía a Mulaló", "d": "Comida ecuatoriana.", "f": "wan", "id": "n017"}, {"n": "A Lo Montubio", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Av. Unidad Nacional", "d": "Cocina manabita y desayunos.", "f": "wan", "id": "n018"}, {"n": "Bocado Café Restaurante", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Av. Unidad Nacional", "d": "Comida ecuatoriana e internacional.", "f": "wan", "id": "n019"}, {"n": "Verde Sabroso Restaurante", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Av. Unidad Nacional y Gabriela Mistral", "d": "", "f": "wan", "id": "n020"}, {"n": "Restaurante La Gavia Grill", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Sánchez de Orellana y Félix Valencia", "d": "Comida tradicional con opciones vegetarianas.", "f": "wan", "id": "n021"}, {"n": "La Churrasque", "c": "comer", "s": "Comida típica", "k": "lat", "l": "Calle Quito", "d": "Platos caseros y pollo a la brasa.", "f": "wan", "id": "n022"}, {"n": "Fuegos y Brazas Asadero", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Calle Río Langoa", "d": "", "f": "wan", "id": "n023"}, {"n": "Parrilladas La Española", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Calle 2 de Mayo", "d": "", "f": "wan", "id": "n024"}, {"n": "D’Campes Asadero de Pollos", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Av. 5 de Junio", "d": "", "f": "wan", "id": "n025"}, {"n": "Curuchupa Cerveza Artesanal & Grill", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Calle Quito y Padre Salcedo", "d": "Cerveza artesanal y parrilla.", "f": "wan", "id": "n026"}, {"n": "Entre Fuegos Restaurante", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Latacunga", "d": "Carnes a la parrilla.", "f": "ta_lr", "id": "n027"}, {"n": "El Alabado Restaurante & Grill", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n028"}, {"n": "Mikey’s Grill", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n029"}, {"n": "Freedom Lounge Restaurant", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n030"}, {"n": "Pollos Jimmy’s", "c": "comer", "s": "Parrillas y asaderos", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n031"}, {"n": "Cactus Brunch & Coffee", "c": "comer", "s": "Cafés", "k": "lat", "l": "Calle General Maldonado", "d": "Brunch, café y sánduches.", "f": "wan", "id": "n032"}, {"n": "Magic Lounge and Coffee", "c": "comer", "s": "Cafés", "k": "lat", "l": "Calle Quito y Av. Rumiñahui", "d": "", "f": "wan", "id": "n033"}, {"n": "Pepas Frozen Yogurt & Grill", "c": "comer", "s": "Cafés", "k": "lat", "l": "Calle Antonia Vela", "d": "", "f": "wan", "id": "n034"}, {"n": "Kipi Nutrition Med", "c": "comer", "s": "Cafés", "k": "lat", "l": "Quijano y Ordóñez", "d": "Vegano y orgánico.", "f": "wan", "id": "n035"}, {"n": "El Gringo y La Gorda", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "Café y gastropub.", "f": "ta_lr", "id": "n036"}, {"n": "Cafetería D’Tere con Sabor a Hogar", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n037"}, {"n": "Bundaváh Café Fogata", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n038"}, {"n": "Salinerito Cafetería", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "Productos de Salinas.", "f": "ta_lr", "id": "n039"}, {"n": "Abuelo Café", "c": "comer", "s": "Cafés", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n040"}, {"n": "Café de Hostal Tiana", "c": "comer", "s": "Cafés", "k": "lat", "l": "Guayaquil 5-32 y Quito", "d": "Café, almuerzos ligeros y repostería.", "f": "from", "id": "n041"}, {"n": "Giardino Cucina Italiana", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Italiana.", "f": "ta_lr", "id": "n042"}, {"n": "Pizzería Buona", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n043"}, {"n": "La Fornace", "c": "comer", "s": "Internacional", "k": "lat", "l": "Calle Quito", "d": "Pizza y helados.", "f": "ta_lr", "id": "n044"}, {"n": "Flambé Restaurante", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n045"}, {"n": "Restaurante Pizzería California", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n046"}, {"n": "Guadalajara Grill", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Mexicana.", "f": "ta_lr", "id": "n047"}, {"n": "Terraza Resto Bar", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n048"}, {"n": "The Crown", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lr", "id": "n049"}, {"n": "Fútbol Times", "c": "comer", "s": "Internacional", "k": "lat", "l": "Calle General Maldonado", "d": "Bar y alitas.", "f": "ta_lr", "id": "n050"}, {"n": "Mestura", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Italiana.", "f": "ta_lr", "id": "n051"}, {"n": "La Cocina del Gabo", "c": "comer", "s": "Internacional", "k": "lat", "l": "Av. Unidad Nacional", "d": "Peruana.", "f": "ta_lr", "id": "n052"}, {"n": "La Camila", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Española, paella.", "f": "ta_lr", "id": "n053"}, {"n": "Joomiwarma", "c": "comer", "s": "Internacional", "k": "lat", "l": "Av. Rumiñahui", "d": "Shawarma.", "f": "ta_lr", "id": "n054"}, {"n": "LlaminGo Wings", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Alitas.", "f": "ta_lr", "id": "n055"}, {"n": "Nice Cream & Tutto Freddo", "c": "comer", "s": "Internacional", "k": "lat", "l": "Latacunga", "d": "Helados.", "f": "ta_lr", "id": "n056"}, {"n": "París Restaurant", "c": "comer", "s": "Internacional", "k": "lat", "l": "Av. Eloy Alfaro", "d": "", "f": "ta_lr", "id": "n057"}, {"n": "Chifa China", "c": "comer", "s": "Internacional", "k": "lat", "l": "Antonia Vela y 5 de Junio", "d": "Comida china.", "f": "from", "id": "n058"}, {"n": "Pizzería Buon Giorno", "c": "comer", "s": "Internacional", "k": "lat", "l": "Sánchez de Orellana y General Maldonado", "d": "", "f": "from", "id": "n059"}, {"n": "REEC Latacunga by Oro Verde Hotels", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n060"}, {"n": "Hotel Endamo", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n061"}, {"n": "Hotel San Agustín Plaza", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n062"}, {"n": "Hotel Central", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n063"}, {"n": "Hotel Rosim", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n064"}, {"n": "Hotel Cotopaxi", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n065"}, {"n": "Hotel Rodelu", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n066"}, {"n": "Loreto Hotel", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n067"}, {"n": "Hotel Joshed Imperial", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n068"}, {"n": "Gran Hotel Rex", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n069"}, {"n": "Hotel Makroz", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n070"}, {"n": "Hotel El Álamo", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n071"}, {"n": "Balcones del Río Hotel", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n072"}, {"n": "Golden Rest Latacunga", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n073"}, {"n": "Hotel Maderanegra by Huasicama", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "bk_puj", "id": "n074"}, {"n": "Hotel Jimmy Latacunga", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "bk_puj", "id": "n075"}, {"n": "Hotel Los Ilinizas", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "bk_puj", "id": "n076"}, {"n": "Hostel Santiago de Latacunga", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "bk_puj", "id": "n077"}, {"n": "Mak Inn House", "c": "dormir", "s": "Hoteles", "k": "lat", "l": "Latacunga", "d": "", "f": "bk_puj", "id": "n078"}, {"n": "Hostal Tiana", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Guayaquil 5-32 y Quito", "d": "", "f": "ta_lh", "id": "n079"}, {"n": "Hostal Rosita Latacunga", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n080"}, {"n": "Old House Backpackers B&B", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n081"}, {"n": "Hostal Huasicama", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n082"}, {"n": "La Posada del Viajero", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n083"}, {"n": "Rosim Family Hostel", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n084"}, {"n": "Hostal Central", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n085"}, {"n": "Hostel Tierra de Fuego", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n086"}, {"n": "Latacunga Hostel", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n087"}, {"n": "Adventure Climbers", "c": "dormir", "s": "Hostales", "k": "lat", "l": "Latacunga", "d": "", "f": "ta_lh", "id": "n088"}, {"n": "Hacienda San Agustín de Callo", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Lasso, Mulaló", "d": "Hacienda colonial al pie del Cotopaxi, sobre muros incas.", "f": "bk_lasso", "id": "n089"}, {"n": "Hacienda La Ciénega", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Lasso", "d": "Hacienda histórica.", "f": "bk_lasso", "id": "n090"}, {"n": "Hacienda Hato Verde", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Mulaló", "d": "", "f": "bk_lasso", "id": "n091"}, {"n": "Cuscungo Cotopaxi Hostel & Lodge", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Chasqui", "d": "", "f": "bk_lasso", "id": "n092"}, {"n": "Rondador Cotopaxi", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Chasqui", "d": "", "f": "bk_lasso", "id": "n093"}, {"n": "El Chasqui Guest House", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Chasqui", "d": "", "f": "bk_lasso", "id": "n094"}, {"n": "Hostería Cuello de Luna", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Lasso", "d": "", "f": "bk_lasso", "id": "n095"}, {"n": "Rumipaxi Lodge", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "bk_lasso", "id": "n096"}, {"n": "Wasi Andina Lodge", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "bk_lasso", "id": "n097"}, {"n": "Hostal Casa Cotopaxi", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "bk_lasso", "id": "n098"}, {"n": "Evegreen Cotopaxi Hotel", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "bk_lasso", "id": "n099"}, {"n": "Cabañas Los Volcanes", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "ta_lh", "id": "n100"}, {"n": "Sacharuna Lodge", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "ta_lh", "id": "n101"}, {"n": "Cabañas La Laguna", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "ta_lh", "id": "n102"}, {"n": "Huagra Corral Hostel", "c": "dormir", "s": "Haciendas y lodges", "k": "lat", "l": "Zona del Cotopaxi", "d": "", "f": "ta_lh", "id": "n103"}, {"n": "Hostería Quinta Colorada", "c": "dormir", "s": "Hosterías", "k": "lat", "l": "Latacunga", "d": "", "f": "gor_h", "id": "n104"}, {"n": "Greivag Turismo", "c": "experiencias", "s": "Operadoras de turismo", "k": "lat", "l": "Latacunga", "d": "Tours y experiencias.", "f": "gor_h", "id": "n105"}, {"n": "Heladería de Salcedo 1956", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n106"}, {"n": "Helados Salcedo Jaime Jijón", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n107"}, {"n": "Magui Helados de Salcedo", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n108"}, {"n": "Bambi Helados de Salcedo", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n109"}, {"n": "Bambi Fruit Helados de Salcedo", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n110"}, {"n": "Heladería Alexander", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n111"}, {"n": "Heladería Carnpica", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n112"}, {"n": "Carmen Helados de Salcedo", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n113"}, {"n": "Rico Pinol de Salcedo", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "Pinol tradicional.", "f": "gor_g", "id": "n114"}, {"n": "Ecuafruta", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n115"}, {"n": "Jugos de la Samba", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n116"}, {"n": "Heladería Michita", "c": "comer", "s": "Helados y postres", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_s", "id": "n117"}, {"n": "Panadería Angelita de Salcedo", "c": "comer", "s": "Allullas y panaderías", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n118"}, {"n": "Café Tradición en Salcedo", "c": "comer", "s": "Allullas y panaderías", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n119"}, {"n": "Hornado Doña Susanita", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n120"}, {"n": "Hornados La Samba Elcira", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n121"}, {"n": "Mote con cachiguira del Mercado Central", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Mercado Central de Salcedo", "d": "", "f": "gor_g", "id": "n122"}, {"n": "Picantería Mamá Chabi", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n123"}, {"n": "Picantería Sal y Pimienta", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n124"}, {"n": "Restaurante Comida Criolla", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n125"}, {"n": "Paradero Rincón del Mar", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n126"}, {"n": "Parador Delicia Marina", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_g", "id": "n127"}, {"n": "Balcón de Yambo", "c": "comer", "s": "Comida típica", "k": "sal", "l": "Laguna de Yambo", "d": "Restaurante con vista a la laguna.", "f": "gor_g", "id": "n128"}, {"n": "Pizzería Bella Dona", "c": "comer", "s": "Internacional", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_s", "id": "n129"}, {"n": "Mar y Andino", "c": "comer", "s": "Internacional", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_s", "id": "n130"}, {"n": "Chelentano Grill & Pub", "c": "comer", "s": "Internacional", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_s", "id": "n131"}, {"n": "Hostería Rumipamba de las Rosas", "c": "dormir", "s": "Hosterías", "k": "sal", "l": "San Miguel de Salcedo", "d": "", "f": "gor_h", "id": "n132"}, {"n": "Hostería Imperio Real", "c": "dormir", "s": "Hosterías", "k": "sal", "l": "San Miguel de Salcedo", "d": "", "f": "gor_h", "id": "n133"}, {"n": "Hostería Los Molinos de Yanayacu", "c": "dormir", "s": "Hosterías", "k": "sal", "l": "Salcedo", "d": "", "f": "gor_h", "id": "n134"}, {"n": "Hostería & Spa Surillal", "c": "dormir", "s": "Hoteles", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_sh", "id": "n135"}, {"n": "Hawkay Glamping", "c": "dormir", "s": "Hoteles", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_sh", "id": "n136"}, {"n": "Hotel Jarfi", "c": "dormir", "s": "Hoteles", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_sh", "id": "n137"}, {"n": "Ortega’s Guest House", "c": "dormir", "s": "Hoteles", "k": "sal", "l": "Salcedo", "d": "", "f": "ta_sh", "id": "n138"}, {"n": "Paradero El Tangán", "c": "comer", "s": "Comida típica", "k": "puj", "l": "Pujilí", "d": "", "f": "gor_g", "id": "n139"}, {"n": "La Posada del Danzante", "c": "comer", "s": "Comida típica", "k": "puj", "l": "Pujilí", "d": "", "f": "gor_g", "id": "n140"}, {"n": "Fritadas de Doña Imelda", "c": "comer", "s": "Comida típica", "k": "puj", "l": "Pujilí", "d": "", "f": "gor_g", "id": "n141"}, {"n": "Chocolate Monge", "c": "comer", "s": "Comida típica", "k": "puj", "l": "Pujilí", "d": "Chocolate artesanal.", "f": "gor_g", "id": "n142"}, {"n": "Doña Naty Finca Integral", "c": "comer", "s": "Comida típica", "k": "puj", "l": "Pujilí", "d": "Finca agroturística.", "f": "gor_g", "id": "n143"}, {"n": "Hostería El Capulí", "c": "dormir", "s": "Hosterías", "k": "puj", "l": "Pujilí", "d": "", "f": "gor_h", "id": "n144"}, {"n": "Barro Lodge", "c": "dormir", "s": "Hosterías", "k": "puj", "l": "Angamarca", "d": "", "f": "gor_h", "id": "n145"}, {"n": "Hostería Chukirawa", "c": "dormir", "s": "Hosterías", "k": "puj", "l": "Quilotoa", "d": "", "f": "gor_h", "id": "n146"}, {"n": "Hostería Runa Wasi Quilotoa", "c": "dormir", "s": "Hosterías", "k": "puj", "l": "Quilotoa", "d": "", "f": "gor_h", "id": "n147"}, {"n": "Quilotoa Green Lake", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_quil", "id": "n148"}, {"n": "Hostal Kuyllur Ñan", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Zumbahua", "d": "", "f": "bk_quil", "id": "n149"}, {"n": "Cabañas Quilotoa", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_quil", "id": "n150"}, {"n": "Hostería Alpaka Quilotoa", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_quil", "id": "n151"}, {"n": "Hotel Mirador Rumy Cruz Wasi", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Zumbahua", "d": "", "f": "bk_quil", "id": "n152"}, {"n": "Hostal Conejito Quilotoa", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_chug", "id": "n153"}, {"n": "Hotel Princesa Toa", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_chug", "id": "n154"}, {"n": "Martita’s House Hostal", "c": "dormir", "s": "Hostales", "k": "puj", "l": "Quilotoa", "d": "", "f": "bk_chug", "id": "n155"}, {"n": "Pintura de Tigua", "c": "compras", "s": "Artesanía y arte", "k": "puj", "l": "Tigua, Zumbahua", "d": "Arte naíf sobre piel de borrego, nacido en las comunidades de Tigua.", "f": "gor_g", "id": "n156"}, {"n": "Alfarería La Victoria", "c": "compras", "s": "Artesanía y arte", "k": "puj", "l": "La Victoria", "d": "Cerámica artesanal.", "f": "gor_g", "id": "n157"}, {"n": "Mamá Miche", "c": "comer", "s": "Comida típica", "k": "saq", "l": "Saquisilí", "d": "", "f": "gor_g", "id": "n158"}, {"n": "Salón Blanquita", "c": "comer", "s": "Comida típica", "k": "saq", "l": "Saquisilí", "d": "", "f": "gor_g", "id": "n159"}, {"n": "Restobar Saquisilí", "c": "comer", "s": "Comida típica", "k": "saq", "l": "Saquisilí", "d": "", "f": "gor_g", "id": "n160"}, {"n": "Picantería Doña Estersita", "c": "comer", "s": "Comida típica", "k": "sig", "l": "Sigchos", "d": "", "f": "gor_g", "id": "n161"}, {"n": "Hostal Mamá Hilda", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n162"}, {"n": "Hostal Doña Clarita Inn", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n163"}, {"n": "Hostal El Vaquero", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n164"}, {"n": "Hostal Cloud Forest", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n165"}, {"n": "Hostal The Backpackers", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n166"}, {"n": "Lagoon Hotel Chugchilán", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n167"}, {"n": "The Black Sheep Inn", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_chug", "id": "n168"}, {"n": "Llullu Llama Mountain Lodge", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Isinliví", "d": "", "f": "bk_chug", "id": "n169"}, {"n": "Urku Ñan Quilotoa", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_chug", "id": "n170"}, {"n": "Hostal Taita Cristóbal", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Isinliví", "d": "", "f": "bk_isin", "id": "n171"}, {"n": "Hostal El Inca", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_isin", "id": "n172"}, {"n": "Hostal La Rosita", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Chugchilán", "d": "", "f": "bk_isin", "id": "n173"}, {"n": "Hostería La Estela", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n174"}, {"n": "Hostería San José de Sigchos", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n175"}, {"n": "The Frailejón Mountain", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n176"}, {"n": "Sigchos Lodge", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n177"}, {"n": "Starlight Mountain Lodge", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n178"}, {"n": "El Trapiche", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n179"}, {"n": "Inti Amanta Lodge", "c": "dormir", "s": "Hostales", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n180"}, {"n": "Turismo Comunitario Guayama Grande", "c": "dormir", "s": "Turismo comunitario", "k": "sig", "l": "Sigchos", "d": "", "f": "bk_isin", "id": "n181"}, {"n": "Hostería Comunidad San Miguel de Pilapuchín", "c": "dormir", "s": "Turismo comunitario", "k": "sig", "l": "Sigchos", "d": "", "f": "gor_h", "id": "n182"}, {"n": "Spa Terapéutico La Salud", "c": "experiencias", "s": "Balneario", "k": "man", "l": "Av. 19 de Mayo y Héroes del Cenepa", "d": "", "f": "lamana", "id": "n183"}, {"n": "Balneario El Prado", "c": "experiencias", "s": "Balneario", "k": "man", "l": "Sucumbíos y Francisco Sandoval, La Playita", "d": "", "f": "lamana", "id": "n184"}, {"n": "Estero de Meyli", "c": "experiencias", "s": "Balneario", "k": "man", "l": "Salcedo y Medardo Ángel Silva", "d": "", "f": "lamana", "id": "n185"}, {"n": "El Cacagual", "c": "experiencias", "s": "Centro de recreación", "k": "man", "l": "Vía San Pablo de Maldonado, El Carmen", "d": "", "f": "lamana", "id": "n186"}, {"n": "Quinta Aurelio Angueta", "c": "experiencias", "s": "Centro de recreación", "k": "man", "l": "Vía San Pablo de Maldonado, El Carmen", "d": "", "f": "lamana", "id": "n187"}, {"n": "Quinta Sahurí", "c": "experiencias", "s": "Centro de recreación", "k": "man", "l": "El Moral", "d": "", "f": "lamana", "id": "n188"}, {"n": "Xplora", "c": "experiencias", "s": "Operadoras de turismo", "k": "man", "l": "Av. 19 de Mayo y Velasco Ibarra", "d": "", "f": "lamana", "id": "n189"}, {"n": "Hostería Somagg", "c": "dormir", "s": "Hosterías", "k": "man", "l": "Km 5, Recto El Moral, vía Valencia", "d": "", "f": "lamana", "id": "n190"}, {"n": "Hostería Acuática D’Patrick’s", "c": "dormir", "s": "Hosterías", "k": "man", "l": "Vía a Quevedo", "d": "", "f": "lamana", "id": "n191"}, {"n": "Hostería Acuática Carlos Patricio", "c": "dormir", "s": "Hosterías", "k": "man", "l": "El Carmen", "d": "", "f": "lamana", "id": "n192"}, {"n": "Korimana Healing Retreat", "c": "dormir", "s": "Haciendas y lodges", "k": "man", "l": "Km 5, vía Estero Hondo", "d": "", "f": "lamana", "id": "n193"}, {"n": "Hotel Las Cascadas", "c": "dormir", "s": "Hoteles", "k": "man", "l": "Av. 19 de Mayo y General Enríquez Gallo", "d": "", "f": "lamana", "id": "n194"}, {"n": "El Refugio de Grace", "c": "dormir", "s": "Hoteles", "k": "man", "l": "Av. 19 de Mayo y Carchi, El Triunfo", "d": "", "f": "lamana", "id": "n195"}, {"n": "Hotel Somagg", "c": "dormir", "s": "Hoteles", "k": "man", "l": "Av. Carlos Lozada Quintana y Quito", "d": "", "f": "lamana", "id": "n196"}, {"n": "Hotel Internacional", "c": "dormir", "s": "Hoteles", "k": "man", "l": "Av. 19 de Mayo y Zacarías Pérez", "d": "", "f": "lamana", "id": "n197"}, {"n": "Hostal La Herradura", "c": "dormir", "s": "Hostales", "k": "man", "l": "Av. 19 de Mayo y Medardo Ángel Silva", "d": "", "f": "lamana", "id": "n198"}, {"n": "Casa de Huéspedes Jacaranda", "c": "dormir", "s": "Hostales", "k": "man", "l": "Vía a San Pablo de Manguila", "d": "", "f": "lamana", "id": "n199"}, {"n": "Cevichería Colmada", "c": "comer", "s": "Comida típica", "k": "man", "l": "Av. 19 de Mayo y El Oro", "d": "", "f": "lamana", "id": "n200"}, {"n": "Café y Bolón", "c": "comer", "s": "Comida típica", "k": "man", "l": "Av. 19 de Mayo y Los Ríos", "d": "", "f": "lamana", "id": "n201"}, {"n": "Picantería D’Marcelo", "c": "comer", "s": "Comida típica", "k": "man", "l": "Av. 19 de Mayo y Los Ríos", "d": "", "f": "lamana", "id": "n202"}, {"n": "Amnesia Club", "c": "noche", "s": "Vida nocturna", "k": "man", "l": "Eugenio Espejo y Amazonas", "d": "", "f": "lamana", "id": "n203"}, {"n": "Exes Music", "c": "noche", "s": "Vida nocturna", "k": "man", "l": "Esmeraldas y Manabí", "d": "", "f": "lamana", "id": "n204"}, {"n": "Grand Hotel La Maná", "c": "dormir", "s": "Hoteles", "k": "man", "l": "La Maná", "d": "", "f": "ta_m", "id": "n205"}, {"n": "Jardín de los Sueños", "c": "dormir", "s": "Hoteles", "k": "man", "l": "La Maná", "d": "", "f": "ta_m", "id": "n206"}, {"n": "Hostería Hacienda San Vicente", "c": "dormir", "s": "Hoteles", "k": "man", "l": "La Maná", "d": "", "f": "ta_m", "id": "n207"}, {"n": "Cotopaxi Rainforest Family Hostel", "c": "dormir", "s": "Hoteles", "k": "man", "l": "La Maná", "d": "", "f": "ta_m", "id": "n208"}, {"n": "Hotel Relaxis", "c": "dormir", "s": "Hoteles", "k": "man", "l": "La Maná", "d": "", "f": "ta_m", "id": "n209"}, {"n": "Hostería Sacha Wasi", "c": "dormir", "s": "Hosterías", "k": "man", "l": "La Maná", "d": "", "f": "gor_h", "id": "n210"}, {"n": "Complejo Ecoturístico Rancho Escondido", "c": "experiencias", "s": "Centro de recreación", "k": "pan", "l": "Siguidaza, Pinllopata", "d": "Criadero de truchas y cabañas.", "f": "pangua", "id": "n211"}]};
+const PH = ["ev1", "ev2", "ev5", "ev6", "hero2", "lat", "lat_c1", "lat_c2", "lat_c3", "lat_v1", "lat_v2", "lat_v3", "man", "man_c1", "man_c2", "man_c3", "man_d1", "man_d2", "man_d3", "man_e1", "man_e2", "man_v1", "man_v2", "man_v3", "pan", "pan_c1", "pan_c2", "pan_c3", "pan_v1", "pan_v2", "pan_v3", "puj", "puj_c1", "puj_c2", "puj_e1", "puj_e2", "puj_e3", "puj_v1", "puj_v2", "puj_v3", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "sal", "sal_c1", "sal_c2", "sal_c3", "sal_v1", "sal_v2", "sal_v3", "saq", "saq_c1", "saq_c2", "saq_e1", "saq_e2", "saq_v1", "saq_v2", "saq_v3", "sig", "sig_e1", "sig_v1", "sig_v2", "sig_v3"];
+</script>
+<script>
+(function () {
+'use strict';
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('kawsay:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('kawsay:' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const SITE = !!window.KAWSAY_SITE;
+const canSend = () => SITE || !!(S.db && S.uid);
+async function api(path, body) {
+  const r = await fetch(path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  let j = {}; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) { const err = new Error(j.error || 'No pudimos completar la solicitud. Inténtalo de nuevo.'); err.status = r.status; throw err; }
+  return j;
+}
+const has = (k) => PH.indexOf(k) >= 0;
+const ph = (k) => (k && has(k) ? 'ph-' + k : '');
+const I = {
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  fork: '<path d="M7 3v8M4 3v5a3 3 0 0 0 6 0V3M7 11v10M17 21V3c-2.5 1.5-3.5 4-3.5 8h3.5"/>',
+  bed: '<path d="M3 18V7M3 13h18v5M21 18v-3a3 3 0 0 0-3-3h-8v1"/><circle cx="7" cy="10.5" r="1.8"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  bag: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  music: '<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',
+  pin: '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+  heart: '<path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  back: '<path d="M19 12H5M11 18l-6-6 6-6"/>',
+  check: '<path d="m5 12 5 5 9-10"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  route: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  home: '<path d="M3 11 12 4l9 7v9H3z"/><path d="M9 20v-6h6v6"/>',
+  stamp: '<circle cx="12" cy="9" r="5"/><path d="M8 13l-2 8h12l-2-8"/>',
+  ext: '<path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  doc: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>',
+  send: '<path d="M4 12 20 4l-6 16-3-7z"/>',
+  shield: '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'
+};
+const ico = (n, cls) => '<svg class="ico ' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true">' + I[n] + '</svg>';
+
+/* ---------- content ---------- */
+const CANT = [
+  { k: 'lat', n: 'Latacunga', s: 'Mama Negra · Parque Nacional Cotopaxi', c: '#E63B32', d: 'Capital de la provincia. Centro histórico, la fiesta de la Mama Negra y la puerta de entrada al Parque Nacional Cotopaxi.' },
+  { k: 'puj', n: 'Pujilí', s: 'Laguna Quilotoa · pintura de Tigua', c: '#27A9AD', d: 'El cráter del Quilotoa, los danzantes del Corpus Christi, la pintura de Tigua y la cerámica de La Victoria.' },
+  { k: 'sal', n: 'Salcedo', s: 'Helados y laguna de Yambo', c: '#F7A713', d: 'La tierra de los helados de Salcedo, el hornado y la laguna de Yambo.' },
+  { k: 'saq', n: 'Saquisilí', s: 'La feria de las plazas', c: '#73439A', d: 'Cada jueves sus plazas se llenan con una de las ferias indígenas más grandes de los Andes.' },
+  { k: 'sig', n: 'Sigchos', s: 'Chugchilán · Isinliví · Toachi', c: '#0F6E73', d: 'Cañones, bosque nublado y los pueblos del Loop del Quilotoa: Chugchilán, Isinliví y Sigchos.' },
+  { k: 'man', n: 'La Maná', s: 'Subtrópico, cascadas y balnearios', c: '#3E8E41', d: 'El lado cálido de Cotopaxi: cascadas, balnearios, cacao y hosterías con piscina.' },
+  { k: 'pan', n: 'Pangua', s: 'De la sierra al trópico', c: '#183247', d: 'Las siete cascadas del Sapanal, trapiches de panela y miradores entre la sierra y la costa.' }
+];
+const CK = Object.fromEntries(CANT.map((c) => [c.k, c]));
+const CATS = {
+  comer: { es: 'Dónde comer', en: 'Eat', i: 'fork', c1: '#F7A713', c2: '#E63B32' },
+  dormir: { es: 'Dónde dormir', en: 'Stay', i: 'bed', c1: '#27A9AD', c2: '#183247' },
+  experiencias: { es: 'Experiencias', en: 'Experiences', i: 'compass', c1: '#0F6E73', c2: '#27A9AD' },
+  compras: { es: 'Artesanía y compras', en: 'Crafts & shopping', i: 'bag', c1: '#73439A', c2: '#E63B32' },
+  noche: { es: 'Vida nocturna', en: 'Nightlife', i: 'music', c1: '#73439A', c2: '#183247' }
+};
+const PHOTO_BY_NAME = { 'Korimana Healing Retreat': 'man_d1', 'El Refugio de Grace': 'man_d2', 'Hotel Somagg': 'man_d3', 'El Cacagual': 'man_e1', 'Estero de Meyli': 'man_e2', 'Café y Bolón': 'man_c2', 'Picantería D’Marcelo': 'man_c3', 'Pintura de Tigua': 'puj_e1', 'Alfarería La Victoria': 'puj_e2' };
+const PHOTO_BY_SUB = { Chugchucaras: 'lat_c1', 'Helados y postres': 'sal_c1' };
+const VER = {
+  lat: [['Parque Nacional Cotopaxi', 'r1', 'El volcán activo más visitado de Ecuador, con senderos, lagunas y refugio.'], ['Laguna de Limpiopungo', 'lat_v1', 'Sendero corto alrededor de la laguna, a más de 3.800 m.'], ['Refugio José Rivas', 'lat_v3', 'Base de ascenso en las faldas del Cotopaxi.'], ['Catedral de Latacunga', 'lat_v2', 'En el centro histórico, frente al parque Vicente León.'], ['La Mama Negra', 'lat', 'Fiesta mayor de la ciudad, en septiembre y noviembre.']],
+  puj: [['Laguna del Quilotoa', 'puj_v1', 'Laguna turquesa dentro de un cráter volcánico; se baja a pie y se rema en kayak.'], ['Mirador del Quilotoa', 'puj', 'Vista completa del cráter desde el borde.'], ['Zumbahua', 'puj_v2', 'Iglesia, plaza y feria comunitaria camino al Quilotoa.'], ['Cañón del río Toachi', 'puj_v3', 'Miradores sobre el cañón.'], ['Tigua', 'puj_e3', 'Comunidad de los pintores de Tigua.'], ['Mercado de Pujilí', 'r3', 'Frutas, granos y comida de la sierra.']],
+  sal: [['Laguna de Yambo', 'sal_v1', 'Laguna entre colinas, junto a la Panamericana y la línea del tren.'], ['Mirador de Yambo', 'sal_v2', 'Vista sobre la laguna.'], ['Iglesia de San Miguel de Salcedo', 'sal_v3', 'En el centro de Salcedo.'], ['Monasterio Cistercense Santa María del Paraíso', '', 'Monasterio en el campo de Salcedo.'], ['Laguna de Yambo al amanecer', 'sal', 'La niebla sobre el agua en las primeras horas.']],
+  saq: [['Feria de las plazas', 'saq', 'Los jueves: granos, animales, textiles, canastos y comida en varias plazas.'], ['Plaza mayor de Saquisilí', 'saq_v1', 'Parque central e iglesia matriz.'], ['Cochapamba', 'saq_v2', 'Paisaje rural andino.'], ['Laguna Tiloncocha', 'saq_v3', 'Páramo y aves.'], ['Canastos de la feria', 'saq_e1', 'Cestería tejida a mano.']],
+  sig: [['Chugchilán', 'sig', 'Pueblo entre cañones, parada del Loop del Quilotoa.'], ['Cañón del Toachi', 'sig_v1', 'Caminatas y miradores.'], ['Aguas termales', 'sig_v2', 'Piscinas naturales en el bosque.'], ['Cascada Licamancha', 'sig_v3', 'Cascada en el bosque nublado.'], ['Feria de Sigchos', 'sig_e1', 'Productos y artesanías del cantón.']],
+  man: [['Cascada del Oso', 'man', 'Salto de agua entre la selva subtropical.'], ['Cascada del Milagro', 'man_v1', 'Una de las cascadas más altas del cantón.'], ['Balneario de la Cascada', 'man_v2', 'Pozas para nadar.'], ['Cueva de los murciélagos', 'man_v3', 'Recorrido con guía.']],
+  pan: [['Las siete cascadas del Sapanal', 'pan_v1', 'Recinto El Deseo, parroquia Moraspungo.'], ['Cascadas del Sapanal', 'pan_v2', 'Pozas y saltos a lo largo del estero.'], ['El Corazón', 'pan_v3', 'Cabecera cantonal de Pangua.'], ['Churo Pucara', 'pan', 'Ruina inca y mirador al este de El Corazón.'], ['Angamarca la Vieja', '', 'Sitio arqueológico, a unas tres horas a pie desde Ramón Campaña.'], ['Piedra de la Cruz', '', 'Sitio arqueológico en la vía Moraspungo – Guapara.'], ['Aguas Calientes', '', 'Fuente termal a una hora a pie desde San Ramón.'], ['Piguapungo', '', 'Mirador y capilla en la vía El Corazón – Moraspungo.'], ['Poza del río Guapara', '', 'Pozas de río en la vía El Corazón – Guapara.'], ['Represa Catazacón', '', 'Pesca y baño en el río Angamarca.'], ['Los trapiches', '', 'Molinos de caña donde se hace panela.']]
+};
+const ROUTES = [
+  { n: 'Avenida de los Volcanes', k: 'Latacunga', d: '1–2 días', cat: 'Naturaleza', c: '#F7A713', img: 'r1', desc: 'Parque Nacional Cotopaxi, laguna de Limpiopungo y haciendas históricas al pie del volcán.',
+    stops: [['Mañana', 'Ingreso al Parque Nacional Cotopaxi', 'Control de ingreso y primer mirador del volcán.'], ['Mediodía', 'Laguna de Limpiopungo', 'Caminata corta alrededor de la laguna.'], ['Tarde', 'Almuerzo de chugchucaras', 'El plato emblema de Latacunga, de regreso por la Panamericana.'], ['Noche', 'Hacienda al pie del volcán', 'Hospedaje en una hacienda de Lasso o Mulaló.']],
+    biz: ['Hacienda San Agustín de Callo', 'Hacienda La Ciénega', 'Cuscungo Cotopaxi Hostel & Lodge', 'Chugchucaras Rosita'] },
+  { n: 'Loop del Quilotoa', k: 'Pujilí · Sigchos', d: '3–4 días a pie', cat: 'Aventura', c: '#27A9AD', img: 'r2', desc: 'Caminata entre comunidades, con la laguna del Quilotoa y hospedaje en hostales locales.',
+    stops: [['Día 1', 'Sigchos a Isinliví', 'Primer tramo entre quebradas y cultivos.'], ['Día 2', 'Isinliví a Chugchilán', 'Bajada al río y subida a Chugchilán.'], ['Día 3', 'Chugchilán a Quilotoa', 'Ascenso hasta el borde del cráter.'], ['Día 4', 'Quilotoa y Zumbahua', 'Bajada a la laguna, kayak y regreso a Latacunga.']],
+    biz: ['Hostal Taita Cristóbal', 'Llullu Llama Mountain Lodge', 'Hostal Cloud Forest', 'Hostal Mamá Hilda', 'Hostería Chukirawa'] },
+  { n: 'Mercados y arte andino', k: 'Saquisilí · Pujilí', d: '1 día', cat: 'Cultura', c: '#73439A', img: 'r3', desc: 'La feria de los jueves en Saquisilí, la pintura de Tigua y la cerámica de La Victoria.',
+    stops: [['Mañana', 'Feria de Saquisilí', 'Las plazas en día de feria.'], ['Mediodía', 'Almuerzo típico', 'Comida de la plaza o de un salón local.'], ['Tarde', 'La Victoria y Tigua', 'Talleres de cerámica y pintura.']],
+    biz: ['Mamá Miche', 'Salón Blanquita', 'Alfarería La Victoria', 'Pintura de Tigua', 'Paradero El Tangán'] },
+  { n: 'Latacunga patrimonial y Mama Negra', k: 'Latacunga', d: '1 día', cat: 'Cultura', c: '#E63B32', img: 'r4', desc: 'Centro histórico, allullas con queso de hoja, chugchucaras y la historia de la Mama Negra.',
+    stops: [['Mañana', 'Centro histórico', 'Catedral, parque Vicente León y calles coloniales.'], ['Media mañana', 'Allullas y queso de hoja', 'En el sector de La Estación.'], ['Mediodía', 'Chugchucaras', 'En la calle Quijano y Ordóñez, zona tradicional del plato.'], ['Tarde', 'La Mama Negra', 'Personajes, música y comparsas.']],
+    biz: ['Chugchucaras La Mama Negra', 'Las Allullas de La Estación', 'Hostal Tiana', 'Hotel Rodelu'] },
+  { n: 'Sabores de Salcedo', k: 'Salcedo', d: 'Medio día', cat: 'Sabores', c: '#F7A713', img: 'r5', desc: 'Helados de Salcedo, hornado, pinol y la laguna de Yambo.',
+    stops: [['Mañana', 'Heladerías tradicionales', 'Helados de fruta en capas de colores.'], ['Mediodía', 'Hornado y mote', 'En el Mercado Central de Salcedo.'], ['Tarde', 'Laguna de Yambo', 'Mirador y almuerzo con vista.']],
+    biz: ['Heladería de Salcedo 1956', 'Helados Salcedo Jaime Jijón', 'Hornado Doña Susanita', 'Mote con cachiguira del Mercado Central', 'Balcón de Yambo'] },
+  { n: 'Del páramo al trópico', k: 'Pangua · La Maná', d: '2–3 días', cat: 'Naturaleza', c: '#0F6E73', img: 'r6', desc: 'Bajar de la sierra al subtrópico: trapiches, cascadas, balnearios y hosterías con piscina.',
+    stops: [['Día 1', 'Pangua', 'Truchas en Pinllopata y miradores de El Corazón.'], ['Día 2', 'Cascadas del Sapanal', 'Sendero entre siete cascadas, en Moraspungo.'], ['Día 3', 'La Maná', 'Cascadas, balnearios y descanso.']],
+    biz: ['Complejo Ecoturístico Rancho Escondido', 'Korimana Healing Retreat', 'El Cacagual', 'Hotel Las Cascadas'] },
+  { n: 'Cotopaxi en bici', k: 'Latacunga', d: '1–2 días', cat: 'Aventura', c: '#3D7CC9', img: 'r7', desc: 'Rutas de páramo alrededor del volcán, con hospedaje en lodges de la zona de Chasqui y Lasso.',
+    stops: [['Día 1', 'Páramo del Cotopaxi', 'Rutas de altura con apoyo vehicular.'], ['Día 2', 'Bajada por caminos rurales', 'De regreso hacia Lasso.']],
+    biz: ['Rondador Cotopaxi', 'Cuscungo Cotopaxi Hostel & Lodge', 'Hostería Cuello de Luna'] },
+  { n: 'Turismo comunitario', k: 'Sigchos', d: '1–3 días', cat: 'Cultura', c: '#6B8F3E', img: 'r8', desc: 'Vivir con comunidades del páramo y el bosque nublado.',
+    stops: [['Día 1', 'Llegada a la comunidad', 'Recibimiento y comida con la familia anfitriona.'], ['Día 2', 'Minga y caminata', 'Trabajo comunitario y paseo por el territorio.']],
+    biz: ['Turismo Comunitario Guayama Grande', 'Hostería Comunidad San Miguel de Pilapuchín'] }
+];
+const EVENTS = [
+  ['SEP · NOV', 'La Mama Negra', 'Latacunga', 'La fiesta mayor de Cotopaxi, con comparsas, música y personajes tradicionales.', '#E63B32', 'ev1'],
+  ['JUN', 'Corpus Christi', 'Pujilí', 'Danzantes y castillos en una de las fiestas más vistosas de los Andes.', '#27A9AD', 'ev2'],
+  ['JUN', 'Inti Raymi', 'Comunidades kichwa', 'La fiesta del sol y de las cosechas.', '#F7A713', ''],
+  ['FEB', 'Carnaval', 'Toda la provincia', 'Desfiles y comparsas en cada cantón.', '#73439A', ''],
+  ['JUEVES', 'Feria de las plazas', 'Saquisilí', 'El gran mercado semanal de la provincia.', '#0F6E73', 'ev5'],
+  ['TODO EL AÑO', 'Fiestas cantonales', 'Los 7 cantones', 'Cada GAD publicará aquí sus fiestas y ferias.', '#183247', 'ev6']
+];
+
+/* ---------- i18n (interfaz) ---------- */
+const TX = {
+  es: { alert: '<b>Seguro en Cotopaxi:</b> consulta el estado del volcán antes de subir', alertBtn: 'Ver fuente oficial', join: 'Únete a la red', nav: ['Inicio', 'Planificar', 'Explorar', 'Rutas', 'Cantones', 'Agenda', 'Mi viaje'], tabs: ['Inicio', 'Explorar', 'Planificar', 'Mi viaje', 'Únete'],
+    kicker: 'Cotopaxi · Ecuador · del hielo al trópico', h1a: 'El volcán está vivo.', h1b: 'Tú también.', sub: 'Siete cantones, ocho rutas y más de doscientos negocios locales para comer, dormir y vivir Cotopaxi. A 89 km de Quito.',
+    ph: 'Busca chugchucaras, hostales, helados, cascadas…', go: 'Buscar', try: 'Prueba:', biz: 'negocios', cant: 'cantones', routes: 'rutas', quick: '¿Qué buscas hoy?', all: 'Ver todo', save: 'Guardar', saved: 'Guardado', see: 'Ver ficha', listed: 'Listado público', verified: 'Verificado',
+    explore: 'Explora Cotopaxi', results: 'resultados', allC: 'Todos los cantones', allCat: 'Todo', clear: 'Limpiar filtros', none: 'No encontramos resultados con esos filtros.', mytrip: 'Mi viaje', about: 'Prototipo de la propuesta «Promoción digital del destino Cotopaxi» del plan de trabajo de Hipólito «Polo» Carrera, candidato a la Prefectura de Cotopaxi. Sitio de la campaña De POLO a POLO: no es un sitio oficial de la Prefectura ni de ningún GAD.' },
+  en: { alert: '<b>Safe in Cotopaxi:</b> check the volcano status before going up', alertBtn: 'Official source', join: 'Join the network', nav: ['Home', 'Plan', 'Explore', 'Routes', 'Cantons', 'Events', 'My trip'], tabs: ['Home', 'Explore', 'Plan', 'My trip', 'Join'],
+    kicker: 'Cotopaxi · Ecuador · from ice to the tropics', h1a: 'The volcano is alive.', h1b: 'So are you.', sub: 'Seven cantons, eight routes and over two hundred local businesses to eat, sleep and live Cotopaxi. 89 km from Quito.',
+    ph: 'Search chugchucaras, hostels, ice cream, waterfalls…', go: 'Search', try: 'Try:', biz: 'businesses', cant: 'cantons', routes: 'routes', quick: 'What are you looking for?', all: 'See all', save: 'Save', saved: 'Saved', see: 'Details', listed: 'Public listing', verified: 'Verified',
+    explore: 'Explore Cotopaxi', results: 'results', allC: 'All cantons', allCat: 'All', clear: 'Clear filters', none: 'No results with these filters.', mytrip: 'My trip', about: 'Prototype of the proposal “Digital promotion of the Cotopaxi destination” from the work plan of Hipólito “Polo” Carrera, candidate for Prefect of Cotopaxi. A De POLO a POLO campaign site: not an official site of the Prefecture or any local government.' }
+};
+
+/* ---------- state ---------- */
+const S = {
+  lang: store.get('lang', 'es'), q: '', fk: '', fc: '', fs: '', ctab: 'ver',
+  saved: new Set(store.get('saved', [])), stamps: new Set(store.get('stamps', [])),
+  form: store.get('draft', null) || blankForm(), step: store.get('step', 1), sent: null,
+  chatOpen: false, chat: [], pub: [], subs: [], db: null, user: null, uid: null, canEdit: false, sample: null, dbReady: false
+};
+function blankForm() { return { perfil: '', nombre: '', cat: '', sub: '', canton: '', parroquia: '', dir: '', horario: '', precio: '', desc: '', idiomas: ['Español'], serv: [], resp: '', cargo: '', wa: '', email: '', redes: '', ruc: '', fotos: [null, null, null, null, null], docs: [], autoriza: false, datos: false, boletin: false, claim: '' }; }
+const t = (k) => (TX[S.lang] && TX[S.lang][k]) != null ? TX[S.lang][k] : TX.es[k];
+const catName = (c) => (CATS[c] ? (S.lang === 'en' ? CATS[c].en : CATS[c].es) : c);
+
+const SRC = DATA.S;
+let DIR = DATA.D.map((b) => Object.assign({ st: 'list' }, b));
+function allDir() { return DIR.concat(S.pub); }
+function photoFor(b) { return b.img || PHOTO_BY_NAME[b.n] || PHOTO_BY_SUB[b.s] || ''; }
+const byName = (n) => allDir().find((b) => b.n === n);
+
+/* ---------- cards ---------- */
+function bizHead(b, h) {
+  const p = photoFor(b);
+  const cat = CATS[b.c] || CATS.comer;
+  const tag = '<span class="tag">' + esc(b.s) + '</span>';
+  if (b.photo) return '<div class="ph" style="height:' + h + 'px;background:url(' + esc(b.photo) + ') center/cover">' + tag + '</div>';
+  if (p) return '<div class="ph ' + ph(p) + '" style="height:' + h + 'px">' + tag + (PHOTO_BY_NAME[b.n] ? '' : '<span class="tag">Foto referencial</span>') + '</div>';
+  const mono = b.n.replace(/^(Hostal|Hotel|Hostería|Hosteria|Hacienda|Restaurante|Heladería|Helados|Chugchucaras|Picantería|La|El|Los|Las|The)\s+/i, '').split(/\s+/).filter((w) => /^[A-Za-zÁÉÍÓÚÑ]/.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+  return '<div class="ph illu" style="height:' + h + 'px;--c1:' + cat.c1 + ';--c2:' + cat.c2 + '"><span class="mono" aria-hidden="true">' + esc(mono) + '</span><span class="big">' + ico(cat.i) + '</span>' + tag + '</div>';
+}
+function badge(b) { return b.st === 'ok' ? '<span class="badge b-ok">' + ico('shield', 'sm') + t('verified') + '</span>' : '<span class="badge b-list">' + t('listed') + '</span>'; }
+function bizCard(b) {
+  const on = S.saved.has(b.id);
+  return '<article class="card">' + bizHead(b, 150) + '<div class="bd">' + badge(b) + '<h3>' + esc(b.n) + '</h3><div class="meta">' + ico('pin', 'sm') + '<span>' + esc((b.l && b.l !== CK[b.k].n ? b.l + ' · ' : '') + CK[b.k].n) + '</span></div>' + (b.d ? '<p class="desc">' + esc(b.d) + '</p>' : '') +
+    '<div class="ft"><button type="button" class="btn btn-noche btn-sm" data-act="open" data-id="' + b.id + '">' + t('see') + '</button><button type="button" class="iconbtn ' + (on ? 'on' : '') + '" data-act="save" data-id="' + b.id + '" aria-pressed="' + on + '" aria-label="' + (on ? t('saved') : t('save')) + ': ' + esc(b.n) + '">' + ico('heart', 'sm') + '</button></div></div></article>';
+}
+function placeCard(p, k) {
+  const id = 'v:' + k + ':' + p[0]; const on = S.saved.has(id);
+  const head = p[1] && has(p[1]) ? '<div class="ph ' + ph(p[1]) + '"></div>' : '<div class="ph illu" style="--c1:' + CK[k].c + ';--c2:#183247"><span class="big">' + ico('eye') + '</span></div>';
+  return '<article class="card">' + head + '<div class="bd"><span class="badge b-rec">Atractivo</span><h3>' + esc(p[0]) + '</h3><p class="desc">' + esc(p[2]) + '</p><div class="ft"><a class="btn btn-noche btn-sm" target="_blank" rel="noopener" href="' + mapsUrl(p[0] + ' ' + CK[k].n) + '">' + ico('map', 'sm') + 'Cómo llegar</a><button type="button" class="iconbtn ' + (on ? 'on' : '') + '" data-act="save" data-id="' + esc(id) + '" aria-pressed="' + on + '" aria-label="Guardar ' + esc(p[0]) + '">' + ico('heart', 'sm') + '</button></div></div></article>';
+}
+const mapsUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q + ', Cotopaxi, Ecuador');
+
+/* ---------- views ---------- */
+function vInicio() {
+  const D = allDir();
+  const chug = D.filter((b) => b.s === 'Chugchucaras');
+  const helados = D.filter((b) => b.s === 'Helados y postres' && b.k === 'sal');
+  const cnt = (c) => D.filter((b) => b.c === c).length;
+  const qs = S.lang === 'en' ? ['Chugchucaras', 'Quilotoa', 'Ice cream', 'Hacienda', 'Waterfall'] : ['Chugchucaras', 'Quilotoa', 'Helados', 'Hacienda', 'Cascada'];
+  return '<section class="hero"><div class="wrap"><div class="hero-txt"><p class="kicker" style="color:var(--sol)">' + t('kicker') + '</p><h1>' + t('h1a') + ' <span>' + t('h1b') + '</span></h1><p class="lead">' + t('sub') + '</p>' +
+    '<form class="search" data-form="search" role="search">' + ico('search') + '<label class="sr" for="q0">' + t('ph') + '</label><input id="q0" name="q" type="search" placeholder="' + t('ph') + '" autocomplete="off"><button class="btn btn-sol" type="submit">' + t('go') + '</button></form>' +
+    '<button type="button" class="voicecta" data-act="welcome">' + ico('mic', 'lg') + '<span><b>' + (S.lang === 'en' ? 'Plan your trip by voice' : 'Planifica tu viaje con tu voz') + '</b><small>' + (S.lang === 'en' ? 'Days, budget, family, pets: we build the route' : 'Días, presupuesto, familia, mascotas: te armamos la ruta') + '</small></span></button>' +
+    '<div class="chips-q"><span style="align-self:center;font-size:14px;color:var(--nieve)">' + t('try') + '</span>' + qs.map((q) => '<button type="button" data-act="quickq" data-q="' + esc(q === 'Ice cream' ? 'Helados' : q === 'Waterfall' ? 'Cascada' : q) + '">' + esc(q) + '</button>').join('') + '</div>' +
+    '<div class="stats"><div><b>' + D.length + '</b><span>' + t('biz') + '</span></div><div><b>7</b><span>' + t('cant') + '</span></div><div><b>8</b><span>' + t('routes') + '</span></div></div></div>' +
+    '<div class="hero-img ' + ph('hero2') + '"><span class="cap">Laguna de Limpiopungo · Parque Nacional Cotopaxi</span></div></div></section>' +
+
+    '<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="h2">' + t('quick') + '</h2></div><div class="cats">' +
+    Object.keys(CATS).map((c) => '<button type="button" class="cat" data-act="gocat" data-c="' + c + '"><span class="dot" style="background:linear-gradient(135deg,' + CATS[c].c1 + ',' + CATS[c].c2 + ')">' + ico(CATS[c].i, 'lg') + '</span><b>' + catName(c) + '</b><small>' + cnt(c) + ' ' + t('biz') + '</small></button>').join('') +
+    '<a class="cat" href="#rutas"><span class="dot" style="background:linear-gradient(135deg,#E63B32,#73439A)">' + ico('route', 'lg') + '</span><b>' + (S.lang === 'en' ? 'Routes' : 'Rutas') + '</b><small>8 ' + t('routes') + '</small></a>' +
+    '<a class="cat" href="#agenda"><span class="dot" style="background:linear-gradient(135deg,#27A9AD,#0F6E73)">' + ico('cal', 'lg') + '</span><b>' + (S.lang === 'en' ? 'Festivals' : 'Fiestas') + '</b><small>Mama Negra, Corpus…</small></a></div></div></section>' +
+
+    '<section class="sec-tight"><div class="wrap"><div class="feature"><div class="txt"><p class="kicker" style="color:#FFE3A3">Ruta del sabor</p><h2 class="h2">Las chugchucaras de Latacunga</h2><p style="font-size:18px">Fritada, mote, canguil, maduro, empanada y cuero reventado. Estos son los locales que encontramos; si falta el tuyo, regístralo.</p><div class="list">' +
+    chug.map((b) => '<button type="button" data-act="open" data-id="' + b.id + '"><span>' + esc(b.n) + '<br><small>' + esc(b.l) + '</small></span>' + ico('arrow', 'sm') + '</button>').join('') +
+    '</div><div class="acts"><a class="btn btn-sol" href="#unete">Registrar mi local</a><button type="button" class="btn btn-ghost" data-act="gosub" data-s="Chugchucaras">Ver en el directorio</button></div></div><div class="img ' + ph('lat_c1') + '" style="min-height:320px;position:relative"><span class="cap">Chugchucaras · foto referencial</span></div></div></div></section>' +
+
+    '<section class="sec"><div class="wrap"><div class="sec-head"><div><p class="kicker">Salcedo</p><h2 class="h2">' + helados.length + ' heladerías de Salcedo</h2></div><button type="button" class="link" data-act="gosub" data-s="Helados y postres">' + t('all') + ' ' + ico('arrow', 'sm') + '</button></div><div class="grid">' + helados.slice(0, 4).map(bizCard).join('') + '</div></div></section>' +
+
+    '<section class="sec sec-alt"><div class="wrap"><div class="sec-head"><h2 class="h2">' + (S.lang === 'en' ? 'Routes ready to go' : 'Rutas listas para recorrer') + '</h2><a class="link" href="#rutas">' + t('all') + ' ' + ico('arrow', 'sm') + '</a></div><div class="grid">' + ROUTES.slice(0, 3).map(routeCard).join('') + '</div></div></section>' +
+
+    '<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="h2">' + (S.lang === 'en' ? 'Seven cantons, one Cotopaxi' : 'Siete cantones, un solo Cotopaxi') + '</h2></div>' + cantonGrid() + '</div></section>' + proposalBand() + joinBanner();
+}
+function cantonGrid() {
+  return '<div class="cgrid">' + CANT.map((c) => '<a class="ctile ' + (has(c.k) ? ph(c.k) + ' sh' : '') + '" style="--cc:' + c.c + ';background-color:' + c.c + '" href="#canton-' + c.k + '"><em>' + (function (n) { return n + ' ' + (n === 1 ? (S.lang === 'en' ? 'business' : 'negocio') : t('biz')); })(allDir().filter((b) => b.k === c.k).length) + '</em><b>' + c.n + '</b><span>' + esc(c.s) + '</span></a>').join('') + '</div>';
+}
+function routeCard(r) {
+  const i = ROUTES.indexOf(r);
+  return '<article class="card"><div class="ph ' + ph(r.img) + '" style="height:190px"><span class="tag">' + esc(r.cat) + '</span></div><div class="bd"><div class="meta">' + ico('pin', 'sm') + esc(r.k) + ' · ' + esc(r.d) + '</div><h3>' + esc(r.n) + '</h3><p class="desc">' + esc(r.desc) + '</p><div class="ft"><a class="btn btn-noche btn-sm" href="#ruta-' + (i + 1) + '">Ver ruta</a></div></div></article>';
+}
+const PLAN_PROJ = [['13', 'Promoción digital del destino Cotopaxi', 'Más visitantes para los 7 cantones. Kawsay es el prototipo de este proyecto.'], ['12', 'Infraestructura turística', 'Más y mejores servicios para recibir visitantes.'], ['11', 'Ferias y eventos productivos', 'Espacios de comercialización para productores.'], ['19', 'Cadenas productivas', 'Capacitación, innovación y tecnología para 4 cadenas.'], ['20', 'Agricultura familiar campesina', 'Una red de innovación por producto.']];
+function proposalBand() {
+  return '<section class="sec sec-alt"><div class="wrap" style="display:flex;flex-direction:column;gap:22px"><div style="max-width:820px;display:flex;flex-direction:column;gap:10px"><p class="kicker">Una propuesta de Hipólito «Polo» Carrera</p><h2 class="h2">Kawsay hace realidad la promoción digital del destino Cotopaxi</h2><p class="lead">Este prototipo muestra cómo funcionaría uno de los proyectos del plan de trabajo 2027–2031 de Polo Carrera, candidato a la Prefectura de Cotopaxi, y cómo se conecta con otros cuatro.</p></div>' +
+    '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' + PLAN_PROJ.map((p) => '<article class="card"><div class="bd"><span class="badge b-rec">Proyecto ' + p[0] + ' del plan</span><h3>' + p[1] + '</h3><p class="desc">' + p[2] + '</p></div></article>').join('') + '</div>' +
+    '<p class="note">Sitio de la campaña De POLO a POLO. No es un sitio oficial de la Prefectura ni de ningún GAD, y no usa recursos públicos.</p></div></section>';
+}
+function joinBanner() {
+  return '<section class="sec-tight" style="padding-bottom:64px"><div class="wrap"><div style="background:var(--noche);color:#fff;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:22px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-end"><div style="max-width:640px;display:flex;flex-direction:column;gap:10px"><p class="kicker" style="color:var(--sol)">Pre-registro abierto · emprendedores, empresas y comerciantes</p><h2 class="h2">Pon tu negocio frente al mundo. Sin comisión.</h2><p style="color:var(--nieve);font-size:18px">Regístrate gratis, sube tus fotos y recibe viajeros de Ecuador y del exterior.</p></div><a class="btn btn-fuego" href="#unete" style="min-height:56px;font-size:17px">Registrar mi negocio ' + ico('arrow', 'sm') + '</a></div>' +
+    '<div class="why"><div><b>Visibilidad mundial</b><span>Tu ficha en español e inglés, en la plataforma que Polo propone para todo Cotopaxi.</span></div><div><b>Promoción digital</b><span>Promocionar el destino Cotopaxi y sus negocios es un proyecto del plan de trabajo de Polo.</span></div><div><b>Sello de confianza</b><span>Tras la verificación del equipo Kawsay, tu negocio muestra el sello Verificado.</span></div><div><b>Contacto directo</b><span>El viajero te escribe por WhatsApp. Sin intermediarios.</span></div></div></div></div></section>';
+}
+
+function vExplorar() {
+  return '<section class="explore-top"><div class="wrap" style="display:flex;flex-direction:column;gap:16px"><h1>' + t('explore') + '</h1><form class="search" data-form="search2" role="search" style="box-shadow:none">' + ico('search') + '<label class="sr" for="q1">' + t('ph') + '</label><input id="q1" type="search" placeholder="' + t('ph') + '" value="' + esc(S.q) + '" autocomplete="off"></form></div></section>' +
+    '<div class="filters"><div class="wrap"><div class="row-scroll" role="group" aria-label="Cantón" id="fk"></div><div class="row-scroll" role="group" aria-label="Categoría" id="fc"></div><div class="row-scroll" role="group" aria-label="Tipo" id="fs"></div></div></div>' +
+    '<section class="sec-tight"><div class="wrap" id="results"></div></section>';
+}
+function filtered() {
+  const q = norm(S.q).trim();
+  const words = q ? q.split(/\s+/) : [];
+  return allDir().filter((b) => (!S.fk || b.k === S.fk) && (!S.fc || b.c === S.fc) && (!S.fs || b.s === S.fs) &&
+    words.every((w) => norm(b.n + ' ' + b.s + ' ' + b.l + ' ' + b.d + ' ' + CK[b.k].n + ' ' + catName(b.c)).indexOf(w) >= 0))
+    .sort((a, b) => (a.st === 'ok' ? -1 : 0) - (b.st === 'ok' ? -1 : 0));
+}
+function drawExplore() {
+  const base = allDir().filter((b) => {
+    const q = norm(S.q).trim(); const words = q ? q.split(/\s+/) : [];
+    return words.every((w) => norm(b.n + ' ' + b.s + ' ' + b.l + ' ' + b.d + ' ' + CK[b.k].n + ' ' + catName(b.c)).indexOf(w) >= 0);
+  });
+  const chip = (act, val, cur, label, n) => '<button type="button" class="chip" data-act="' + act + '" data-v="' + esc(val) + '" aria-pressed="' + (cur === val) + '">' + esc(label) + (n != null ? ' <span class="n">' + n + '</span>' : '') + '</button>';
+  $('#fk').innerHTML = chip('fk', '', S.fk, t('allC')) + CANT.map((c) => chip('fk', c.k, S.fk, c.n, base.filter((b) => b.k === c.k && (!S.fc || b.c === S.fc)).length)).join('');
+  $('#fc').innerHTML = chip('fc', '', S.fc, t('allCat')) + Object.keys(CATS).map((c) => chip('fc', c, S.fc, catName(c), base.filter((b) => b.c === c && (!S.fk || b.k === S.fk)).length)).join('');
+  const subs = [...new Set(base.filter((b) => (!S.fk || b.k === S.fk) && (!S.fc || b.c === S.fc)).map((b) => b.s))].sort();
+  $('#fs').innerHTML = subs.length > 1 ? chip('fs', '', S.fs, (S.lang === 'en' ? 'All types' : 'Todos los tipos')) + subs.map((s) => chip('fs', s, S.fs, s)).join('') : '';
+  $('#fs').hidden = subs.length <= 1;
+  const R = filtered();
+  $('#results').innerHTML = '<p class="note" style="margin-bottom:14px">Directorio de ejemplo con negocios que aparecen en fuentes públicas. Que un negocio esté aquí no significa que tenga relación con la campaña ni que la respalde.</p><div class="results-bar"><span><b style="color:var(--ink)">' + R.length + '</b> ' + t('results') + '</span>' + (S.q || S.fk || S.fc || S.fs ? '<button type="button" class="link" data-act="clearf">' + t('clear') + '</button>' : '') + '</div>' +
+    (R.length ? '<div class="grid">' + R.map(bizCard).join('') + '</div>' : '<div class="empty"><b style="font:700 20px var(--display)">' + t('none') + '</b><p>¿Conoces un negocio que debería estar aquí?</p><a class="btn btn-fuego" href="#unete">Registrar un negocio</a></div>');
+}
+
+function vRutas() {
+  return '<section class="explore-top"><div class="wrap"><h1>' + (S.lang === 'en' ? 'Routes' : 'Rutas por Cotopaxi') + '</h1><p class="lead" style="color:var(--nieve)">Recorridos armados con los negocios reales de cada cantón.</p></div></section><section class="sec"><div class="wrap"><div class="grid">' + ROUTES.map(routeCard).join('') + '</div></div></section>';
+}
+function vRuta(i) {
+  const r = ROUTES[i]; if (!r) return vRutas();
+  const bz = r.biz.map(byName).filter(Boolean);
+  return '<section class="phero ' + ph(r.img) + ' sh" style="--cc:' + r.c + '"><div class="wrap"><a class="back" href="#rutas">' + ico('back', 'sm') + 'Todas las rutas</a><p class="kicker" style="color:#fff">' + esc(r.cat) + ' · ' + esc(r.k) + '</p><h1>' + esc(r.n) + '</h1><p class="lead" style="color:#fff">' + esc(r.desc) + '</p></div></section>' +
+    '<section class="sec" style="--cc:' + r.c + '"><div class="wrap rlayout"><div style="display:flex;flex-direction:column;gap:22px;min-width:0"><h2 class="h2" style="font-size:26px">Itinerario · ' + esc(r.d) + '</h2><ol class="stops">' + r.stops.map((s, j) => '<li><span class="num">' + (j + 1) + '</span><div><div class="when">' + esc(s[0]) + '</div><h3 style="font-size:19px">' + esc(s[1]) + '</h3><p style="color:var(--ink-2)">' + esc(s[2]) + '</p></div></li>').join('') + '</ol>' +
+    '<h2 class="h2" style="font-size:24px">Negocios en esta ruta</h2><div class="grid">' + bz.map(bizCard).join('') + '</div></div>' +
+    '<aside class="side"><b style="font:800 20px var(--display)">Arma tu viaje</b><p style="color:var(--ink-2)">Guarda los ' + bz.length + ' negocios de esta ruta en Mi viaje y contáctalos directamente.</p><button type="button" class="btn btn-fuego" data-act="saveroute" data-i="' + i + '">' + ico('heart', 'sm') + 'Guardar la ruta</button><a class="btn btn-line" href="#viaje">Ver Mi viaje</a><p style="font-size:14px;color:var(--ink-3)">Las reservas directas se activan cuando cada negocio completa su registro en Kawsay.</p></aside></div></section>';
+}
+function vCantones() {
+  return '<section class="explore-top"><div class="wrap"><h1>' + (S.lang === 'en' ? 'The 7 cantons' : 'Los 7 cantones') + '</h1></div></section><section class="sec"><div class="wrap">' + cantonGrid() + '</div></section>';
+}
+function vCanton(k) {
+  const c = CK[k]; if (!c) return vCantones();
+  const D = allDir().filter((b) => b.k === k);
+  const tabs = [['ver', 'Qué ver', (VER[k] || []).length]].concat(Object.keys(CATS).map((cc) => [cc, catName(cc), D.filter((b) => b.c === cc).length]).filter((x) => x[2] > 0)).concat([['serv', 'Servicios', null]]);
+  if (!tabs.some((x) => x[0] === S.ctab)) S.ctab = 'ver';
+  let body;
+  if (S.ctab === 'ver') body = '<div class="grid">' + (VER[k] || []).map((p) => placeCard(p, k)).join('') + '</div>';
+  else if (S.ctab === 'serv') body = '<div class="grid">' + [['ECU 911', 'Emergencias, policía, bomberos y ambulancia: marca 911.', 'shield'], ['Gasolineras', 'Busca la más cercana en el mapa.', 'map', 'gasolinera ' + c.n], ['Cajeros automáticos', 'Cajeros y agencias bancarias.', 'map', 'cajero ' + c.n], ['Salud', 'Hospitales y centros de salud.', 'map', 'hospital ' + c.n], ['Terminal y transporte', 'Buses a Quito, Latacunga y otros cantones.', 'map', 'terminal terrestre ' + c.n]].map((s) => '<article class="card"><div class="bd"><span style="color:' + c.c + '">' + ico(s[2], 'lg') + '</span><h3>' + s[0] + '</h3><p class="desc">' + s[1] + '</p>' + (s[3] ? '<div class="ft"><a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="' + mapsUrl(s[3]) + '">' + ico('ext', 'sm') + 'Abrir mapa</a></div>' : '') + '</div></article>').join('') + '</div>';
+  else { const L = D.filter((b) => b.c === S.ctab); body = '<div class="grid">' + L.map(bizCard).join('') + '</div>'; }
+  return '<section class="phero ' + (has(k) ? ph(k) + ' sh' : '') + '" style="--cc:' + c.c + ';background-color:' + c.c + '"><div class="wrap"><a class="back" href="#cantones">' + ico('back', 'sm') + 'Todos los cantones</a><h1>' + c.n + '</h1><p class="lead" style="color:#fff">' + esc(c.d) + '</p></div></section>' +
+    '<div class="ptabs" style="--cc:' + c.c + '"><div class="wrap" role="tablist">' + tabs.map((x) => '<button type="button" role="tab" aria-selected="' + (S.ctab === x[0]) + '" data-act="ctab" data-v="' + x[0] + '">' + esc(x[1]) + (x[2] != null ? ' <span style="opacity:.6">' + x[2] + '</span>' : '') + '</button>').join('') + '</div></div>' +
+    '<section class="sec-tight"><div class="wrap">' + body + '</div></section>' + joinBanner();
+}
+function vAgenda() {
+  return '<section class="explore-top"><div class="wrap"><h1>' + (S.lang === 'en' ? 'Festivals and events' : 'Fiestas y eventos') + '</h1></div></section><section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:14px">' +
+    EVENTS.map((e) => '<article class="ev"><div class="d ' + ph(e[5]) + '" style="background-color:' + e[4] + '">' + esc(e[0]) + '</div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><h3 style="font-size:21px">' + esc(e[1]) + '</h3><span style="color:var(--ink-3)">' + esc(e[2]) + '</span><p style="color:var(--ink-2)">' + esc(e[3]) + '</p></div><button type="button" class="btn btn-line btn-sm" data-act="saveev" data-n="' + esc(e[1]) + '">' + ico('heart', 'sm') + 'Me interesa</button></article>').join('') + '</div></section>';
+}
+function vViaje() {
+  const ids = [...S.saved];
+  const items = ids.map((id) => {
+    if (id.indexOf('v:') === 0) { const [, k, n] = id.split(':'); return { id, n, k, kind: 'Atractivo' }; }
+    if (id.indexOf('e:') === 0) return { id, n: id.slice(2), k: '', kind: 'Evento' };
+    const b = allDir().find((x) => x.id === id); return b ? { id, n: b.n, k: b.k, kind: b.s, b } : null;
+  }).filter(Boolean);
+  const list = items.length ? '<div style="display:flex;flex-direction:column;gap:10px">' + items.map((x) => '<div style="display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;flex-wrap:wrap"><div style="flex:1 1 220px;min-width:0"><b style="font:700 17px var(--display)">' + esc(x.n) + '</b><div style="color:var(--ink-3);font-size:15px">' + esc(x.kind) + (x.k ? ' · ' + CK[x.k].n : '') + '</div></div>' + (x.b ? '<button type="button" class="btn btn-line btn-sm" data-act="open" data-id="' + x.id + '">Ficha</button>' : '') + (x.k ? '<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="' + mapsUrl(x.n + ' ' + CK[x.k].n) + '">' + ico('map', 'sm') + 'Mapa</a>' : '') + '<button type="button" class="iconbtn" data-act="unsave" data-id="' + esc(x.id) + '" aria-label="Quitar ' + esc(x.n) + '">' + ico('trash', 'sm') + '</button></div>').join('') + '</div>' :
+    '<div class="empty"><b style="font:700 20px var(--display)">Tu viaje está vacío</b><p>Toca el corazón en cualquier negocio, atractivo o ruta para guardarlo aquí.</p><a class="btn btn-noche" href="#explorar">Explorar Cotopaxi</a></div>';
+  return '<section class="explore-top"><div class="wrap"><h1>' + t('mytrip') + '</h1><p class="lead" style="color:var(--nieve)">' + items.length + ' lugares guardados en este dispositivo.</p></div></section><section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:20px">' + planesHTML() +
+    (items.length ? '<div class="acts"><button type="button" class="btn btn-noche" data-act="copytrip">' + ico('copy', 'sm') + 'Copiar mi plan</button><a class="btn btn-line" href="#pasaporte">' + ico('stamp', 'sm') + 'Mi pasaporte</a></div>' : '') + list + '</div></section>';
+}
+function vPasaporte() {
+  const n = S.stamps.size;
+  return '<section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:22px"><div class="pass"><div style="flex:1 1 420px;display:flex;flex-direction:column;gap:12px"><p class="kicker" style="color:var(--sol)">Pasaporte Kawsay</p><h1 style="font-size:40px;font-weight:800">' + n + ' / 7 cantones</h1><div class="bar"><i style="width:' + Math.round(n / 7 * 100) + '%"></i></div><p style="color:var(--nieve)">En la plataforma final, cada negocio registrado tendrá un código QR. Por ahora, marca los cantones que ya visitaste.</p></div></div>' +
+    '<div class="stamps">' + CANT.map((c) => { const on = S.stamps.has(c.k); return '<button type="button" class="stamp ' + (on ? 'on ' + ph(c.k) + ' sh' : '') + '" style="--cc:' + c.c + (on ? ';background-color:' + c.c : '') + '" data-act="stamp" data-k="' + c.k + '" aria-pressed="' + on + '"><span>' + ico(on ? 'check' : 'stamp', 'lg') + '</span><b>' + c.n + '</b><span style="font-size:14px">' + (on ? 'Visitado' : 'Toca para marcar') + '</span></button>'; }).join('') + '</div>' +
+    '<div class="grid"><div class="card"><div class="bd"><h3>Retos</h3><p class="desc">Visita tres cantones en un mismo viaje · Prueba las chugchucaras en Latacunga · Camina un tramo del Loop del Quilotoa</p></div></div><div class="card"><div class="bd"><h3>Premios</h3><p class="desc">Con 3 sellos, descuentos en negocios verificados. Con 7, el certificado Guardián del Cotopaxi.</p></div></div></div></div></section>';
+}
+function vFuentes() {
+  return '<section class="explore-top"><div class="wrap"><h1>Fuentes y créditos</h1></div></section><section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:16px;max-width:860px"><p class="lead">El directorio reúne negocios que aparecen en fuentes públicas. Ninguno se ha registrado todavía en Kawsay, por eso todos llevan la etiqueta «Listado público» hasta que completen su registro y la verificación del equipo Kawsay. Que un negocio aparezca aquí no significa que tenga relación con la campaña ni que la respalde.</p><ul style="display:flex;flex-direction:column;gap:8px;padding-left:20px">' +
+    Object.keys(SRC).map((k) => '<li><a target="_blank" rel="noopener" href="' + esc(SRC[k][1]) + '">' + esc(SRC[k][0]) + '</a> · ' + DIR.filter((b) => b.f === k).length + ' negocios</li>').join('') + '</ul><p class="note">Fotos: archivo entregado por el equipo, de fuentes como GAD municipales, Wikimedia Commons y portales turísticos. Son referenciales; antes del lanzamiento hay que confirmar autor y permiso de uso de cada una.</p></div></section>';
+}
+
+/* ---------- registro ---------- */
+const STEPS = ['Tu perfil', 'Tu negocio', 'Contacto', 'Fotos y documentos', 'Revisar y enviar'];
+const PERFILES = [['Emprendimiento familiar', 'Negocio propio o de la familia'], ['Empresa', 'Con RUC y equipo de trabajo'], ['Comerciante o mercado', 'Puesto, tienda o local de feria'], ['Guía o experiencia', 'Guianza, deportes, tours'], ['Turismo comunitario', 'Comunidad u organización'], ['Artesano', 'Arte, textiles, cerámica']];
+const SUBS = { comer: ['Chugchucaras', 'Comida típica', 'Helados y postres', 'Allullas y panaderías', 'Cafés', 'Parrillas y asaderos', 'Internacional'], dormir: ['Hoteles', 'Hostales', 'Hosterías', 'Haciendas y lodges', 'Turismo comunitario', 'Glamping'], experiencias: ['Operadoras de turismo', 'Guía local', 'Balneario', 'Centro de recreación', 'Deportes de aventura'], compras: ['Artesanía y arte', 'Productos del campo', 'Textiles'], noche: ['Vida nocturna', 'Bar'] };
+const SERV = ['Wi-Fi', 'Parqueadero', 'Pago con tarjeta', 'Transferencia', 'Acceso para silla de ruedas', 'Acepta mascotas', 'Emite factura', 'Menú vegetariano'];
+const DOCS = ['RUC o RIMPE', 'Permiso municipal de funcionamiento', 'Registro de turismo / LUAF', 'Permiso de bomberos', 'Certificado de capacitación'];
+const SLOTS = [['Fachada', true], ['Interior', false], ['Producto o plato', true], ['Tu equipo', false], ['Entorno', false]];
+function fld(id, label, opt) {
+  opt = opt || {}; const v = S.form[id] || ''; const req = opt.req ? ' <span class="req" aria-hidden="true">*</span>' : '';
+  let ctl;
+  if (opt.type === 'select') ctl = '<select id="f_' + id + '" data-f="' + id + '"' + (opt.req ? ' required' : '') + '><option value="">Elige…</option>' + opt.opts.map((o) => { const val = Array.isArray(o) ? o[0] : o, lab = Array.isArray(o) ? o[1] : o; return '<option value="' + esc(val) + '"' + (v === val ? ' selected' : '') + '>' + esc(lab) + '</option>'; }).join('') + '</select>';
+  else if (opt.type === 'area') ctl = '<textarea id="f_' + id + '" data-f="' + id + '" maxlength="' + (opt.max || 500) + '"' + (opt.req ? ' required' : '') + ' placeholder="' + esc(opt.ph || '') + '">' + esc(v) + '</textarea>';
+  else ctl = '<input id="f_' + id + '" data-f="' + id + '" type="' + (opt.type || 'text') + '" value="' + esc(v) + '"' + (opt.req ? ' required' : '') + (opt.ph ? ' placeholder="' + esc(opt.ph) + '"' : '') + (opt.list ? ' list="' + opt.list + '"' : '') + (opt.im ? ' inputmode="' + opt.im + '"' : '') + ' autocomplete="' + (opt.ac || 'off') + '">';
+  return '<div class="f ' + (opt.full ? 'full' : '') + '" id="w_' + id + '"><label for="f_' + id + '">' + label + req + '</label>' + ctl + (opt.hint ? '<span class="hint" id="h_' + id + '">' + opt.hint + '</span>' : '') + '<span class="err" id="e_' + id + '" role="alert"></span></div>';
+}
+function checks(id, list) { const cur = S.form[id] || []; return '<div class="checks">' + list.map((x) => '<label class="ck"><input type="checkbox" data-fc="' + id + '" value="' + esc(x) + '"' + (cur.indexOf(x) >= 0 ? ' checked' : '') + '>' + esc(x) + '</label>').join('') + '</div>'; }
+function stepBody(n) {
+  const F = S.form;
+  if (n === 1) return '<div><h2 class="h2" style="font-size:28px">¿Qué tipo de negocio tienes?</h2><p style="color:var(--ink-2);margin-top:6px">Elige la opción que mejor te describe. El registro es gratuito.</p></div><div class="f" id="w_perfil"><div class="choices" role="radiogroup" aria-label="Perfil">' + PERFILES.map((p) => '<label class="choice"><input type="radio" name="perfil" data-f="perfil" value="' + esc(p[0]) + '"' + (F.perfil === p[0] ? ' checked' : '') + '><b>' + esc(p[0]) + '</b><small>' + esc(p[1]) + '</small></label>').join('') + '</div><span class="err" id="e_perfil" role="alert"></span></div>';
+  if (n === 2) return '<div><h2 class="h2" style="font-size:28px">Cuéntanos de tu negocio</h2><p style="color:var(--ink-2);margin-top:6px">Así aparecerá tu ficha ante los viajeros.</p></div>' +
+    (F.claim ? '<div class="banner info">' + ico('shield', 'sm') + '<span>Estás reclamando la ficha <b>' + esc(F.claim) + '</b> del directorio público.</span></div>' : '') +
+    '<div class="fgrid">' + fld('nombre', 'Nombre del negocio', { req: true, full: true, ph: 'Ej.: Chugchucaras Doña Rosa', ac: 'organization' }) +
+    fld('cat', 'Categoría', { req: true, type: 'select', opts: Object.keys(CATS).map((c) => [c, CATS[c].es]) }) +
+    fld('sub', 'Tipo', { req: true, list: 'dl_sub', ph: 'Ej.: Chugchucaras, Hostal…', hint: 'Elige de la lista o escribe el tuyo.' }) +
+    '<datalist id="dl_sub">' + (SUBS[F.cat] || [].concat(...Object.values(SUBS))).map((s) => '<option value="' + esc(s) + '"></option>').join('') + '</datalist>' +
+    fld('canton', 'Cantón', { req: true, type: 'select', opts: CANT.map((c) => [c.k, c.n]) }) + fld('parroquia', 'Parroquia o comunidad', { ph: 'Ej.: Mulaló, Zumbahua, El Triunfo' }) +
+    fld('dir', 'Dirección o referencia', { req: true, full: true, ph: 'Calle principal, número y una referencia', ac: 'street-address' }) +
+    fld('horario', 'Horario de atención', { ph: 'Lun a dom, 8:00 a 18:00' }) + fld('precio', 'Rango de precios', { type: 'select', opts: [['$', '$ · económico (hasta 10 USD)'], ['$$', '$$ · intermedio (10 a 30 USD)'], ['$$$', '$$$ · alto (más de 30 USD)']] }) +
+    fld('desc', 'Descripción para el viajero', { req: true, full: true, type: 'area', max: 400, ph: '¿Qué ofreces? ¿Qué te hace especial? Ej.: Chugchucaras a leña con receta familiar desde 1985.', hint: '<span id="cnt_desc">' + (F.desc || '').length + '</span>/400 · mínimo 30 caracteres' }) +
+    '<div class="f full"><span class="lbl">Idiomas en los que atiendes</span>' + checks('idiomas', ['Español', 'Kichwa', 'Inglés', 'Otro']) + '</div>' +
+    '<div class="f full"><span class="lbl">Servicios</span>' + checks('serv', SERV) + '</div></div>';
+  if (n === 3) return '<div><h2 class="h2" style="font-size:28px">¿Cómo te contactan?</h2><p style="color:var(--ink-2);margin-top:6px">Los viajeros te escribirán directamente. El equipo Kawsay usará estos datos para verificar tu negocio.</p></div><div class="fgrid">' +
+    fld('resp', 'Nombre del responsable', { req: true, ac: 'name' }) + fld('cargo', 'Cargo', { ph: 'Propietario, gerente, presidente de la comunidad…' }) +
+    fld('wa', 'WhatsApp', { req: true, type: 'tel', im: 'tel', ph: '09XXXXXXXX', ac: 'tel', hint: 'Número celular de Ecuador, con o sin +593.' }) + fld('email', 'Correo electrónico', { type: 'email', im: 'email', ac: 'email', ph: 'nombre@correo.com' }) +
+    fld('redes', 'Facebook, Instagram, TikTok o web', { full: true, ph: '@minegocio o enlace' }) +
+    fld('ruc', 'RUC o RIMPE', { im: 'numeric', ph: '13 dígitos', hint: 'Opcional en esta etapa. Si está en trámite, déjalo en blanco.' }) + '</div>';
+  if (n === 4) return '<div><h2 class="h2" style="font-size:28px">Fotos y documentos</h2><p style="color:var(--ink-2);margin-top:6px">Sube al menos la fachada y un producto o plato. Las fotos con buena luz venden más.</p></div>' +
+    '<div class="f" id="w_fotos"><div class="photos">' + SLOTS.map((s, i) => { const f = F.fotos[i]; return '<label class="slot ' + (f ? 'has' : '') + '">' + (f ? '<img src="' + f + '" alt="Foto: ' + esc(s[0]) + '"><span class="lb">' + esc(s[0]) + '</span><button type="button" class="rm" data-act="rmfoto" data-i="' + i + '" aria-label="Quitar foto ' + esc(s[0]) + '">' + ico('close', 'sm') + '</button>' : ico('camera', 'lg') + '<span>' + esc(s[0]) + (s[1] ? ' *' : '') + '</span><span style="font-size:12px;font-weight:500">Toca para subir</span>') + '<input type="file" accept="image/*" data-foto="' + i + '" aria-label="Subir foto: ' + esc(s[0]) + '"' + (f ? ' hidden' : '') + '></label>'; }).join('') + '</div><span class="err" id="e_fotos" role="alert"></span></div>' +
+    '<div class="f"><span class="lbl">Documentos que ya tienes</span>' + checks('docs', DOCS) + '<span class="hint">No necesitas tenerlos todos para registrarte. El técnico del GAD te ayudará con lo que falte.</span></div>' +
+    '<div class="f" id="w_autoriza"><label class="agree"><input type="checkbox" data-fb="autoriza"' + (F.autoriza ? ' checked' : '') + '><span>Autorizo al equipo de la campaña De POLO a POLO a usar estas fotos para mostrar mi negocio en Kawsay y en la promoción de Cotopaxi. <span class="req">*</span></span></label><span class="err" id="e_autoriza" role="alert"></span></div>' +
+    '<div class="f" id="w_datos"><label class="agree"><input type="checkbox" data-fb="datos"' + (F.datos ? ' checked' : '') + '><span>Acepto que el equipo de la campaña De POLO a POLO, responsable de estos datos, los use solo para verificar y publicar mi negocio en Kawsay, conforme a la normativa ecuatoriana de protección de datos personales. <span class="req">*</span></span></label><span class="err" id="e_datos" role="alert"></span></div>' +
+    '<label class="agree"><input type="checkbox" data-fb="boletin"' + (F.boletin ? ' checked' : '') + '><span>Quiero recibir información sobre las propuestas de Polo Carrera. <span style="color:var(--ink-3)">(Opcional)</span></span></label>';
+  if (n === 5) {
+    const cn = F.canton && CK[F.canton] ? CK[F.canton].n : '';
+    const rv = (l, v) => '<div><dt>' + l + '</dt><dd>' + (v ? esc(v) : '<span style="color:var(--ink-3)">—</span>') + '</dd></div>';
+    return '<div><h2 class="h2" style="font-size:28px">Revisa tu solicitud</h2><p style="color:var(--ink-2);margin-top:6px">Si algo está mal, toca el paso en la lista para corregirlo.</p></div>' +
+      '<div style="display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center">' + (F.fotos[0] || F.fotos[2] ? '<img src="' + (F.fotos[0] || F.fotos[2]) + '" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:16px">' : '<span></span>') + '<div><span class="badge b-rec">Pendiente de verificación</span><h3 style="font-size:24px;margin-top:6px">' + esc(F.nombre) + '</h3><p style="color:var(--ink-3)">' + esc(F.sub) + ' · ' + esc(cn) + '</p></div></div>' +
+      '<dl class="review">' + rv('Perfil', F.perfil) + rv('Categoría', CATS[F.cat] ? CATS[F.cat].es : '') + rv('Dirección', [F.dir, F.parroquia, cn].filter(Boolean).join(', ')) + rv('Horario', F.horario) + rv('Precios', F.precio) + rv('Idiomas', (F.idiomas || []).join(', ')) + rv('Servicios', (F.serv || []).join(', ')) + rv('Responsable', [F.resp, F.cargo].filter(Boolean).join(' · ')) + rv('WhatsApp', F.wa) + rv('Correo', F.email) + rv('Redes', F.redes) + rv('RUC o RIMPE', F.ruc) + rv('Fotos', F.fotos.filter(Boolean).length + ' de 5') + rv('Documentos', (F.docs || []).join(', ')) + '</dl>' +
+      '<div><dt style="font:700 12px var(--display);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3)">Descripción</dt><p style="margin-top:4px">' + esc(F.desc) + '</p></div>' + sendBanner();
+  }
+  return '';
+}
+function sendBanner() {
+  if (SITE) return '<div class="banner ok">' + ico('check', 'sm') + '<span>Tu solicitud llegará al equipo Kawsay de la campaña De POLO a POLO.</span></div>';
+  if (!S.dbReady) return '<div class="banner info">' + ico('shield', 'sm') + '<span>Conectando con la plataforma…</span></div>';
+  if (!S.db || !S.uid) return '<div class="banner warn">' + ico('shield', 'sm') + '<span>Para enviar la solicitud, abre Kawsay con tu cuenta y con permiso de colaborador. Mientras tanto, tu borrador queda guardado en este dispositivo y puedes copiarlo para enviarlo a tu GAD.</span></div>';
+  return '<div class="banner ok">' + ico('check', 'sm') + '<span>Tu solicitud llegará al equipo Kawsay de la campaña De POLO a POLO.</span></div>';
+}
+function vUnete() {
+  if (S.sent) return '<section class="sec"><div class="wrap" style="max-width:760px"><div class="panel" style="align-items:flex-start"><span style="width:72px;height:72px;border-radius:50%;background:var(--bosque);color:#fff;display:flex;align-items:center;justify-content:center">' + ico('check', 'lg') + '</span><h1 class="h2">¡Solicitud enviada!</h1><p class="lead">Recibimos el registro de <b>' + esc(S.sent.nombre) + '</b>. Tu código es <b style="font-family:var(--display)">' + esc(S.sent.codigo) + '</b>.</p>' +
+    '<ol class="stops" style="--cc:var(--bosque);width:100%">' + [['Hoy', 'Solicitud recibida', 'Ya está en la bandeja del equipo Kawsay.'], ['Siguiente', 'Verificación', 'Una persona del equipo te contactará por WhatsApp para confirmar tus datos.'], ['Después', 'Publicación con sello', 'Tu ficha aparece en el directorio con el sello Verificado y tu WhatsApp visible.']].map((s, j) => '<li><span class="num">' + (j + 1) + '</span><div><div class="when">' + s[0] + '</div><h3 style="font-size:18px">' + s[1] + '</h3><p style="color:var(--ink-2)">' + s[2] + '</p></div></li>').join('') + '</ol>' +
+    '<div class="acts"><a class="btn btn-noche" href="#explorar">Ver el directorio</a><button type="button" class="btn btn-line" data-act="newform">Registrar otro negocio</button></div></div></div></section>';
+  const n = S.step;
+  return '<section class="explore-top"><div class="wrap" style="display:flex;flex-direction:column;gap:10px"><p class="kicker" style="color:var(--sol)">Registro gratuito · 5 pasos · unos 8 minutos</p><h1>Registra tu negocio en Kawsay</h1><p class="lead" style="color:var(--nieve)">Emprendedores, empresas, comerciantes, guías, artesanos y comunidades de los 7 cantones.</p></div></section>' +
+    '<section class="sec-tight" style="background:var(--bg-2);padding-bottom:64px"><div class="wrap joinwrap"><ol class="steps" aria-label="Pasos">' + STEPS.map((s, i) => '<li class="' + (i + 1 === n ? 'cur' : i + 1 < n ? 'done' : '') + '"><button type="button" data-act="gostep" data-n="' + (i + 1) + '"' + (i + 1 === n ? ' aria-current="step"' : '') + '><span class="n">' + (i + 1 < n ? ico('check', 'sm') : i + 1) + '</span><span class="t">' + s + '</span></button></li>').join('') + '</ol>' +
+    '<form class="panel" data-form="join" novalidate><div class="progress" aria-hidden="true"><i style="width:' + (n / 5 * 100) + '%"></i></div>' + (S.prev ? S.prev : '') + stepBody(n) + '<div id="sendErr"></div>' +
+    '<div class="formnav"><button type="button" class="btn btn-line" data-act="prevstep">' + ico('back', 'sm') + (n === 1 ? 'Salir' : 'Atrás') + '</button><div class="acts">' + (n === 5 ? '<button type="button" class="btn btn-line" data-act="copyform">' + ico('copy', 'sm') + 'Copiar solicitud</button>' : '') + '<button type="submit" class="btn btn-fuego" id="nextBtn"' + (n === 5 && !canSend() ? ' disabled' : '') + '>' + (n === 5 ? ico('send', 'sm') + 'Enviar solicitud' : 'Continuar ' + ico('arrow', 'sm')) + '</button></div></div><p style="font-size:14px;color:var(--ink-3)">Tu avance se guarda automáticamente en este dispositivo.</p></form></div></section>';
+}
+function validate(n) {
+  const F = S.form, E = {};
+  const need = (k, m) => { if (!String(F[k] || '').trim()) E[k] = m; };
+  if (n === 1) need('perfil', 'Elige una opción para continuar.');
+  if (n === 2) { need('nombre', 'Escribe el nombre del negocio.'); need('cat', 'Elige una categoría.'); need('sub', 'Indica el tipo de negocio.'); need('canton', 'Elige el cantón.'); need('dir', 'Escribe la dirección o una referencia.'); if ((F.desc || '').trim().length < 30) E.desc = 'Escribe al menos 30 caracteres para que el viajero te conozca.'; }
+  if (n === 3) { need('resp', 'Escribe el nombre del responsable.'); const wa = String(F.wa || '').replace(/[\s-]/g, ''); if (!wa) E.wa = 'Escribe un número de WhatsApp.'; else if (!/^(0?9\d{8}|\+?5939\d{8})$/.test(wa)) E.wa = 'Revisa el número: debe ser un celular de Ecuador, por ejemplo 0991234567.'; if (F.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(F.email)) E.email = 'Revisa el correo, por ejemplo nombre@correo.com.'; if (F.ruc && !/^\d{13}$/.test(String(F.ruc).trim())) E.ruc = 'El RUC o RIMPE tiene 13 dígitos.'; }
+  if (n === 4) { if (!F.fotos[0] || !F.fotos[2]) E.fotos = 'Sube al menos la foto de la fachada y la de un producto o plato.'; if (!F.autoriza) E.autoriza = 'Necesitamos tu autorización para publicar las fotos.'; if (!F.datos) E.datos = 'Acepta el uso de tus datos para continuar.'; }
+  $$('.f.bad').forEach((w) => w.classList.remove('bad'));
+  Object.keys(E).forEach((k) => { const w = $('#w_' + k), e = $('#e_' + k); if (w) w.classList.add('bad'); if (e) e.textContent = E[k]; const c = $('#f_' + k); if (c) c.setAttribute('aria-invalid', 'true'); });
+  const first = Object.keys(E)[0];
+  if (first) { const el = $('#f_' + first) || $('#w_' + first + ' input'); if (el) el.focus(); const w = $('#w_' + first); if (w) w.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  return !first;
+}
+function saveDraft() { store.set('draft', S.form); store.set('step', S.step); }
+function compress(file) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onerror = () => rej(new Error('read'));
+    fr.onload = () => { const im = new Image(); im.onerror = () => rej(new Error('img')); im.onload = () => {
+      const m = 520, sc = Math.min(1, m / Math.max(im.width, im.height)); const cv = document.createElement('canvas'); cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc);
+      cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); let q = 0.66, out = cv.toDataURL('image/jpeg', q); while (out.length > 38000 && q > 0.3) { q -= 0.08; out = cv.toDataURL('image/jpeg', q); } res(out); }; im.src = fr.result; };
+    fr.readAsDataURL(file);
+  });
+}
+function formText() {
+  const F = S.form; const cn = F.canton && CK[F.canton] ? CK[F.canton].n : '';
+  return ['SOLICITUD DE REGISTRO · KAWSAY COTOPAXI', 'Negocio: ' + F.nombre, 'Perfil: ' + F.perfil, 'Categoría: ' + (CATS[F.cat] ? CATS[F.cat].es : '') + ' · ' + F.sub, 'Cantón: ' + cn + (F.parroquia ? ' · ' + F.parroquia : ''), 'Dirección: ' + F.dir, 'Horario: ' + F.horario, 'Precios: ' + F.precio, 'Descripción: ' + F.desc, 'Idiomas: ' + (F.idiomas || []).join(', '), 'Servicios: ' + (F.serv || []).join(', '), 'Responsable: ' + F.resp + (F.cargo ? ' (' + F.cargo + ')' : ''), 'WhatsApp: ' + F.wa, 'Correo: ' + F.email, 'Redes: ' + F.redes, 'RUC/RIMPE: ' + F.ruc, 'Documentos: ' + (F.docs || []).join(', '), 'Fotos adjuntas: ' + F.fotos.filter(Boolean).length].join('\n');
+}
+async function submitForm() {
+  const btn = $('#nextBtn'); if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+  const F = S.form; const codigo = 'KAW-' + String(S.uid || '').replace(/[^A-Za-z0-9]/g, '').slice(-6).toUpperCase();
+  const payload = Object.assign({}, F, { fotos: F.fotos.filter(Boolean), estado: 'pendiente', codigo, creado: Date.now() });
+  try {
+    let codigoFinal = codigo;
+    if (SITE) { const r = await api('/api/kawsay/registro', Object.assign({}, F, { fotos: F.fotos.filter(Boolean) })); codigoFinal = r.codigo; }
+    else await S.db.doc('solicitudes/' + S.uid).set(payload);
+    S.sent = { nombre: F.nombre, codigo: codigoFinal }; S.form = blankForm(); S.step = 1; saveDraft(); render(); toast('Solicitud enviada');
+  } catch (e) {
+    const msg = SITE && e && e.message ? e.message : e && e.code === 'invalid_argument' ? 'Tu cuenta no tiene permiso para enviar en esta plataforma o las fotos son muy pesadas. Pide acceso de colaborador o quita una foto.' : e && e.code === 'quota_exceeded' ? 'La bandeja de solicitudes está llena. Avisa al equipo de la Prefectura.' : 'No pudimos enviar ahora. Revisa tu conexión e inténtalo de nuevo.';
+    $('#sendErr').innerHTML = '<div class="banner err">' + esc(msg) + '</div>';
+    if (btn) { btn.disabled = false; btn.innerHTML = ico('send', 'sm') + 'Enviar solicitud'; }
+  }
+}
+
+/* ---------- panel (equipo) ---------- */
+function vPanel() {
+  if (!S.dbReady) return '<section class="sec"><div class="wrap"><p>Cargando…</p></div></section>';
+  if (!S.canEdit) return '<section class="sec"><div class="wrap" style="max-width:700px"><div class="empty"><b style="font:700 20px var(--display)">Panel del equipo Kawsay</b><p>Esta sección es solo para el equipo de la campaña con permiso de edición.</p><a class="btn btn-noche" href="#inicio">Volver al inicio</a></div></div></section>';
+  const L = S.subs.slice().sort((a, b) => (b.creado || 0) - (a.creado || 0));
+  const st = { pendiente: ['b-rec', 'Pendiente'], verificado: ['b-ok', 'Verificado y publicado'], observado: ['b-list', 'Con observaciones'], rechazado: ['b-list', 'Rechazado'] };
+  return '<section class="explore-top"><div class="wrap"><h1>Solicitudes de registro</h1><p class="lead" style="color:var(--nieve)">' + L.length + ' solicitudes · ' + L.filter((x) => x.estado === 'pendiente').length + ' pendientes</p></div></section><section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:16px">' +
+    (L.length ? L.map((x) => { const s = st[x.estado] || st.pendiente; return '<article class="card"><div class="bd" style="gap:12px"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:flex-start"><div><span class="badge ' + s[0] + '">' + s[1] + '</span><h3 style="margin-top:6px">' + esc(x.nombre) + '</h3><p class="meta">' + esc(x.sub) + ' · ' + esc(CK[x.canton] ? CK[x.canton].n : '') + ' · ' + esc(x.codigo || '') + '</p></div><div class="acts"><button type="button" class="btn btn-fuego btn-sm" data-act="approve" data-id="' + esc(x._id) + '">' + ico('shield', 'sm') + 'Verificar y publicar</button><button type="button" class="btn btn-line btn-sm" data-act="observe" data-id="' + esc(x._id) + '">Pedir corrección</button><button type="button" class="btn btn-line btn-sm" data-act="reject" data-id="' + esc(x._id) + '">Rechazar</button><button type="button" class="btn btn-noche btn-sm" data-act="draft" data-kind="sol" data-id="' + esc(x._id) + '">' + ico('send', 'sm') + 'Responder</button></div></div>' +
+      '<div style="display:flex;gap:8px;overflow-x:auto">' + (x.fotos || []).map((f) => '<img src="' + esc(f) + '" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:12px;flex:none">').join('') + '</div><p>' + esc(x.desc) + '</p><dl class="kv"><dt>Responsable</dt><dd>' + esc(x.resp) + (x.cargo ? ' · ' + esc(x.cargo) : '') + '</dd><dt>WhatsApp</dt><dd>' + esc(x.wa) + '</dd><dt>Correo</dt><dd>' + esc(x.email || '—') + '</dd><dt>Dirección</dt><dd>' + esc([x.dir, x.parroquia].filter(Boolean).join(', ')) + '</dd><dt>RUC/RIMPE</dt><dd>' + esc(x.ruc || '—') + '</dd><dt>Documentos</dt><dd>' + esc((x.docs || []).join(', ') || '—') + '</dd></dl></div></article>'; }).join('') :
+      '<div class="empty"><b style="font:700 20px var(--display)">Aún no hay solicitudes</b><p>Cuando un negocio complete el formulario de registro, aparecerá aquí para su verificación.</p></div>') +
+    '<h2 class="h2" style="margin-top:24px">Viajeros que piden asesoría · ' + (S.cons || []).length + '</h2>' + ((S.cons || []).length ? (S.cons || []).slice().sort((a, b) => (b.creado || 0) - (a.creado || 0)).map((c) => '<article class="card"><div class="bd"><span class="badge b-rec">' + esc(c.estado || 'nueva') + '</span><h3>' + esc(c.nombre) + (c.pais ? ' · ' + esc(c.pais) : '') + '</h3><p class="meta" style="user-select:all">' + esc(c.contacto) + (c.fechas ? ' · ' + esc(c.fechas) : '') + '</p><p><b>Pedido:</b> ' + esc(c.pedido) + '</p><p><b>Plan elegido:</b> ' + esc(c.plan) + ' · ' + esc(c.total) + ' USD</p>' + (c.mensaje ? '<p>' + esc(c.mensaje) + '</p>' : '') + '<div class="acts"><button type="button" class="btn btn-noche btn-sm" data-act="draft" data-kind="con" data-id="' + esc(c._id) + '">' + ico('send', 'sm') + 'Responder</button></div><details><summary style="cursor:pointer;font-weight:700">Ver itinerario</summary><pre style="white-space:pre-wrap;font:15px var(--body)">' + esc(c.detalle) + '</pre></details></div></article>').join('') : '<div class="empty"><p>Aún no hay pedidos de asesoría.</p></div>') + '</div></section>';
+}
+async function setEstado(id, estado) {
+  const x = S.subs.find((s) => s._id === id); if (!x || !S.db) return;
+  try {
+    await S.db.doc('solicitudes/' + id).update({ estado });
+    if (estado === 'verificado') await S.db.doc('publicados/' + id).set({ n: x.nombre, c: x.cat, s: x.sub, k: x.canton, l: x.parroquia || x.dir, d: x.desc, wa: x.wa, horario: x.horario || '', redes: x.redes || '', idiomas: x.idiomas || [], serv: x.serv || [], photo: (x.fotos || [])[0] || '', fotos: x.fotos || [], creado: Date.now() });
+    else await S.db.doc('publicados/' + id).delete().catch(() => {});
+    toast(estado === 'verificado' ? 'Negocio verificado y publicado' : 'Estado actualizado');
+  } catch (e) { toast('No se pudo actualizar. Inténtalo de nuevo.'); }
+}
+
+/* ---------- respuestas ---------- */
+function draftText(kind, x) {
+  if (kind === 'sol') {
+    const est = x.estado === 'verificado' ? 'tu negocio ya aparece en Kawsay con el sello Verificado' : x.estado === 'observado' ? 'necesitamos que completes o corrijas algunos datos antes de publicarlo' : x.estado === 'rechazado' ? 'por ahora no podemos publicarlo; si quieres, te explicamos por qué' : 'la estamos revisando y te escribiremos para confirmar tus datos';
+    return 'Hola, ' + (x.resp || '') + '. Gracias por registrar ' + (x.nombre || 'tu negocio') + ' en Kawsay. Tu código es ' + (x.codigo || '') + '. Recibimos tu solicitud y ' + est + '.\n\nSi tienes preguntas, responde a este mensaje.\n\nEquipo Kawsay · De POLO a POLO';
+  }
+  return 'Hola, ' + (x.nombre || '') + '. Gracias por planificar tu viaje con Kawsay. Revisamos tu plan «' + (x.plan || '') + '» y podemos ayudarte con hospedaje, guías y reservas en Cotopaxi.\n\n¿Nos confirmas tus fechas y cuántas personas viajan?\n\nEquipo Kawsay';
+}
+function waLink(contact, text) {
+  const d = String(contact || '').replace(/\D/g, '');
+  if (d.length < 9) return '';
+  const n = d.indexOf('593') === 0 ? d : d.length <= 10 ? '593' + d.replace(/^0/, '') : d;
+  return 'https://wa.me/' + n + '?text=' + encodeURIComponent(text);
+}
+function openDraft(kind, id) {
+  const x = (kind === 'sol' ? S.subs : (S.cons || [])).find((y) => y._id === id); if (!x) return;
+  const contact = kind === 'sol' ? x.wa : x.contacto;
+  const dlg = $('#dlg'); dlg.setAttribute('aria-label', 'Responder mensaje');
+  const txt = draftText(kind, x);
+  dlg.innerHTML = '<div class="md-bd" style="position:relative"><button type="button" class="md-close" data-act="close" aria-label="Cerrar">' + ico('close') + '</button><p class="kicker">Respuesta</p><h2 style="font-size:24px;padding-right:50px">Para ' + esc(kind === 'sol' ? x.resp || x.nombre : x.nombre) + '</h2><p class="meta" style="user-select:all">' + esc(contact || 'sin contacto') + '</p><label class="sr" for="drTxt">Mensaje</label><textarea id="drTxt" rows="9" style="font:500 16px var(--body);padding:12px;border:1.5px solid #C7D1DA;border-radius:12px;width:100%">' + esc(txt) + '</textarea><p class="wst" id="drSt" style="color:var(--ink-3)"></p><div class="acts">' + (S.sample ? '<button type="button" class="btn btn-line" data-act="drai" data-kind="' + kind + '" data-id="' + esc(id) + '">Mejorar con IA</button>' : '') + '<button type="button" class="btn btn-line" data-act="drcopy">' + ico('copy', 'sm') + 'Copiar</button>' + (waLink(contact, txt) ? '<a class="btn btn-fuego" id="drWa" target="_blank" rel="noopener" href="' + esc(waLink(contact, txt)) + '">Abrir en WhatsApp</a>' : '') + '</div><p style="font-size:14px;color:var(--ink-3)">WhatsApp se abre con el mensaje listo; lo envías tú desde la cuenta del equipo.</p></div>';
+  try { if (!dlg.open) dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); }
+  const ta = $('#drTxt'); ta.addEventListener('input', () => { const a = $('#drWa'); if (a) a.href = waLink(contact, ta.value); });
+}
+async function improveDraft(kind, id) {
+  const x = (kind === 'sol' ? S.subs : (S.cons || [])).find((y) => y._id === id); const ta = $('#drTxt'); if (!x || !ta || !S.sample) return;
+  $('#drSt').textContent = 'Mejorando…';
+  const ctx = kind === 'sol' ? 'Registro de negocio: ' + x.nombre + ', ' + x.sub + ', estado ' + x.estado + ', descripción: ' + x.desc : 'Viajero de ' + (x.pais || 'país no indicado') + '. Pedido: ' + x.pedido + '. Plan elegido: ' + x.plan + '. Mensaje: ' + (x.mensaje || '');
+  try {
+    const r = await S.sample('Mejora este mensaje de WhatsApp del equipo Kawsay (plataforma turística de la campaña De POLO a POLO, Cotopaxi). Hazlo cálido, claro y breve (máximo 90 palabras), en el idioma de la persona. No prometas empleo, cargos, obras, precios ni fechas; no pidas el voto ni menciones listas. Devuelve solo el mensaje.\n\nContexto: ' + ctx + '\n\nMensaje actual:\n' + ta.value, { modelTier: 'quick' });
+    ta.value = (r.text || ta.value).trim(); ta.dispatchEvent(new Event('input')); $('#drSt').textContent = 'Revisa el texto antes de enviarlo.';
+  } catch (e) { $('#drSt').textContent = 'No se pudo mejorar ahora. Puedes usar el texto tal como está.'; }
+}
+
+/* ---------- modal ---------- */
+function openBiz(id) {
+  const b = allDir().find((x) => x.id === id); if (!b) return;
+  const dlg = $('#dlg'); const on = S.saved.has(b.id); const src = SRC[b.f];
+  dlg.innerHTML = '<div style="position:relative">' + bizHead(b, 210) + '<button type="button" class="md-close" data-act="close" aria-label="Cerrar">' + ico('close') + '</button></div><div class="md-bd">' + badge(b) + '<h2 style="font-size:28px">' + esc(b.n) + '</h2>' + (b.d ? '<p style="color:var(--ink-2);font-size:17px">' + esc(b.d) + '</p>' : '') +
+    '<dl class="kv"><dt>' + ico('pin', 'sm') + 'Ubicación</dt><dd>' + esc([b.l, CK[b.k].n].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(' · ')) + '</dd><dt>' + ico(CATS[b.c].i, 'sm') + 'Tipo</dt><dd>' + esc(catName(b.c) + ' · ' + b.s) + '</dd>' + (b.horario ? '<dt>' + ico('cal', 'sm') + 'Horario</dt><dd>' + esc(b.horario) + '</dd>' : '') + (b.wa ? '<dt>' + ico('user', 'sm') + 'WhatsApp</dt><dd style="user-select:all">' + esc(b.wa) + '</dd>' : '') + (b.redes ? '<dt>' + ico('ext', 'sm') + 'Redes</dt><dd>' + esc(b.redes) + '</dd>' : '') + '</dl>' +
+    (b.st === 'ok' ? '<div class="banner ok">' + ico('shield', 'sm') + '<span>Negocio registrado y verificado por el equipo Kawsay. Escríbele directamente por WhatsApp.</span></div>' : '<div class="note">Este negocio aparece en ' + (src ? '<a target="_blank" rel="noopener" href="' + esc(src[1]) + '">' + esc(src[0]) + '</a>' : 'fuentes públicas') + '. Aún no se ha registrado en Kawsay, por eso todavía no muestra contacto directo ni sello de verificación. Que aparezca aquí no significa que tenga relación con la campaña ni que la respalde. Confirma horarios antes de ir.</div>') +
+    '<div class="acts"><a class="btn btn-noche" target="_blank" rel="noopener" href="' + mapsUrl(b.n + ' ' + (b.l || '') + ' ' + CK[b.k].n) + '">' + ico('map', 'sm') + 'Cómo llegar</a>' + (b.wa ? '<a class="btn btn-fuego" target="_blank" rel="noopener" href="https://wa.me/' + esc(String(b.wa).replace(/\D/g, '').replace(/^0/, '593')) + '">Escribir por WhatsApp</a>' : '') + '<button type="button" class="btn btn-line" data-act="save" data-id="' + b.id + '" aria-pressed="' + on + '">' + ico('heart', 'sm') + (on ? t('saved') : t('save')) + '</button></div>' +
+    (b.st !== 'ok' ? '<div style="border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between"><span><b>¿Es tu negocio?</b> Regístralo gratis para recibir viajeros.</span><button type="button" class="btn btn-fuego btn-sm" data-act="claim" data-id="' + b.id + '">Reclamar esta ficha</button></div>' : '') + '</div>';
+  if (!dlg.open) { try { dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); } }
+}
+
+/* ---------- chat ---------- */
+function chatContext() {
+  return allDir().map((b) => b.n + ' | ' + b.s + ' | ' + (b.l || '') + ' | ' + CK[b.k].n + (b.st === 'ok' ? ' | verificado' : '')).join('\n');
+}
+function drawChat() {
+  const box = $('#chatBox'); box.hidden = !S.chatOpen; if (!S.chatOpen) { box.innerHTML = ''; return; }
+  if (!S.chat.length) S.chat.push({ me: false, text: S.lang === 'en' ? 'Hi! I am the Kawsay assistant. Ask me where to eat, sleep or what to do in Cotopaxi.' : '¡Hola! Soy el asistente de Kawsay. Pregúntame dónde comer, dormir o qué hacer en Cotopaxi.' });
+  const sugs = S.lang === 'en' ? ['Best chugchucaras?', 'Where to sleep near Quilotoa?', '2 days in Cotopaxi'] : ['¿Qué propone Polo para el turismo?', '¿Dónde comer chugchucaras?', '¿Dónde dormir cerca del Quilotoa?', 'Plan de 2 días'];
+  box.innerHTML = '<div class="chat" role="dialog" aria-label="Asistente Kawsay"><div class="chat-h"><b>Asistente Kawsay</b><button type="button" data-act="chat" aria-label="Cerrar asistente">' + ico('close') + '</button></div><div class="chat-b" id="chatLog" aria-live="polite">' + S.chat.map((m) => '<p class="msg ' + (m.me ? 'me' : 'bot') + '">' + esc(m.text) + '</p>').join('') + '</div><div class="chat-s">' + sugs.map((q) => '<button type="button" data-act="ask" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('') + '</div><form class="chat-f" data-form="chat"><label class="sr" for="chatIn">Escribe tu pregunta</label><input id="chatIn" placeholder="Escribe tu pregunta…" autocomplete="off"><button type="submit" class="iconbtn" aria-label="Enviar">' + ico('send', 'sm') + '</button></form></div>';
+  const log = $('#chatLog'); log.scrollTop = log.scrollHeight;
+}
+function localAnswer(q) {
+  if (/polo|carrera|propuesta|propone|prefect|plan de trabajo|candidat/.test(norm(q))) return 'Kawsay es el prototipo del proyecto «Promoción digital del destino Cotopaxi» del plan de trabajo 2027–2031 de Hipólito «Polo» Carrera, candidato a la Prefectura. Se conecta con otros proyectos del plan: infraestructura turística, ferias y eventos productivos, cadenas productivas y agricultura familiar campesina.\n\nSi tienes un negocio, puedes pre-registrarlo en «Únete a la red».';
+  const w = norm(q).split(/\W+/).filter((x) => x.length > 3 && ['donde', 'comer', 'dormir', 'cerca', 'mejor', 'mejores', 'para'].indexOf(x) < 0);
+  let L = allDir().filter((b) => w.some((x) => norm(b.n + ' ' + b.s + ' ' + b.l + ' ' + CK[b.k].n).indexOf(x) >= 0));
+  if (/dorm|sleep|hostal|hotel/.test(norm(q))) L = L.filter((b) => b.c === 'dormir').concat(L.length ? [] : allDir().filter((b) => b.c === 'dormir' && /quilotoa|chugchil|isinliv/i.test(b.l)));
+  if (!L.length) return 'Puedo ayudarte con negocios, rutas y atractivos de Cotopaxi. Prueba con «chugchucaras», «Quilotoa» o «helados».';
+  return 'Encontré ' + L.length + ' opciones. Algunas:\n' + L.slice(0, 6).map((b) => '• ' + b.n + ' (' + b.s + ', ' + CK[b.k].n + ')').join('\n') + '\n\nBúscalas en Explorar para ver su ficha.';
+}
+async function ask(q) {
+  q = String(q || '').trim(); if (!q) return;
+  S.chat.push({ me: true, text: q }); const m = { me: false, text: '…' }; S.chat.push(m); drawChat();
+  if (SITE) {
+    try {
+      const hist = S.chat.slice(1, -1).map((x) => ({ role: x.me ? 'user' : 'assistant', content: x.text })).slice(-10);
+      const r = await api('/api/kawsay/ia', { kind: 'chat', historial: hist });
+      m.text = r.disponible === false ? localAnswer(q) : r.texto;
+    } catch (e) { m.text = localAnswer(q); }
+    drawChat(); return;
+  }
+  if (!S.sample) { m.text = localAnswer(q); drawChat(); return; }
+  const prompt = 'Eres el asistente de Kawsay Cotopaxi (Ecuador), prototipo del proyecto «Promoción digital del destino Cotopaxi» del plan de trabajo 2027–2031 de Hipólito «Polo» Carrera, candidato a la Prefectura de Cotopaxi; el sitio es de la campaña De POLO a POLO y no es un sitio oficial. Proyectos del plan que puedes mencionar: ' + PLAN_PROJ.map((p) => p[1] + ' (' + p[2] + ')').join('; ') + '. Si preguntan por la propuesta, responde solo con esos datos; no inventes cifras, obras, fechas ni promesas, no prometas empleo y no pidas el voto; para otros temas del plan, invita a visitar depoloapoloavanzamoscotopaxi.com. Responde en el idioma de la pregunta, en máximo 120 palabras, cálido y concreto. Recomienda SOLO negocios que estén en esta lista (nombre | tipo | lugar | cantón); si no hay nada adecuado, dilo. Aclara que los horarios se confirman con el negocio. No inventes precios ni teléfonos.\n\nRutas: ' + ROUTES.map((r) => r.n + ' (' + r.k + ', ' + r.d + ')').join('; ') + '\n\nNegocios:\n' + chatContext() + '\n\nPregunta: ' + q;
+  try {
+    const r = await S.sample(prompt, { modelTier: 'quick', onText: (p) => { m.text = p.text || '…'; drawChat(); } });
+    m.text = r.text || localAnswer(q);
+  } catch (e) { m.text = localAnswer(q); if (e && e.code === 'not_granted') S.sample = null; }
+  drawChat();
+}
+
+/* ---------- planificador por voz ---------- */
+const REG = { 'Sierra': '#0F6E73', 'Costa': '#27A9AD', 'Amazonía': '#3E8E41', 'Galápagos': '#73439A' };
+const regColor = (r) => REG[r] || REG[Object.keys(REG).find((k) => norm(r).indexOf(norm(k)) >= 0)] || '#183247';
+const PLAN_CHIPS_ES = ['7 días', 'Con mi pareja', 'Familia con niños', 'Con mascotas', 'Presupuesto 5.000 USD', 'Las 4 regiones', 'Aventura', 'Gastronomía', 'Sin prisa'];
+const PLAN_CHIPS_EN = ['7 days', 'With my partner', 'Family with kids', 'With pets', 'Budget 5,000 USD', 'All 4 regions', 'Adventure', 'Food', 'Slow pace'];
+const BUDGET_KEYS = [['vuelos', 'Vuelos internos', '#73439A'], ['hospedaje', 'Hospedaje', '#27A9AD'], ['comida', 'Comida', '#F7A713'], ['tours', 'Tours y entradas', '#E63B32'], ['transporte', 'Transporte terrestre', '#0F6E73']];
+S.plan = store.get('planActual', null);
+S.planOpt = 0; S.planBusy = false; S.planErr = ''; S.planChars = 0; S.planReq = store.get('planReq', '');
+S.planes = store.get('planes', []);
+S.consultaOk = false;
+let rec = null;
+
+const EXAMPLE_PLAN = {
+  ejemplo: true,
+  titulo: 'Ecuador en 7 días: las 4 regiones en familia',
+  resumen: 'Plan de ejemplo para una familia de 4 con dos mascotas y 5.000 USD. Galápagos no admite mascotas, así que la opción principal recorre tres regiones con ellas y la segunda suma Galápagos dejándolas en un hospedaje para mascotas en Quito.',
+  avisos: ['Galápagos tiene controles de bioseguridad muy estrictos y no permite ingresar mascotas. Confírmalo con la Agencia de Regulación y Control de la Bioseguridad para Galápagos antes de planificar.', 'Para viajar con perros dentro de Ecuador lleva certificado de vacunas y confirma con cada hospedaje que acepta mascotas.', 'Los precios son estimados referenciales en USD; confírmalos con cada operador.'],
+  opciones: [
+    { nombre: 'Sierra, Amazonía y Costa con las mascotas', para_quien: 'Familias que viajan por tierra y sin separarse de sus mascotas', ritmo: 'moderado',
+      presupuesto: { total: 3900, vuelos: 0, hospedaje: 1500, comida: 900, tours: 800, transporte: 700 },
+      dias: [
+        { dia: 1, region: 'Sierra', base: 'Quito', titulo: 'Llegada y Centro Histórico', manana: 'Llegada al aeropuerto de Quito y descanso.', tarde: 'Paseo por el Centro Histórico.', noche: 'Cena en La Ronda.', dormir: 'Hotel que acepte mascotas en Quito', traslado: 'Aeropuerto – Quito, 45 min', mascotas: 'Pide habitación pet friendly al reservar.' },
+        { dia: 2, region: 'Sierra', base: 'Cotopaxi', titulo: 'Volcán Cotopaxi', manana: 'Ruta a Lasso, 1 h 30.', tarde: 'Parque Nacional Cotopaxi y laguna de Limpiopungo.', noche: 'Noche en hacienda al pie del volcán.', dormir: 'Hacienda en Lasso', traslado: 'Quito – Lasso, 1 h 30', mascotas: 'Las mascotas no entran al Parque Nacional: deja una persona con ellas o usa un cuidador local.' },
+        { dia: 3, region: 'Sierra', base: 'Latacunga · Quilotoa', titulo: 'Laguna del Quilotoa', manana: 'Mirador y bajada a la laguna.', tarde: 'Almuerzo de chugchucaras en Latacunga.', noche: 'Viaje a Baños.', dormir: 'Hostería pet friendly en Baños', traslado: 'Latacunga – Baños, 1 h 30', mascotas: 'Caminata corta con correa en el mirador.' },
+        { dia: 4, region: 'Amazonía', base: 'Baños – Puyo', titulo: 'Ruta de las cascadas', manana: 'Pailón del Diablo.', tarde: 'Bajada a la Amazonía por la ruta de las cascadas.', noche: 'Lodge en Puyo o Tena.', dormir: 'Lodge amazónico que acepte mascotas', traslado: 'Baños – Puyo, 1 h', mascotas: 'Confirma que el lodge acepte perros.' },
+        { dia: 5, region: 'Amazonía', base: 'Tena', titulo: 'Selva y comunidad', manana: 'Caminata guiada en la selva.', tarde: 'Visita a una comunidad kichwa y su chocolate.', noche: 'Regreso a la sierra.', dormir: 'Riobamba o Baños', traslado: 'Tena – Baños, 2 h 30', mascotas: 'Agua y repelente para los perros.' },
+        { dia: 6, region: 'Costa', base: 'Guayaquil', titulo: 'Bajada a la Costa', manana: 'Viaje a Guayaquil.', tarde: 'Malecón 2000 y barrio Las Peñas.', noche: 'Cena de mariscos.', dormir: 'Hotel pet friendly en Guayaquil', traslado: 'Riobamba – Guayaquil, 4 h', mascotas: 'Viaje largo: paradas cada 2 horas.' },
+        { dia: 7, region: 'Costa', base: 'Playas – Guayaquil', titulo: 'Día de playa y regreso', manana: 'Playa de General Villamil.', tarde: 'Regreso a Guayaquil.', noche: 'Vuelo de salida.', dormir: '—', traslado: 'Guayaquil – Playas, 1 h 30', mascotas: 'Revisa los requisitos de la aerolínea para viajar con mascotas.' }
+      ], negocios_cotopaxi: ['Hacienda San Agustín de Callo', 'Hacienda La Ciénega', 'Chugchucaras Rosita'] },
+    { nombre: 'Las 4 regiones, con Galápagos', para_quien: 'Si las mascotas se quedan con un cuidador en Quito', ritmo: 'intenso',
+      presupuesto: { total: 4950, vuelos: 1900, hospedaje: 1300, comida: 700, tours: 750, transporte: 300 },
+      dias: [
+        { dia: 1, region: 'Sierra', base: 'Quito', titulo: 'Llegada', manana: 'Llegada a Quito.', tarde: 'Dejar a las mascotas en un hospedaje para mascotas.', noche: 'Descanso.', dormir: 'Hotel en Quito', traslado: '—', mascotas: 'Hospedaje de mascotas en Quito por 5 noches.' },
+        { dia: 2, region: 'Sierra', base: 'Cotopaxi', titulo: 'Cotopaxi y Quilotoa', manana: 'Parque Nacional Cotopaxi.', tarde: 'Chugchucaras en Latacunga.', noche: 'Hacienda en Lasso.', dormir: 'Hacienda en Lasso', traslado: 'Quito – Lasso, 1 h 30', mascotas: '—' },
+        { dia: 3, region: 'Galápagos', base: 'Santa Cruz', titulo: 'Vuelo a Galápagos', manana: 'Vuelo a Baltra.', tarde: 'Estación Charles Darwin.', noche: 'Puerto Ayora.', dormir: 'Hotel en Puerto Ayora', traslado: 'Vuelo, unas 3 h con escala', mascotas: '—' },
+        { dia: 4, region: 'Galápagos', base: 'Santa Cruz', titulo: 'Tortugas y playa', manana: 'Reserva de tortugas gigantes.', tarde: 'Bahía Tortuga.', noche: 'Puerto Ayora.', dormir: 'Hotel en Puerto Ayora', traslado: '—', mascotas: '—' },
+        { dia: 5, region: 'Costa', base: 'Guayaquil', titulo: 'Vuelo a Guayaquil', manana: 'Vuelo a Guayaquil.', tarde: 'Malecón 2000.', noche: 'Cena de mariscos.', dormir: 'Hotel en Guayaquil', traslado: 'Vuelo, 1 h 45', mascotas: '—' },
+        { dia: 6, region: 'Amazonía', base: 'Tena', titulo: 'Amazonía exprés', manana: 'Vuelo o bus hacia la Amazonía.', tarde: 'Selva y comunidad.', noche: 'Lodge.', dormir: 'Lodge en Tena', traslado: 'Largo: planifica con un operador', mascotas: '—' },
+        { dia: 7, region: 'Sierra', base: 'Quito', titulo: 'Regreso', manana: 'Regreso a Quito.', tarde: 'Recoger a las mascotas.', noche: 'Vuelo de salida.', dormir: '—', traslado: 'Tena – Quito, 4 h', mascotas: 'Reencuentro.' }
+      ], negocios_cotopaxi: ['Hacienda La Ciénega', 'Chugchucaras La Mama Negra'] }
+  ],
+  contactos: [{ quien: 'Asesor Kawsay', para_que: 'Revisa tu plan y te conecta con los negocios de Cotopaxi.' }, { quien: 'Operadoras registradas en el Ministerio de Turismo', para_que: 'Vuelos internos, Galápagos y tours fuera de Cotopaxi.' }],
+  preguntas: ['¿Qué edades tienen tus hijos?', '¿Las mascotas son perros grandes o pequeños?', '¿En qué fechas viajan?']
+};
+
+function planPrompt(req, prev) {
+  const coto = allDir().map((b) => b.n + ' | ' + b.s + ' | ' + CK[b.k].n).join('\n');
+  return 'Eres el planificador de viajes de Kawsay, la plataforma turística de la provincia de Cotopaxi (Ecuador). Un viajero te cuenta su viaje. Responde SOLO con un objeto JSON válido, sin texto antes ni después, en el idioma del viajero.\n\n' +
+    'Forma exacta:\n{"titulo":"...","resumen":"2 frases","avisos":["..."],"opciones":[{"nombre":"...","para_quien":"...","ritmo":"tranquilo|moderado|intenso","presupuesto":{"total":0,"vuelos":0,"hospedaje":0,"comida":0,"tours":0,"transporte":0},"dias":[{"dia":1,"region":"Sierra|Costa|Amazonía|Galápagos","base":"ciudad","titulo":"...","manana":"...","tarde":"...","noche":"...","dormir":"tipo de hospedaje y zona","traslado":"tramo y duración aproximada","mascotas":"consejo o —"}],"negocios_cotopaxi":["nombre exacto de la lista"]}],"contactos":[{"quien":"...","para_que":"..."}],"preguntas":["..."]}\n\n' +
+    'Reglas:\n- Da 2 opciones claramente distintas (por ejemplo, una que cumple todo lo pedido y otra más cómoda o más barata). Una entrada por día, exactamente los días pedidos.\n- Cada texto de día en máximo 14 palabras. Presupuesto estimado referencial en USD para todo el grupo; la suma de rubros debe dar el total y no pasar del presupuesto del viajero.\n- Tiempos de traslado realistas por carretera y vuelos internos de Ecuador. Si el pedido es imposible o muy apretado, dilo en "avisos" y ajusta.\n- Galápagos tiene bioseguridad estricta y no admite mascotas: si viajan mascotas, avísalo, recomienda confirmar con la Agencia de Regulación y Control de la Bioseguridad para Galápagos y ofrece una alternativa. Sugiere hospedajes que acepten mascotas cuando correspondan. Las mascotas no entran a parques nacionales.\n- Incluye Cotopaxi (volcán, Quilotoa, Latacunga) cuando la ruta pase por la Sierra.\n- En "negocios_cotopaxi" usa SOLO nombres exactos de esta lista. Fuera de Cotopaxi NO inventes nombres de negocios, teléfonos ni precios exactos: describe el tipo de lugar.\n- En "contactos" incluye siempre "Asesor Kawsay" y, si hace falta, "Operadoras registradas en el Ministerio de Turismo". En "preguntas", hasta 3 preguntas para afinar el plan.\n\n' +
+    'Negocios de Cotopaxi (nombre | tipo | cantón):\n' + coto + '\n\n' + (prev ? 'Plan anterior (ajústalo según el nuevo pedido):\n' + JSON.stringify(prev).slice(0, 9000) + '\n\nNuevo pedido del viajero: ' : 'Pedido del viajero: ') + req;
+}
+function parsePlan(txt) {
+  const a = txt.indexOf('{'), b = txt.lastIndexOf('}');
+  if (a < 0 || b < a) throw new Error('nojson');
+  const o = JSON.parse(txt.slice(a, b + 1));
+  if (!o || !Array.isArray(o.opciones) || !o.opciones.length) throw new Error('shape');
+  o.opciones.forEach((op) => { op.dias = Array.isArray(op.dias) ? op.dias : []; op.presupuesto = op.presupuesto || {}; op.negocios_cotopaxi = Array.isArray(op.negocios_cotopaxi) ? op.negocios_cotopaxi : []; });
+  o.avisos = Array.isArray(o.avisos) ? o.avisos : []; o.contactos = Array.isArray(o.contactos) ? o.contactos : []; o.preguntas = Array.isArray(o.preguntas) ? o.preguntas : [];
+  return o;
+}
+async function makePlan(req, refine) {
+  req = String(req || '').trim();
+  if (req.length < 8) { toast(S.lang === 'en' ? 'Tell us a bit more about your trip' : 'Cuéntanos un poco más de tu viaje'); return; }
+  if (!refine) { S.planReq = req; store.set('planReq', req); }
+  S.planBusy = true; S.planErr = ''; S.planChars = 0; S.planOpt = 0;
+  if (cur() !== 'planificar') location.hash = 'planificar'; else render();
+  if (SITE) {
+    try {
+      const r = await api('/api/kawsay/ia', { kind: 'plan', pedido: refine ? S.planReq + '. Ajuste: ' + req : req, previo: refine ? S.plan : undefined });
+      if (r.disponible === false) S.plan = EXAMPLE_PLAN; else { S.plan = parsePlan(JSON.stringify(r.plan)); if (refine) S.planReq = S.planReq + '. ' + req; store.set('planReq', S.planReq); }
+      store.set('planActual', S.plan);
+    } catch (e) { S.planErr = e && e.status === 429 ? 'Hiciste muchas consultas seguidas. Espera unos minutos e inténtalo de nuevo.' : (e && e.message) || 'No pudimos armar el plan esta vez.'; }
+    S.planBusy = false; render(); return;
+  }
+  if (!S.sample) {
+    await new Promise((r) => setTimeout(r, 900));
+    S.plan = EXAMPLE_PLAN; S.planBusy = false; store.set('planActual', S.plan); render(); return;
+  }
+  try {
+    const r = await S.sample(planPrompt(refine ? S.planReq + '. Ajuste: ' + req : req, refine ? S.plan : null), { modelTier: 'default', onText: (p) => { S.planChars = (p.text || '').length; const el = $('#planProg'); if (el) el.textContent = Math.min(99, Math.round(S.planChars / 60)) + '%'; } });
+    S.plan = parsePlan(r.text || ''); if (refine) S.planReq = S.planReq + '. ' + req; store.set('planReq', S.planReq);
+    store.set('planActual', S.plan);
+  } catch (e) {
+    S.planErr = e && e.code === 'rate_limited' ? 'El asistente está ocupado. Espera un minuto e inténtalo de nuevo.' : e && e.code === 'not_granted' ? 'Para armar planes con inteligencia artificial, permite el asistente cuando la página lo pida.' : 'No pudimos armar el plan esta vez. Inténtalo de nuevo o simplifica el pedido.';
+    if (e && e.code === 'not_granted') S.sample = null;
+  }
+  S.planBusy = false; render();
+}
+function micBtn(target) {
+  return '<button type="button" class="mic" data-act="mic" data-target="' + target + '" aria-label="' + (S.lang === 'en' ? 'Speak' : 'Hablar') + '">' + ico('mic', 'lg') + '</button>';
+}
+function startMic(btn) {
+  const target = $('#' + btn.dataset.target); const st = $('#' + btn.dataset.target + '_st');
+  const say = (m) => { if (st) st.textContent = m; };
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const kb = S.lang === 'en' ? 'Tip: tap the microphone on your phone keyboard to dictate, or type.' : 'Consejo: toca el micrófono del teclado de tu celular para dictar, o escribe.';
+  if (rec) { rec.stop(); return; }
+  if (!SR) { say(kb); if (target) target.focus(); return; }
+  try {
+    rec = new SR(); rec.lang = S.lang === 'en' ? 'en-US' : 'es-EC'; rec.interimResults = true; rec.continuous = true;
+    const base = target.value ? target.value.trim() + ' ' : '';
+    rec.onresult = (e) => { let txt = ''; for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript; target.value = base + txt; target.dispatchEvent(new Event('input', { bubbles: true })); };
+    rec.onerror = (e) => { say(e.error === 'not-allowed' || e.error === 'service-not-allowed' || e.error === 'audio-capture' ? (S.lang === 'en' ? 'The microphone is blocked here. ' : 'El micrófono está bloqueado en esta vista. ') + kb : (S.lang === 'en' ? 'We could not hear you. Try again.' : 'No te escuchamos bien. Inténtalo de nuevo.')); };
+    rec.onend = () => { rec = null; btn.classList.remove('on'); };
+    rec.start(); btn.classList.add('on'); say(S.lang === 'en' ? 'Listening… speak calmly. Tap again to stop.' : 'Escuchando… habla con calma. Toca otra vez para terminar.');
+  } catch (e) { rec = null; say(kb); }
+}
+function openWelcome() {
+  const dlg = $('#dlg'); const en = S.lang === 'en';
+  dlg.setAttribute('aria-label', en ? 'Plan your trip' : 'Planifica tu viaje');
+  dlg.innerHTML = '<div class="welcome"><button type="button" class="md-close" data-act="close" aria-label="Cerrar">' + ico('close') + '</button>' +
+    '<p class="kicker" style="color:var(--sol)">' + (en ? 'Your trip, your way' : 'Tu viaje, a tu manera') + '</p><h2>' + (en ? 'Tell us about your dream trip' : 'Cuéntanos el viaje que sueñas') + '</h2><p class="wsub">' + (en ? 'Speak or type: how many days, who travels with you, your budget and what you want to experience. We will build travel plans for you.' : 'Habla o escribe: cuántos días tienes, con quién viajas, tu presupuesto y qué quieres vivir. Te armamos planes de viaje en segundos.') + '</p>' +
+    '<div class="wbox">' + micBtn('wIn') + '<label class="sr" for="wIn">Describe tu viaje</label><textarea id="wIn" rows="4" placeholder="' + esc(en ? 'E.g.: We are a family of 4 with two dogs. We have 7 days and 5,000 USD and want to see the 4 regions of Ecuador.' : 'Ej.: Somos mi esposa, dos hijos y dos perros. Tenemos 7 días y 5.000 USD y queremos conocer las 4 regiones de Ecuador.') + '">' + esc(S.planReq || '') + '</textarea></div><p class="wst" id="wIn_st" aria-live="polite"></p>' +
+    '<div class="wchips">' + (en ? PLAN_CHIPS_EN : PLAN_CHIPS_ES).map((c) => '<button type="button" data-act="addchip" data-t="wIn" data-v="' + esc(c) + '">+ ' + esc(c) + '</button>').join('') + '</div>' +
+    '<div class="acts"><button type="button" class="btn btn-fuego" data-act="plango" data-t="wIn" style="min-height:54px;font-size:17px">' + ico('route', 'sm') + (en ? 'Build my trip' : 'Armar mi viaje') + '</button><button type="button" class="btn btn-line" data-act="close">' + (en ? 'Just explore' : 'Solo quiero explorar') + '</button></div></div>';
+  try { if (!dlg.open) dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); }
+  setTimeout(() => { const t = $('#wIn'); if (t) t.focus(); }, 50);
+}
+function vPlan() {
+  const en = S.lang === 'en';
+  const top = '<section class="explore-top"><div class="wrap" style="display:flex;flex-direction:column;gap:14px"><p class="kicker" style="color:var(--sol)">' + (en ? 'Trip planner' : 'Planificador de viaje') + '</p><h1>' + (en ? 'Your trip through Ecuador' : 'Tu viaje por Ecuador') + '</h1>' +
+    '<div class="wbox dark">' + micBtn('pIn') + '<label class="sr" for="pIn">Describe tu viaje</label><textarea id="pIn" rows="3" placeholder="' + esc(en ? 'Days, travelers, pets, budget, what you love…' : 'Días, quiénes viajan, mascotas, presupuesto, qué te gusta…') + '">' + esc(S.planReq) + '</textarea><button type="button" class="btn btn-sol" data-act="plango" data-t="pIn">' + (en ? 'Plan' : 'Armar') + '</button></div><p class="wst" id="pIn_st" aria-live="polite" style="color:var(--nieve)"></p></div></section>';
+  if (S.planBusy) return top + '<section class="sec"><div class="wrap" style="max-width:760px"><div class="panel" style="align-items:center;text-align:center"><div class="spin" aria-hidden="true"></div><h2 class="h2" style="font-size:26px">' + (en ? 'Building your plans…' : 'Armando tus planes…') + '</h2><p style="color:var(--ink-2)">' + (en ? 'Checking routes, travel times, budget and local businesses.' : 'Revisando rutas, tiempos de traslado, presupuesto y negocios locales.') + '</p>' + (SITE ? '<p style="color:var(--ink-3)">' + (en ? 'This takes about 20 seconds.' : 'Esto toma unos 20 segundos.') + '</p>' : '<b id="planProg" style="font:800 28px var(--display);color:var(--fuego)">0%</b>') + '</div></div></section>';
+  if (S.planErr) return top + '<section class="sec"><div class="wrap" style="max-width:760px"><div class="banner err">' + esc(S.planErr) + '</div></div></section>';
+  if (!S.plan) return top + '<section class="sec"><div class="wrap" style="max-width:860px"><div class="empty"><b style="font:700 22px var(--display)">' + (en ? 'Tell us your trip and we will plan it' : 'Cuéntanos tu viaje y lo planificamos') + '</b><p>' + (en ? 'Example: “7 days, family of 4, two dogs, 5,000 USD, the 4 regions”.' : 'Ejemplo: «7 días, familia de 4, dos perros, 5.000 USD, las 4 regiones».') + '</p><button type="button" class="btn btn-fuego" data-act="welcome">' + ico('mic', 'sm') + (en ? 'Open voice planner' : 'Abrir planificador por voz') + '</button></div></div></section>';
+  const P = S.plan; const op = P.opciones[Math.min(S.planOpt, P.opciones.length - 1)];
+  const bud = op.presupuesto || {}; const tot = Number(bud.total) || BUDGET_KEYS.reduce((a, k) => a + (Number(bud[k[0]]) || 0), 0);
+  const money = (n) => (Number(n) || 0).toLocaleString('es-EC', { maximumFractionDigits: 0 });
+  const regs = [...new Set(op.dias.map((d) => d.region))];
+  const biz = op.negocios_cotopaxi.map(byName).filter(Boolean);
+  return top + '<section class="sec-tight" style="padding-bottom:64px"><div class="wrap" style="display:flex;flex-direction:column;gap:22px">' +
+    (P.ejemplo ? '<div class="banner warn">' + ico('shield', 'sm') + '<span>' + (en ? 'Sample plan: the AI planner is not available in this view, so we show a ready-made example.' : (SITE ? 'Plan de ejemplo: el planificador inteligente no está disponible en este momento, por eso mostramos un plan preparado.' : 'Plan de ejemplo: el planificador con inteligencia artificial no está disponible en esta vista, por eso mostramos un plan preparado.')) + '</span></div>' : '') +
+    '<div><h2 class="h2">' + esc(P.titulo) + '</h2><p class="lead" style="margin-top:8px">' + esc(P.resumen) + '</p></div>' +
+    (P.avisos.length ? '<div class="banner warn" style="flex-direction:column;gap:6px"><b>' + (en ? 'Before you go' : 'Antes de viajar') + '</b>' + P.avisos.map((a) => '<span>• ' + esc(a) + '</span>').join('') + '</div>' : '') +
+    '<div class="optabs" role="tablist">' + P.opciones.map((o, i) => '<button type="button" role="tab" aria-selected="' + (i === S.planOpt) + '" data-act="planopt" data-i="' + i + '"><small>' + (en ? 'Option ' : 'Opción ') + (i + 1) + ' · ' + esc(o.ritmo || '') + '</small><b>' + esc(o.nombre) + '</b><span>' + money((o.presupuesto || {}).total) + ' USD</span></button>').join('') + '</div>' +
+    '<div class="plan-grid"><div style="display:flex;flex-direction:column;gap:14px;min-width:0"><p style="color:var(--ink-2)"><b>' + (en ? 'Ideal for: ' : 'Ideal para: ') + '</b>' + esc(op.para_quien) + '</p><div class="regs">' + regs.map((r) => '<span style="background:' + regColor(r) + '">' + esc(r) + '</span>').join('') + '</div>' +
+    op.dias.map((d) => '<article class="day" style="--rc:' + regColor(d.region) + '"><div class="dh"><span class="dn">' + (en ? 'Day ' : 'Día ') + esc(d.dia) + '</span><span class="rg">' + esc(d.region) + ' · ' + esc(d.base) + '</span></div><h3>' + esc(d.titulo) + '</h3><dl class="kv"><dt>' + (en ? 'Morning' : 'Mañana') + '</dt><dd>' + esc(d.manana) + '</dd><dt>' + (en ? 'Afternoon' : 'Tarde') + '</dt><dd>' + esc(d.tarde) + '</dd><dt>' + (en ? 'Evening' : 'Noche') + '</dt><dd>' + esc(d.noche) + '</dd><dt>' + ico('bed', 'sm') + '</dt><dd>' + esc(d.dormir) + '</dd><dt>' + ico('route', 'sm') + '</dt><dd>' + esc(d.traslado) + '</dd>' + (d.mascotas && d.mascotas !== '—' ? '<dt>' + ico('heart', 'sm') + '</dt><dd>' + esc(d.mascotas) + '</dd>' : '') + '</dl></article>').join('') + '</div>' +
+    '<aside class="side" style="top:100px"><b style="font:800 20px var(--display)">' + (en ? 'Estimated budget' : 'Presupuesto estimado') + '</b><p style="font:800 34px var(--display);font-variant-numeric:tabular-nums">' + money(tot) + ' <span style="font:600 16px var(--body);color:var(--ink-3)">USD</span></p>' +
+    '<div class="stack" role="img" aria-label="Distribución del presupuesto">' + BUDGET_KEYS.map((k) => { const v = Number(bud[k[0]]) || 0; return v > 0 ? '<i style="flex:' + v + ';background:' + k[2] + '"></i>' : ''; }).join('') + '</div><dl class="kv" style="font-size:15px">' + BUDGET_KEYS.map((k) => '<dt><span style="width:12px;height:12px;border-radius:3px;background:' + k[2] + ';display:inline-block"></span>' + k[1] + '</dt><dd style="text-align:right;font-variant-numeric:tabular-nums">' + money(bud[k[0]]) + '</dd>').join('') + '</dl><p style="font-size:13px;color:var(--ink-3)">' + (en ? 'Reference estimate for the whole group. Confirm prices with each provider.' : 'Estimado referencial para todo el grupo. Confirma precios con cada proveedor.') + '</p>' +
+    '<button type="button" class="btn btn-fuego" data-act="asesor">' + ico('user', 'sm') + (en ? 'Talk to an advisor' : 'Hablar con un asesor') + '</button><button type="button" class="btn btn-noche" data-act="saveplan">' + ico('heart', 'sm') + (en ? 'Save plan' : 'Guardar plan') + '</button><button type="button" class="btn btn-line" data-act="copyplan">' + ico('copy', 'sm') + (en ? 'Copy plan' : 'Copiar plan') + '</button></aside></div>' +
+    (biz.length ? '<div><h2 class="h2" style="font-size:24px;margin-bottom:14px">' + (en ? 'Who to contact in Cotopaxi' : 'Con quién hablar en Cotopaxi') + '</h2><div class="grid">' + biz.map(bizCard).join('') + '</div></div>' : '') +
+    (P.contactos.length ? '<div class="grid">' + P.contactos.map((c) => '<article class="card"><div class="bd"><span style="color:var(--bosque)">' + ico('user', 'lg') + '</span><h3>' + esc(c.quien) + '</h3><p class="desc">' + esc(c.para_que) + '</p>' + (/kawsay/i.test(c.quien) ? '<div class="ft"><button type="button" class="btn btn-fuego btn-sm" data-act="asesor">' + (en ? 'Contact' : 'Contactar') + '</button></div>' : /ministerio/i.test(c.quien) ? '<div class="ft"><a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="https://www.turismo.gob.ec/">' + ico('ext', 'sm') + 'turismo.gob.ec</a></div>' : '') + '</div></article>').join('') + '</div>' : '') +
+    '<div class="panel" id="asesorBox"><h2 class="h2" style="font-size:24px">' + (en ? 'Adjust your plan' : 'Ajusta tu plan') + '</h2>' + (P.preguntas.length ? '<div class="wchips light">' + P.preguntas.map((q) => '<span>' + esc(q) + '</span>').join('') + '</div>' : '') +
+    '<div class="wbox">' + micBtn('rIn') + '<label class="sr" for="rIn">Ajuste</label><textarea id="rIn" rows="2" placeholder="' + esc(en ? 'E.g.: cheaper, no flights, more beach, kids are 6 and 9…' : 'Ej.: más barato, sin vuelos, más playa, los niños tienen 6 y 9 años…') + '"></textarea><button type="button" class="btn btn-noche" data-act="refine">' + (en ? 'Adjust' : 'Ajustar') + '</button></div><p class="wst" id="rIn_st" aria-live="polite"></p></div>' +
+    asesorForm() + '</div></section>';
+}
+function asesorForm() {
+  const en = S.lang === 'en';
+  if (S.consultaOk) return '<div class="banner ok" id="asesorForm">' + ico('check', 'sm') + '<span>' + (en ? 'Request sent. A Kawsay advisor will contact you.' : 'Solicitud enviada. Un asesor de Kawsay te contactará.') + '</span></div>';
+  const can = canSend();
+  return '<form class="panel" id="asesorForm" data-form="asesor" novalidate><h2 class="h2" style="font-size:24px">' + (en ? 'Talk to a Kawsay advisor' : 'Habla con un asesor de Kawsay') + '</h2><p style="color:var(--ink-2)">' + (en ? 'We will send your plan to the Kawsay team. They will help you with bookings in Cotopaxi and connect you with registered operators.' : 'Enviamos tu plan al equipo Kawsay. Te ayudarán con reservas en Cotopaxi y te conectarán con operadoras registradas.') + '</p><div class="fgrid">' +
+    '<div class="f" id="w_cn"><label for="f_cn">' + (en ? 'Name' : 'Nombre') + ' <span class="req">*</span></label><input id="f_cn" autocomplete="name"><span class="err" id="e_cn"></span></div>' +
+    '<div class="f"><label for="f_cp">' + (en ? 'Country' : 'País') + '</label><input id="f_cp" autocomplete="country-name"></div>' +
+    '<div class="f" id="w_cc"><label for="f_cc">WhatsApp ' + (en ? 'or email' : 'o correo') + ' <span class="req">*</span></label><input id="f_cc" autocomplete="email"><span class="err" id="e_cc"></span></div>' +
+    '<div class="f"><label for="f_cf">' + (en ? 'Approximate dates' : 'Fechas aproximadas') + '</label><input id="f_cf" placeholder="' + (en ? 'E.g.: July 2027' : 'Ej.: julio de 2027') + '"></div>' +
+    '<div class="f full"><label for="f_cm">' + (en ? 'Message' : 'Mensaje') + '</label><textarea id="f_cm" rows="3"></textarea></div></div>' +
+    (can ? '' : '<div class="banner warn">' + (en ? 'To send, open Kawsay with your account. Meanwhile, copy your plan and share it.' : 'Para enviar, abre Kawsay con tu cuenta. Mientras tanto, copia tu plan y compártelo.') + '</div>') +
+    '<div id="asesorErr"></div><div class="acts"><button type="submit" class="btn btn-fuego"' + (can ? '' : ' disabled') + '>' + ico('send', 'sm') + (en ? 'Send to advisor' : 'Enviar al asesor') + '</button></div></form>';
+}
+function planText() {
+  const P = S.plan; if (!P) return ''; const op = P.opciones[S.planOpt] || P.opciones[0];
+  return [P.titulo, 'Pedido: ' + S.planReq, 'Opción: ' + op.nombre + ' · ' + ((op.presupuesto || {}).total || '') + ' USD (estimado)', ''].concat(op.dias.map((d) => 'Día ' + d.dia + ' · ' + d.region + ' · ' + d.base + ': ' + d.titulo + '. ' + [d.manana, d.tarde, d.noche].join(' ') + ' Dormir: ' + d.dormir + '.'), ['', 'Avisos: ' + P.avisos.join(' | '), 'Hecho con Kawsay Cotopaxi']).join('\n');
+}
+async function sendAsesor(f) {
+  const nm = $('#f_cn').value.trim(), cc = $('#f_cc').value.trim(); let bad = false;
+  [['cn', nm, 'Escribe tu nombre.'], ['cc', cc, 'Escribe tu WhatsApp o correo.']].forEach((x) => { const w = $('#w_' + x[0]); if (!x[1]) { w.classList.add('bad'); $('#e_' + x[0]).textContent = x[2]; bad = true; } else w.classList.remove('bad'); });
+  if (bad) return;
+  const btn = f.querySelector('[type=submit]'); btn.disabled = true;
+  const op = S.plan.opciones[S.planOpt] || S.plan.opciones[0];
+  try {
+    const datosC = { nombre: nm, pais: $('#f_cp').value.trim(), contacto: cc, fechas: $('#f_cf').value.trim(), mensaje: $('#f_cm').value.trim(), pedido: S.planReq, plan: op.nombre, total: (op.presupuesto || {}).total || 0, detalle: planText().slice(0, 6000) };
+    if (SITE) await api('/api/kawsay/consulta', datosC);
+    else await S.db.doc('consultas/' + S.uid).set(Object.assign({}, datosC, { estado: 'nueva', creado: Date.now() }));
+    S.consultaOk = true; render(true); toast('Solicitud enviada');
+  } catch (e) { $('#asesorErr').innerHTML = '<div class="banner err">' + esc(SITE && e && e.message ? e.message : 'No pudimos enviar. Revisa tu conexión o tu permiso de acceso e inténtalo de nuevo.') + '</div>'; btn.disabled = false; }
+}
+async function savePlan() {
+  const op = S.plan.opciones[S.planOpt] || S.plan.opciones[0];
+  const item = { id: 'pl' + Date.now(), titulo: S.plan.titulo, opcion: op.nombre, total: (op.presupuesto || {}).total || 0, pedido: S.planReq, plan: S.plan, opt: S.planOpt, creado: Date.now() };
+  S.planes = [item].concat(S.planes).slice(0, 12); store.set('planes', S.planes);
+  if (S.db && S.uid) { try { await S.db.doc('data/users/' + S.uid + '/perfil').collection('planes').doc(item.id).set(item); } catch (e) {} }
+  toast('Plan guardado en Mi viaje');
+}
+function planesHTML() {
+  if (!S.planes.length) return '';
+  return '<div style="display:flex;flex-direction:column;gap:10px"><h2 class="h2" style="font-size:24px">Mis planes</h2>' + S.planes.map((p) => '<div style="display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;flex-wrap:wrap"><div style="flex:1 1 220px;min-width:0"><b style="font:700 17px var(--display)">' + esc(p.titulo) + '</b><div style="color:var(--ink-3);font-size:15px">' + esc(p.opcion) + ' · ' + esc(p.total) + ' USD</div></div><button type="button" class="btn btn-noche btn-sm" data-act="loadplan" data-id="' + p.id + '">Abrir</button><button type="button" class="iconbtn" data-act="delplan" data-id="' + p.id + '" aria-label="Borrar plan">' + ico('trash', 'sm') + '</button></div>').join('') + '</div>';
+}
+
+/* ---------- shell ---------- */
+const ROUTES_NAV = ['inicio', 'planificar', 'explorar', 'rutas', 'cantones', 'agenda', 'viaje'];
+function cur() { const h = (location.hash || '#inicio').slice(1); return h || 'inicio'; }
+function drawShell() {
+  const c = cur(); const top = c.indexOf('ruta-') === 0 ? 'rutas' : c.indexOf('canton-') === 0 ? 'cantones' : c;
+  const cnt = S.saved.size ? '<span class="count">' + S.saved.size + '</span>' : '';
+  $('#nav').innerHTML = ROUTES_NAV.map((r, i) => '<a href="#' + r + '"' + (top === r ? ' aria-current="page"' : '') + '>' + t('nav')[i] + (r === 'viaje' ? cnt : '') + '</a>').join('');
+  const tb = [['inicio', 'home'], ['explorar', 'search'], ['planificar', 'mic'], ['viaje', 'heart'], ['unete', 'user']];
+  $('#tabs').innerHTML = tb.map((x, i) => '<a href="#' + x[0] + '"' + (top === x[0] ? ' aria-current="page"' : '') + '>' + ico(x[1]) + t('tabs')[i] + (x[0] === 'viaje' && S.saved.size ? '<span class="count">' + S.saved.size + '</span>' : '') + '</a>').join('');
+  $('#alertTxt').innerHTML = t('alert'); $('#alertBtn').textContent = t('alertBtn');
+  $('#langBtn').textContent = S.lang === 'es' ? 'EN' : 'ES'; $('#joinBtn').textContent = t('join');
+  $('#ftAbout').textContent = t('about'); $('#ftPanel').hidden = !S.canEdit;
+  document.documentElement.lang = S.lang;
+}
+let lastView = '';
+function render(keepScroll) {
+  const c = cur(); let html;
+  if (c === 'inicio') html = vInicio();
+  else if (c === 'explorar') html = vExplorar();
+  else if (c === 'rutas') html = vRutas();
+  else if (c.indexOf('ruta-') === 0) html = vRuta(parseInt(c.slice(5), 10) - 1);
+  else if (c === 'cantones') html = vCantones();
+  else if (c.indexOf('canton-') === 0) html = vCanton(c.slice(7));
+  else if (c === 'agenda') html = vAgenda();
+  else if (c === 'viaje') html = vViaje();
+  else if (c === 'pasaporte') html = vPasaporte();
+  else if (c === 'unete') html = vUnete();
+  else if (c === 'panel') html = vPanel();
+  else if (c === 'planificar') html = vPlan();
+  else if (c === 'fuentes') html = vFuentes();
+  else html = vInicio();
+  const y = window.scrollY;
+  $('#view').innerHTML = html;
+  if (c === 'explorar') drawExplore();
+  drawShell();
+  if (keepScroll || lastView === c) window.scrollTo(0, y); else window.scrollTo(0, 0);
+  lastView = c;
+}
+let toastT;
+function toast(m) { const el = $('#toast'); el.textContent = m; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { el.hidden = true; }, 2600); }
+function toggleSave(id) {
+  if (S.saved.has(id)) S.saved.delete(id); else S.saved.add(id);
+  store.set('saved', [...S.saved]); toast(S.saved.has(id) ? 'Guardado en Mi viaje' : 'Quitado de Mi viaje');
+}
+function copyText(txt, ok) {
+  const done = () => toast(ok);
+  const fallback = () => { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('Selecciona y copia el texto manualmente'); } ta.remove(); };
+  try { navigator.clipboard.writeText(txt).then(done, fallback); } catch (e) { fallback(); }
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const a = el.dataset.act, id = el.dataset.id;
+  if (a === 'open') { openBiz(id); }
+  else if (a === 'close') { $('#dlg').close(); }
+  else if (a === 'save') { e.preventDefault(); toggleSave(id); if ($('#dlg').open) openBiz(id); render(true); }
+  else if (a === 'unsave') { toggleSave(id); render(true); }
+  else if (a === 'lang') { S.lang = S.lang === 'es' ? 'en' : 'es'; store.set('lang', S.lang); render(true); if (S.chatOpen) drawChat(); }
+  else if (a === 'safety') { toast('Revisa el estado oficial del volcán en el Instituto Geofísico (igepn.edu.ec)'); }
+  else if (a === 'quickq') { S.q = el.dataset.q; S.fk = S.fc = S.fs = ''; location.hash = 'explorar'; }
+  else if (a === 'gocat') { S.q = ''; S.fk = ''; S.fs = ''; S.fc = el.dataset.c; location.hash = 'explorar'; }
+  else if (a === 'gosub') { S.q = ''; S.fk = ''; S.fc = ''; S.fs = el.dataset.s; location.hash = 'explorar'; }
+  else if (a === 'fk') { S.fk = el.dataset.v; S.fs = ''; drawExplore(); }
+  else if (a === 'fc') { S.fc = el.dataset.v; S.fs = ''; drawExplore(); }
+  else if (a === 'fs') { S.fs = el.dataset.v; drawExplore(); }
+  else if (a === 'clearf') { S.q = S.fk = S.fc = S.fs = ''; const q = $('#q1'); if (q) q.value = ''; drawExplore(); }
+  else if (a === 'ctab') { S.ctab = el.dataset.v; render(true); }
+  else if (a === 'saveroute') { const r = ROUTES[+el.dataset.i]; r.biz.map(byName).filter(Boolean).forEach((b) => S.saved.add(b.id)); store.set('saved', [...S.saved]); toast('Ruta guardada en Mi viaje'); render(true); }
+  else if (a === 'saveev') { toggleSave('e:' + el.dataset.n); render(true); }
+  else if (a === 'stamp') { const k = el.dataset.k; if (S.stamps.has(k)) S.stamps.delete(k); else S.stamps.add(k); store.set('stamps', [...S.stamps]); render(true); if (S.stamps.size === 7) toast('¡Completaste los 7 cantones! Eres Guardián del Cotopaxi'); }
+  else if (a === 'copytrip') { copyText('MI VIAJE POR COTOPAXI · Kawsay\n' + [...S.saved].map((x) => { const b = allDir().find((y) => y.id === x); return '• ' + (b ? b.n + ' (' + b.s + ', ' + CK[b.k].n + ')' : x.replace(/^[ve]:/, '').replace(':', ' · ')); }).join('\n'), 'Plan copiado'); }
+  else if (a === 'claim') { const b = allDir().find((x) => x.id === id); $('#dlg').close(); S.sent = null; S.form = Object.assign(blankForm(), { nombre: b.n, cat: b.c, sub: b.s, canton: b.k, dir: b.l && b.l !== CK[b.k].n ? b.l : '', claim: b.n }); S.step = 1; saveDraft(); location.hash = 'unete'; if (cur() === 'unete') render(); }
+  else if (a === 'gostep') { const n = +el.dataset.n; if (n < S.step || [1, 2, 3, 4].slice(0, n - 1).every(okQuiet)) { S.step = n; saveDraft(); render(); } else toast('Completa los pasos anteriores primero'); }
+  else if (a === 'prevstep') { if (S.step === 1) location.hash = 'inicio'; else { S.step--; saveDraft(); render(); } }
+  else if (a === 'rmfoto') { e.preventDefault(); S.form.fotos[+el.dataset.i] = null; saveDraft(); render(true); }
+  else if (a === 'copyform') { copyText(formText(), 'Solicitud copiada'); }
+  else if (a === 'newform') { S.sent = null; S.form = blankForm(); S.step = 1; saveDraft(); render(); }
+  else if (a === 'approve') setEstado(id, 'verificado');
+  else if (a === 'observe') setEstado(id, 'observado');
+  else if (a === 'reject') setEstado(id, 'rechazado');
+  else if (a === 'chat') { S.chatOpen = !S.chatOpen; drawChat(); if (S.chatOpen) { const i = $('#chatIn'); if (i) i.focus(); } }
+  else if (a === 'ask') ask(el.dataset.q);
+  else if (a === 'welcome') openWelcome();
+  else if (a === 'draft') openDraft(el.dataset.kind, id);
+  else if (a === 'drai') improveDraft(el.dataset.kind, id);
+  else if (a === 'drcopy') { const ta = $('#drTxt'); if (ta) copyText(ta.value, 'Mensaje copiado'); }
+  else if (a === 'mic') startMic(el);
+  else if (a === 'addchip') { const t = $('#' + el.dataset.t); if (t) { t.value = (t.value.trim() ? t.value.trim().replace(/[.,]?$/, ', ') : '') + el.dataset.v; t.focus(); } }
+  else if (a === 'plango') { const t = $('#' + el.dataset.t); if (rec) rec.stop(); try { sessionStorage.setItem('kawsay:welcome', '1'); } catch (er) {} if ($('#dlg').open) $('#dlg').close(); makePlan(t ? t.value : ''); }
+  else if (a === 'planopt') { S.planOpt = +el.dataset.i; render(true); }
+  else if (a === 'refine') { const t = $('#rIn'); if (rec) rec.stop(); makePlan(t ? t.value : '', true); }
+  else if (a === 'asesor') { const f = $('#asesorForm'); if (f) { f.scrollIntoView({ behavior: 'smooth', block: 'start' }); const i = $('#f_cn'); if (i) setTimeout(() => i.focus({ preventScroll: true }), 400); } }
+  else if (a === 'saveplan') { savePlan(); }
+  else if (a === 'copyplan') { copyText(planText(), 'Plan copiado'); }
+  else if (a === 'loadplan') { const p = S.planes.find((x) => x.id === id); if (p) { S.plan = p.plan; S.planOpt = p.opt || 0; S.planReq = p.pedido; S.planErr = ''; location.hash = 'planificar'; } }
+  else if (a === 'delplan') { S.planes = S.planes.filter((x) => x.id !== id); store.set('planes', S.planes); render(true); }
+});
+function okQuiet(n) { const F = S.form; if (n === 1) return !!F.perfil; if (n === 2) return F.nombre && F.cat && F.sub && F.canton && F.dir && (F.desc || '').trim().length >= 30; if (n === 3) return F.resp && /^(0?9\d{8}|\+?5939\d{8})$/.test(String(F.wa || '').replace(/[\s-]/g, '')); if (n === 4) return F.fotos[0] && F.fotos[2] && F.autoriza && F.datos; return true; }
+document.addEventListener('submit', (e) => {
+  const f = e.target.closest('[data-form]'); if (!f) return; e.preventDefault();
+  const k = f.dataset.form;
+  if (k === 'search') { S.q = f.querySelector('input').value; S.fk = S.fc = S.fs = ''; location.hash = 'explorar'; }
+  else if (k === 'search2') { const q = $('#q1'); if (q) q.blur(); }
+  else if (k === 'asesor') { if (canSend()) sendAsesor(f); }
+  else if (k === 'chat') { const i = $('#chatIn'); const v = i.value; i.value = ''; ask(v); }
+  else if (k === 'join') { if (S.step < 5) { if (validate(S.step)) { S.step++; saveDraft(); render(); } } else if (canSend()) submitForm(); }
+});
+document.addEventListener('input', (e) => {
+  const el = e.target;
+  if (el.id === 'q1') { S.q = el.value; drawExplore(); return; }
+  if (el.dataset.f) { S.form[el.dataset.f] = el.value; const w = $('#w_' + el.dataset.f); if (w) w.classList.remove('bad'); if (el.dataset.f === 'desc') { const c = $('#cnt_desc'); if (c) c.textContent = el.value.length; } saveDraft(); }
+});
+document.addEventListener('change', async (e) => {
+  const el = e.target;
+  if (el.dataset.f) { S.form[el.dataset.f] = el.value; saveDraft(); if (el.dataset.f === 'perfil') { const w = $('#w_perfil'); if (w) w.classList.remove('bad'); } if (el.dataset.f === 'cat') { S.form.sub = S.form.sub || ''; render(true); } }
+  else if (el.dataset.fc) { const k = el.dataset.fc; const set = new Set(S.form[k] || []); if (el.checked) set.add(el.value); else set.delete(el.value); S.form[k] = [...set]; saveDraft(); }
+  else if (el.dataset.fb) { S.form[el.dataset.fb] = el.checked; const w = $('#w_' + el.dataset.fb); if (w) w.classList.remove('bad'); saveDraft(); }
+  else if (el.dataset.foto != null && el.files && el.files[0]) {
+    const i = +el.dataset.foto; const file = el.files[0];
+    if (!/^image\//.test(file.type)) { toast('Ese archivo no es una imagen'); return; }
+    try { toast('Procesando foto…'); S.form.fotos[i] = await compress(file); saveDraft(); render(true); } catch (err) { toast('No pudimos leer esa foto. Prueba con otra.'); }
+  }
+});
+$('#dlg').addEventListener('click', (e) => { if (e.target === $('#dlg')) $('#dlg').close(); });
+$('#dlg').addEventListener('close', () => { if (rec) rec.stop(); try { sessionStorage.setItem('kawsay:welcome', '1'); } catch (e) {} $('#dlg').setAttribute('aria-label', 'Ficha del negocio'); });
+window.addEventListener('hashchange', () => { if ($('#dlg').open) $('#dlg').close(); render(); const v = $('#view'); if (v) v.focus({ preventScroll: true }); });
+
+/* ---------- capacidades ---------- */
+async function initCaps() {
+  if (SITE) { S.dbReady = true; return; }
+  const use = window.claude && window.claude.use;
+  if (!use) { S.dbReady = true; if (['unete', 'panel'].indexOf(cur()) >= 0) render(true); return; }
+  const timer = setTimeout(() => { if (!S.dbReady) { S.dbReady = true; if (['unete', 'panel'].indexOf(cur()) >= 0) render(true); } }, 10000);
+  try {
+    const [db, user, sample] = await Promise.all([window.claude.use('db'), window.claude.use('user'), window.claude.use('sample')]);
+    S.db = db; S.user = user; S.sample = sample || null;
+    if (user) { S.uid = await user.id(); S.canEdit = !!(await user.canEdit()); }
+    if (db) {
+      db.collection('publicados').onSnapshot((snap) => {
+        S.pub = snap.docs.map((d) => Object.assign({ id: 'p:' + d.id, st: 'ok', f: '' }, d.data())).filter((b) => CK[b.k] && CATS[b.c]);
+        const c = cur(); if (c === 'explorar') drawExplore(); else if (c !== 'unete') render(true);
+      }, () => {});
+      if (S.canEdit) db.collection('consultas').onSnapshot((snap) => { S.cons = snap.docs.map((d) => Object.assign({ _id: d.id }, d.data())); if (cur() === 'panel') render(true); }, () => {});
+      if (S.canEdit) db.collection('solicitudes').onSnapshot((snap) => { S.subs = snap.docs.map((d) => Object.assign({ _id: d.id }, d.data())); if (cur() === 'panel') render(true); }, () => {});
+      if (S.uid) { try { const mine = await db.doc('solicitudes/' + S.uid).get(); if (mine.exists) { const d = mine.data(); S.prev = '<div class="banner info">' + ico('doc', 'sm') + '<span>Ya enviaste <b>' + esc(d.nombre) + '</b> (' + esc(d.codigo || '') + '). Estado: <b>' + esc(d.estado) + '</b>. Si envías de nuevo, se reemplaza esa solicitud.</span></div>'; } } catch (e) {} }
+    }
+  } catch (e) {}
+  clearTimeout(timer); S.dbReady = true; drawShell();
+  if (['unete', 'panel'].indexOf(cur()) >= 0) render(true);
+}
+
+render();
+initCaps();
+(function () { let seen = false; try { seen = sessionStorage.getItem('kawsay:welcome') === '1'; } catch (e) {} if (!seen && ['inicio', ''].indexOf(cur()) >= 0) setTimeout(openWelcome, 700); })();
+})();
+
+</script>
+
+</body>
+</html>

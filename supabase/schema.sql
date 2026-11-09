@@ -258,3 +258,36 @@ create table if not exists public.nodo_borrado_tokens (
   created_at timestamptz not null default now()
 );
 alter table public.nodo_borrado_tokens enable row level security;
+
+-- Kawsay (/kawsay): pre-registro de negocios y pedidos de asesoría de viajeros. Solo el servidor escribe; administradores leen.
+create table if not exists public.kawsay_registros (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  codigo text unique not null,
+  nombre text not null,
+  canton text not null,
+  categoria text not null,
+  tipo text,
+  whatsapp text not null,
+  email text,
+  acepta_boletin boolean not null default false,
+  datos jsonb not null,
+  estado text not null default 'pendiente' check (estado in ('pendiente','verificado','observado','rechazado'))
+);
+create table if not exists public.kawsay_consultas (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  codigo text unique not null,
+  nombre text not null,
+  pais text,
+  contacto text not null,
+  datos jsonb not null,
+  estado text not null default 'nueva'
+);
+alter table public.kawsay_registros enable row level security;
+alter table public.kawsay_consultas enable row level security;
+drop policy if exists "admins_manage_kawsay_registros" on public.kawsay_registros;
+create policy "admins_manage_kawsay_registros" on public.kawsay_registros for all to authenticated using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "admins_manage_kawsay_consultas" on public.kawsay_consultas;
+create policy "admins_manage_kawsay_consultas" on public.kawsay_consultas for all to authenticated using (public.is_admin()) with check (public.is_admin());
+insert into storage.buckets (id,name,public) values ('kawsay-fotos','kawsay-fotos',false) on conflict (id) do nothing;
