@@ -474,6 +474,24 @@ footer .col{display:flex;flex-direction:column;gap:8px;min-width:0}
 }
 
 
+
+/* video emergente */
+.vidcta{display:flex;align-items:center;gap:14px;width:100%;max-width:560px;text-align:left;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:18px;padding:12px 16px;cursor:pointer;transition:background .15s,transform .15s}
+.vidcta:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+.vidcta b{display:block;font:800 17px var(--display)}.vidcta small{display:block;font-size:14px;opacity:.85}
+.vid-play{flex:none;width:46px;height:46px;border-radius:50%;background:var(--sol);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(247,167,19,.22)}
+.vid-play svg{width:22px;height:22px;fill:var(--noche);margin-left:3px}
+.vidcta.sm{margin:4px 0 2px;padding:9px 12px;border-color:rgba(255,255,255,.28)}.vidcta.sm .vid-play{width:38px;height:38px;box-shadow:0 0 0 4px rgba(247,167,19,.2)}.vidcta.sm b{font-size:15px}
+.vdlg{border:0;padding:0;background:transparent;max-width:none;max-height:none;overflow:visible}
+.vdlg::backdrop{background:rgba(12,22,40,.86);backdrop-filter:blur(4px)}
+.vbox{position:relative;width:min(400px,calc(100vw - 32px))}
+.vframe{border-radius:30px;padding:6px;background:linear-gradient(135deg,#27A9AD,#4285F4 35%,#73439A 60%,#E55FA0 80%,#F7A713);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.vframe video{display:block;width:100%;aspect-ratio:9/16;max-height:min(80vh,711px);object-fit:contain;border-radius:25px;background:#183247}
+.vclose{position:absolute;right:-8px;top:-8px;z-index:2;width:46px;height:46px;border-radius:50%;border:0;background:var(--sol);color:var(--noche);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer}
+.vclose:focus-visible{outline:4px solid #fff;outline-offset:2px}
+.vnote{text-align:center;margin-top:12px}.vnote a{color:#fff;font-weight:700}
+@media (min-width:640px){.vclose{right:-20px;top:-20px}}
+
 /* polo y redes */
 .social{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .social a{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--noche);color:#fff;transition:transform .15s,background .15s}
@@ -598,6 +616,7 @@ footer .col{display:flex;flex-direction:column;gap:8px;min-width:0}
   <div class="col"><a href="#unete">Registra tu negocio</a><span>Emergencias: ECU 911</span><a href="#panel" id="ftPanel" hidden>Panel de solicitudes</a></div>
 </div></footer>
 <nav class="tabs" aria-label="Principal móvil" id="tabs"></nav>
+<dialog id="vdlg" class="vdlg" aria-label="Video: cómo usar Kawsay"></dialog>
 <div class="fabtip" id="fabTip" role="status" hidden><button type="button" class="fabtip-x" data-act="tipclose" aria-label="Cerrar aviso"><svg class="ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button><b>¡Hola! Soy el asistente de Kawsay.</b><span>¿Te ayudo a planear tu viaje por Cotopaxi?</span><button type="button" class="btn btn-fuego btn-sm" data-act="chat">Preguntar</button></div>
 <button type="button" class="fab polo-fab" data-act="chat" aria-label="Abrir asistente Kawsay"><span class="polo-av" aria-hidden="true"></span><span class="fab-dot" aria-hidden="true"></span></button>
 <div id="chatBox" hidden></div>
@@ -786,7 +805,7 @@ function vInicio() {
   const qs = S.lang === 'en' ? ['Chugchucaras', 'Quilotoa', 'Ice cream', 'Hacienda', 'Waterfall'] : ['Chugchucaras', 'Quilotoa', 'Helados', 'Hacienda', 'Cascada'];
   return '<section class="hero"><div class="wrap"><div class="hero-txt"><p class="kicker" style="color:var(--sol)">' + t('kicker') + '</p><h1>' + t('h1a') + ' <span>' + t('h1b') + '</span></h1><p class="lead">' + t('sub') + '</p>' +
     '<form class="search" data-form="search" role="search">' + ico('search') + '<label class="sr" for="q0">' + t('ph') + '</label><input id="q0" name="q" type="search" placeholder="' + t('ph') + '" autocomplete="off"><button class="btn btn-sol" type="submit">' + t('go') + '</button></form>' +
-    '<button type="button" class="voicecta" data-act="welcome">' + ico('mic', 'lg') + '<span><b>' + (S.lang === 'en' ? 'Plan your trip by voice' : 'Planifica tu viaje con tu voz') + '</b><small>' + (S.lang === 'en' ? 'Days, budget, family, pets: we build the route' : 'Días, presupuesto, familia, mascotas: te armamos la ruta') + '</small></span></button>' +
+    '<button type="button" class="voicecta" data-act="welcome">' + ico('mic', 'lg') + '<span><b>' + (S.lang === 'en' ? 'Plan your trip by voice' : 'Planifica tu viaje con tu voz') + '</b><small>' + (S.lang === 'en' ? 'Days, budget, family, pets: we build the route' : 'Días, presupuesto, familia, mascotas: te armamos la ruta') + '</small></span></button>' + videoCta(false) +
     '<div class="chips-q"><span style="align-self:center;font-size:14px;color:var(--nieve)">' + t('try') + '</span>' + qs.map((q) => '<button type="button" data-act="quickq" data-q="' + esc(q === 'Ice cream' ? 'Helados' : q === 'Waterfall' ? 'Cascada' : q) + '">' + esc(q) + '</button>').join('') + '</div>' +
     '<div class="stats"><div><b>' + D.length + '</b><span>' + t('biz') + '</span></div><div><b>7</b><span>' + t('cant') + '</span></div><div><b>8</b><span>' + t('routes') + '</span></div></div></div>' +
     '<div class="hero-img ' + ph('hero2') + '"><span class="cap">Laguna de Limpiopungo · Parque Nacional Cotopaxi</span></div></div></section>' +
@@ -1236,7 +1255,7 @@ function openWelcome() {
   const dlg = $('#dlg'); const en = S.lang === 'en';
   dlg.setAttribute('aria-label', en ? 'Plan your trip' : 'Planifica tu viaje');
   dlg.innerHTML = '<div class="welcome"><button type="button" class="md-close" data-act="close" aria-label="Cerrar">' + ico('close') + '</button>' +
-    '<p class="kicker" style="color:var(--sol)">' + (en ? 'Your trip, your way' : 'Tu viaje, a tu manera') + '</p><h2>' + (en ? 'Tell us about your dream trip' : 'Cuéntanos el viaje que sueñas') + '</h2><p class="wsub">' + (en ? 'Speak or type: how many days, who travels with you, your budget and what you want to experience. We will build travel plans for you.' : 'Habla o escribe: cuántos días tienes, con quién viajas, tu presupuesto y qué quieres vivir. Te armamos planes de viaje en segundos.') + '</p>' +
+    '<p class="kicker" style="color:var(--sol)">' + (en ? 'Your trip, your way' : 'Tu viaje, a tu manera') + '</p><h2>' + (en ? 'Tell us about your dream trip' : 'Cuéntanos el viaje que sueñas') + '</h2><p class="wsub">' + (en ? 'Speak or type: how many days, who travels with you, your budget and what you want to experience. We will build travel plans for you.' : 'Habla o escribe: cuántos días tienes, con quién viajas, tu presupuesto y qué quieres vivir. Te armamos planes de viaje en segundos.') + '</p>' + videoCta(true) +
     '<div class="wbox">' + micBtn('wIn') + '<label class="sr" for="wIn">Describe tu viaje</label><textarea id="wIn" rows="4" placeholder="' + esc(en ? 'E.g.: We are a family of 4 with two dogs. We have 7 days and 5,000 USD and want to see the 4 regions of Ecuador.' : 'Ej.: Somos mi esposa, dos hijos y dos perros. Tenemos 7 días y 5.000 USD y queremos conocer las 4 regiones de Ecuador.') + '">' + esc(S.planReq || '') + '</textarea></div><p class="wst" id="wIn_st" aria-live="polite"></p>' +
     '<div class="wchips">' + (en ? PLAN_CHIPS_EN : PLAN_CHIPS_ES).map((c) => '<button type="button" data-act="addchip" data-t="wIn" data-v="' + esc(c) + '">+ ' + esc(c) + '</button>').join('') + '</div>' +
     '<div class="acts"><button type="button" class="btn btn-fuego" data-act="plango" data-t="wIn" style="min-height:54px;font-size:17px">' + ico('route', 'sm') + (en ? 'Build my trip' : 'Armar mi viaje') + '</button><button type="button" class="btn btn-line" data-act="close">' + (en ? 'Just explore' : 'Solo quiero explorar') + '</button></div></div>';
@@ -1535,6 +1554,29 @@ async function loadRedes() {
   if (!SITE) return;
   try { const r = await fetch('/api/social'); const j = await r.json(); if (Array.isArray(j.redes) && j.redes.length) { S.redes = j.redes.filter((x) => RED_ICO[x.name]); drawShell(); if (cur() === 'inicio') render(true); } } catch (e) {}
 }
+/* video: cómo usar Kawsay */
+const VID_BASE = SITE ? '/kawsay/video/' : 'https://www.depoloapoloavanzamoscotopaxi.com/kawsay/video/';
+const VID = { src: VID_BASE + 'kawsay-como-usar-720.mp4', poster: VID_BASE + 'kawsay-como-usar-poster.jpg' };
+function videoCta(small) {
+  const en = S.lang === 'en';
+  return '<button type="button" class="vidcta' + (small ? ' sm' : '') + '" data-act="video"><span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span><b>' + (en ? 'Watch how it works' : 'Mira cómo funciona') + '</b><small>' + (en ? '1-minute video (in Spanish)' : 'Video de 1 minuto') + '</small></span></button>';
+}
+function openVideo() {
+  const v = $('#vdlg'); if (!v) return;
+  const en = S.lang === 'en';
+  v.innerHTML = '<div class="vbox"><button type="button" class="vclose" data-act="vclose" aria-label="' + (en ? 'Close video' : 'Cerrar video') + '"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
+    '<div class="vframe"><video id="kvid" controls autoplay playsinline preload="metadata" poster="' + VID.poster + '"><source src="' + VID.src + '" type="video/mp4">' + (en ? 'Your browser cannot play this video.' : 'Tu navegador no puede reproducir este video.') + '</video></div>' +
+    '<p class="vnote" id="vnote" hidden><a href="' + VID.src + '" target="_blank" rel="noopener">' + (en ? 'Open the video' : 'Abrir el video') + '</a></p></div>';
+  const el = $('#kvid'); if (el) el.addEventListener('error', () => { const n = $('#vnote'); if (n) n.hidden = false; }, true);
+  try { if (!v.open) v.showModal(); } catch (e) { v.setAttribute('open', ''); }
+  setTimeout(() => { const c = v.querySelector('.vclose'); if (c) c.focus(); }, 30);
+}
+function closeVideo() {
+  const v = $('#vdlg'); if (!v) return;
+  const el = $('#kvid'); if (el) { try { el.pause(); el.removeAttribute('src'); el.load(); } catch (e) {} }
+  if (v.open) v.close(); v.innerHTML = '';
+}
+
 /* aviso del asistente */
 function showFabTip() {
   let seen = false; try { seen = sessionStorage.getItem('kawsay:tip') === '1'; } catch (e) {}
@@ -1626,6 +1668,8 @@ document.addEventListener('click', (e) => {
   else if (a === 'approve') setEstado(id, 'verificado');
   else if (a === 'observe') setEstado(id, 'observado');
   else if (a === 'reject') setEstado(id, 'rechazado');
+  else if (a === 'video') { openVideo(); }
+  else if (a === 'vclose') { closeVideo(); }
   else if (a === 'tipclose') { const tp = $('#fabTip'); if (tp) tp.hidden = true; try { sessionStorage.setItem('kawsay:tip', '1'); } catch (er) {} }
   else if (a === 'chat') { const tp = $('#fabTip'); if (tp) tp.hidden = true; try { sessionStorage.setItem('kawsay:tip', '1'); } catch (er) {} S.chatOpen = !S.chatOpen; drawChat(); if (S.chatOpen) { const i = $('#chatIn'); if (i) i.focus(); } }
   else if (a === 'ask') ask(el.dataset.q);
@@ -1671,6 +1715,10 @@ document.addEventListener('change', async (e) => {
   }
 });
 $('#dlg').addEventListener('click', (e) => { if (e.target === $('#dlg')) $('#dlg').close(); });
+(function () { const v = $('#vdlg'); if (!v) return;
+  v.addEventListener('close', () => { const el = $('#kvid'); if (el) { try { el.pause(); el.removeAttribute('src'); el.load(); } catch (e) {} } v.innerHTML = ''; });
+  v.addEventListener('click', (e) => { if (e.target === v) closeVideo(); });
+})();
 $('#dlg').addEventListener('close', () => { if (rec) rec.stop(); try { sessionStorage.setItem('kawsay:welcome', '1'); } catch (e) {} $('#dlg').setAttribute('aria-label', 'Ficha del negocio'); });
 window.addEventListener('hashchange', () => { if ($('#dlg').open) $('#dlg').close(); render(); const v = $('#view'); if (v) v.focus({ preventScroll: true }); });
 
