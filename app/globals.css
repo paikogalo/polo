@@ -17,3 +17,22 @@
 .nodo-hero{background:radial-gradient(60rem 40rem at 110% -10%,rgba(216,125,180,.45),transparent 60%),radial-gradient(50rem 36rem at -20% 110%,rgba(39,169,173,.45),transparent 60%),linear-gradient(140deg,#183247 0%,#1f4f8f 45%,#5b3a8c 100%)}
 .nodo-phone-scroll{scrollbar-width:thin;scrollbar-color:#73439A transparent;scroll-behavior:smooth}
 .nodo-phone-scroll:focus-visible{outline:3px solid #F7A713;outline-offset:-3px}
+/* Becas De Polo a Polo · franja de portada */
+.becas-band{background:radial-gradient(60rem 40rem at 110% -10%,rgba(216,125,180,.5),transparent 60%),radial-gradient(50rem 36rem at -20% 110%,rgba(39,169,173,.5),transparent 60%),linear-gradient(140deg,#183247 0%,#1f4f8f 45%,#5b3a8c 100%)}
+.becas-ring{background:linear-gradient(90deg,#27A9AD,#3B8BEA,#73439A,#D87DB4,#F7A713,#27A9AD);background-size:200% 100%;animation:becas-slide 6s linear infinite}
+.becas-glow{background:conic-gradient(from 0deg at 70% 40%,transparent 0 60deg,rgba(247,167,19,.16) 90deg,transparent 140deg,rgba(39,169,173,.18) 220deg,transparent 280deg);animation:becas-turn 18s linear infinite;inset:-30%!important}
+.becas-mil{font-size:clamp(6.5rem,22vw,12rem);background:linear-gradient(135deg,#F7A713,#ffd36b 30%,#D87DB4 60%,#7fe0e3 85%,#F7A713);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:becas-hue 4s ease-in-out infinite alternate,becas-jump 3s cubic-bezier(.3,1.6,.5,1) infinite}
+.becas-tag{transform:rotate(-3deg);box-shadow:0 12px 30px rgba(247,167,19,.4);animation:becas-sway 3.6s ease-in-out infinite}
+.becas-cta::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:3px solid #F7A713;animation:becas-ping 2s ease-out infinite;pointer-events:none}
+.becas-disc{background:linear-gradient(135deg,#27A9AD 0%,#3B8BEA 30%,#73439A 55%,#D87DB4 75%,#F7A713 100%);animation:becas-turn 14s linear infinite}
+.becas-stk{animation:becas-bob 4.5s ease-in-out infinite}
+@keyframes becas-slide{to{background-position:200% 0}}
+@keyframes becas-turn{to{transform:translateX(-50%) rotate(360deg)}}
+.becas-glow{animation-name:becas-spin}
+@keyframes becas-spin{to{transform:rotate(360deg)}}
+@keyframes becas-hue{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+@keyframes becas-jump{0%,70%,100%{transform:translateY(0) rotate(0)}78%{transform:translateY(-.06em) rotate(-2deg)}88%{transform:translateY(.01em) rotate(1deg)}}
+@keyframes becas-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg) scale(1.05)}}
+@keyframes becas-ping{0%{opacity:.9;transform:scale(.96)}100%{opacity:0;transform:scale(1.14)}}
+@keyframes becas-bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@media(prefers-reduced-motion:reduce){.becas-ring,.becas-glow,.becas-mil,.becas-tag,.becas-cta::after,.becas-disc,.becas-stk{animation:none}}

@@ -13,6 +13,7 @@ import {TerritoryGallery} from "@/components/territory-gallery";
 import {WelcomeVideo} from "@/components/welcome-video";
 import {CANDIDATE_SRC,LOGO_SRC} from "@/lib/image-src";
 import {NodoHomeBand} from "@/components/nodo/nodo-home-band";
+import {BecasHomeBand} from "@/components/becas/becas-home-band";
 
 const axes=[
   {icon:Sprout,title:"Producción y oportunidades",desc:"Fortalecer el campo, apoyar a productores, emprendedores y comerciantes. Implementar incentivos. Conectar la producción local con mercados justos. Promover la participación juvenil en la producción agrícola sostenible",items:["Asistencia técnica moderna, permanente y específica","Capacitación e innovación","Tecnificación agropecuaria","Generación de empleo","Comercio justo","Empresas agropecuarias juveniles","Cotopaxi Circular"],image:"/campaign-produccion.webp",imageAlt:"Hipólito Carrera conversa con un productor en una plantación de banano",imagePosition:"50% 52%"},
@@ -29,6 +30,8 @@ export default function Home(){
         <div className="order-1 lg:order-2"><div className="candidate-pop relative mx-auto h-[390px] max-w-[520px] sm:h-[560px]"><div className="absolute inset-0 overflow-hidden rounded-[2.8rem] border border-white/20 bg-white/5 shadow-2xl"><div className="brand-orbit absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-90"/></div><div className="absolute bottom-5 left-5 z-10 max-w-[calc(100%_-_2.5rem)] rounded-2xl bg-white/95 px-4 py-3 text-left text-deep shadow-xl"><span className="block text-xs font-extrabold text-coral">HIPÓLITO CARRERA</span><b className="mt-1 block font-serif text-base leading-tight sm:text-lg">De POLO a POLO Avanzamos Cotopaxi</b></div><Image src={CANDIDATE_SRC} alt="Hipólito Carrera" fill priority unoptimized sizes="(max-width: 1024px) 100vw, 50vw" className="candidate-portrait z-[1] object-contain object-bottom"/></div></div>
       </div>
     </section>
+
+    <BecasHomeBand/>
 
     <NodoHomeBand/>
 

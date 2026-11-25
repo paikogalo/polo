@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="1000 becas de tercer nivel, sin límite de edad, en modalidad virtual o híbrida. Programa de Polo Carrera y María Esther Veloz.">
 <title>Becas De Polo a Polo</title>
 <link rel="icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -232,13 +232,22 @@ form{padding:20px}
 .rise{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
 .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.32s}.d4{animation-delay:.45s}
 @keyframes rise{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* Video flotante */
+.fv{position:fixed;z-index:70;right:16px;bottom:16px;width:min(200px,38vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#183247;box-shadow:0 24px 50px rgba(18,43,64,.45);border:3px solid #fff;transform:translateY(140%);transition:transform .6s cubic-bezier(.2,.9,.3,1.2),width .35s ease}
+.fv.in{transform:none}
+.fv video{width:100%;height:100%;object-fit:cover;display:block}
+.fv .x{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(18,43,64,.75);color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.fv .snd{position:absolute;left:8px;right:8px;bottom:8px;min-height:40px;border:0;border-radius:999px;background:var(--yellow);color:var(--navy);font-weight:800;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;animation:ping2 1.8s ease-in-out infinite}
+@keyframes ping2{50%{box-shadow:0 0 0 6px rgba(247,167,19,.35)}}
+.fv.big{width:min(360px,86vw);right:50%;transform:translateX(50%);bottom:24px}
+.fv.big.in{transform:translateX(50%)}
+@media (max-width:640px){.fv{bottom:12px;right:12px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.dots i{transform:none}}
 </style>
 </head>
 <body>
 
-
-<div class="proto"><b>PROTOTIPO</b> para revisión · el formulario todavía no guarda datos</div>
 
 <header>
   <div class="ringbar" aria-hidden="true"></div>
@@ -251,6 +260,7 @@ form{padding:20px}
       <a class="lk" href="#cifras">Cifras</a>
       <a class="lk" href="#prioridad">Prioridad</a>
       <a class="lk" href="#carreras">Carreras</a>
+      <a class="lk" href="/">Inicio</a>
       <a class="go" href="#postula">Postula</a>
     </nav>
   </div>
@@ -297,6 +307,7 @@ form{padding:20px}
         <p class="plabel" id="plabel">Paso 1 de 4 · Tus datos</p>
       </div>
       <form id="form" novalidate>
+        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="step on" data-s="1">
           <h3>Tus datos</h3><p class="hint">Tal como constan en tu cédula.</p>
           <div class="f"><label for="ced">Cédula <em>*</em></label><input id="ced" inputmode="numeric" maxlength="10" placeholder="10 dígitos" autocomplete="off"><span class="err"></span></div>
@@ -311,19 +322,19 @@ form{padding:20px}
           <div class="f"><label for="prov">Provincia <em>*</em></label><select id="prov"><option>Cotopaxi</option><option>Otra provincia</option></select><span class="err"></span></div>
           <div class="f"><label for="can">Cantón <em>*</em></label><select id="can"><option value="">Elige</option><option>Latacunga</option><option>La Maná</option><option>Pangua</option><option>Pujilí</option><option>Salcedo</option><option>Saquisilí</option><option>Sigchos</option></select><span class="err"></span></div>
           <div class="f"><label for="parr">Parroquia, barrio o comunidad <em>*</em></label><input id="parr"><span class="err"></span></div>
-          <div class="f"><span class="lb">Zona</span><div class="opts"><label class="opt"><input type="radio" name="zona" checked><span>Urbana</span></label><label class="opt"><input type="radio" name="zona"><span>Rural</span></label></div></div>
+          <div class="f"><span class="lb">Zona</span><div class="opts"><label class="opt"><input type="radio" name="zona" value="urbana" checked><span>Urbana</span></label><label class="opt"><input type="radio" name="zona" value="rural"><span>Rural</span></label></div></div>
         </div>
         <div class="step" data-s="3">
           <h3>Tus estudios</h3><p class="hint">De dónde partes y qué quieres estudiar.</p>
           <div class="f"><label for="niv">Nivel académico <em>*</em></label><select id="niv"><option value="">Elige</option><option>Bachiller</option><option>Último año de bachillerato</option><option>Tercer nivel sin terminar</option><option>Técnico o tecnólogo terminado</option><option>Tercer nivel terminado</option></select><span class="err"></span></div>
           <div class="f"><label for="car">Carrera de interés <em>*</em></label><select id="car"></select><span class="err"></span></div>
-          <div class="f"><span class="lb">Modalidad</span><div class="opts"><label class="opt"><input type="radio" name="mod" checked><span>Virtual</span></label><label class="opt"><input type="radio" name="mod"><span>Híbrida</span></label></div></div>
-          <div class="f"><span class="lb">Tipo de estudiante</span><div class="opts"><label class="opt"><input type="radio" name="tipo" checked><span>Primera carrera</span></label><label class="opt"><input type="radio" name="tipo"><span>Retomo estudios</span></label><label class="opt"><input type="radio" name="tipo"><span>Trabajo y estudio</span></label></div></div>
+          <div class="f"><span class="lb">Modalidad</span><div class="opts"><label class="opt"><input type="radio" name="mod" value="virtual" checked><span>Virtual</span></label><label class="opt"><input type="radio" name="mod" value="hibrida"><span>Híbrida</span></label></div></div>
+          <div class="f"><span class="lb">Tipo de estudiante</span><div class="opts"><label class="opt"><input type="radio" name="tipo" value="primera" checked><span>Primera carrera</span></label><label class="opt"><input type="radio" name="tipo" value="retoma"><span>Retomo estudios</span></label><label class="opt"><input type="radio" name="tipo" value="trabaja"><span>Trabajo y estudio</span></label></div></div>
         </div>
         <div class="step" data-s="4">
           <h3>Prioridad y envío</h3><p class="hint">Estas dos preguntas son opcionales.</p>
-          <div class="f"><span class="lb">¿Eres mujer víctima de violencia con boleta de auxilio?</span><div class="opts"><label class="opt"><input type="radio" name="vio"><span>Sí</span></label><label class="opt"><input type="radio" name="vio"><span>No</span></label><label class="opt"><input type="radio" name="vio" checked><span>Prefiero no decir</span></label></div></div>
-          <div class="f"><span class="lb">¿Tienes alguna discapacidad?</span><div class="opts"><label class="opt"><input type="radio" name="dis"><span>Sí</span></label><label class="opt"><input type="radio" name="dis"><span>No</span></label><label class="opt"><input type="radio" name="dis" checked><span>Prefiero no decir</span></label></div></div>
+          <div class="f"><span class="lb">¿Eres mujer víctima de violencia con boleta de auxilio?</span><div class="opts"><label class="opt"><input type="radio" name="vio" value="si"><span>Sí</span></label><label class="opt"><input type="radio" name="vio" value="no"><span>No</span></label><label class="opt"><input type="radio" name="vio" value="nd" checked><span>Prefiero no decir</span></label></div></div>
+          <div class="f"><span class="lb">¿Tienes alguna discapacidad?</span><div class="opts"><label class="opt"><input type="radio" name="dis" value="si"><span>Sí</span></label><label class="opt"><input type="radio" name="dis" value="no"><span>No</span></label><label class="opt"><input type="radio" name="dis" value="nd" checked><span>Prefiero no decir</span></label></div></div>
           <p class="note">No subas documentos aquí. Si tu postulación avanza, te pediremos la boleta o el carné solo para verificar la prioridad.</p>
           <label class="chk"><input type="checkbox" id="c1"><span>Soy mayor de 18 años y autorizo el uso de mis datos solo para este programa, conforme a la Ley Orgánica de Protección de Datos Personales.</span></label>
           <label class="chk"><input type="checkbox" id="c2"><span>Entiendo que es un registro de interés y que no garantiza la asignación de una beca.</span></label>
@@ -335,7 +346,7 @@ form{padding:20px}
             <h3 style="margin-top:8px">¡Ya estás en la lista!</h3>
             <p class="hint" style="margin:6px 0 0">Tu código de registro:</p>
             <div class="code" id="code">BP-000000</div>
-            <p class="hint">Te escribiremos al WhatsApp que registraste. En este prototipo no se guardó ningún dato.</p>
+            <p class="hint">Guárdalo. Te escribiremos al WhatsApp que registraste.</p>
             <button type="button" class="btn b-n" id="again">Nuevo registro</button>
           </div>
         </div>
@@ -409,6 +420,13 @@ form{padding:20px}
   </div>
 </main>
 
+
+<div class="fv" id="fv" role="region" aria-label="Video: 1000 becas">
+  <video id="fvv" src="/becas/becas-video.mp4" poster="/becas/becas-video.jpg" muted playsinline loop preload="metadata"></video>
+  <button class="x" id="fvx" type="button" aria-label="Cerrar video">✕</button>
+  <button class="snd" id="fvs" type="button">🔊 Activar sonido</button>
+</div>
+
 <script>
 (function(){
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -478,16 +496,35 @@ form{padding:20px}
     if(s===1){ok=err('ced',cedOk(ced.value)?'':'Ingresa una cédula válida de 10 dígitos.')&&ok;ok=err('nom',v('nom')?'':'Escribe tus nombres.')&&ok;ok=err('ape',v('ape')?'':'Escribe tus apellidos.')&&ok;
       var n=v('nac'),age=n?(Date.now()-new Date(n))/31557600000:0;ok=err('nac',!n?'Indica tu fecha de nacimiento.':(age<18?'El registro es para mayores de 18 años.':''))&&ok;
       ok=err('cel',/^09\d{8}$/.test(v('cel'))?'':'Celular de 10 dígitos que empiece con 09.')&&ok;var m=v('mail');ok=err('mail',(!m||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m))?'':'Revisa el correo.')&&ok;}
-    if(s===2){ok=err('can',v('can')?'':'Elige tu cantón.')&&ok;ok=err('parr',v('parr')?'':'Escribe tu parroquia, barrio o comunidad.')&&ok;}
+    if(s===2){ok=err('can',(v('can')||v('prov')!=='Cotopaxi')?'':'Elige tu cantón.')&&ok;ok=err('parr',v('parr')?'':'Escribe tu parroquia, barrio o comunidad.')&&ok;}
     if(s===3){ok=err('niv',v('niv')?'':'Elige tu nivel académico.')&&ok;ok=err('car',sel.value?'':'Elige una carrera.')&&ok;}
     if(s===4){var c=document.getElementById('c1').checked&&document.getElementById('c2').checked;document.getElementById('c-msg').textContent=c?'':'Marca las dos autorizaciones para enviar.';ok=c;}
     return ok;}
   function go(s){cur=s;steps.forEach(function(st){st.classList.toggle('on',+st.dataset.s===s);});bars.forEach(function(b,i){b.classList.toggle('on',i<s);});
     pl.textContent=s===5?'¡Postulación enviada!':'Paso '+s+' de 4 · '+labels[s-1];prev.hidden=s===1||s===5;navb.hidden=s===5;next.textContent=s===4?'Enviar':'Continuar';}
-  next.addEventListener('click',function(){if(!valid(cur))return;if(cur===4){document.getElementById('code').textContent='BP-'+(100000+Math.floor(Math.random()*900000));go(5);return;}go(cur+1);});
+  next.addEventListener('click',function(){if(!valid(cur))return;if(cur===4){enviar();return;}go(cur+1);});
+  function rv(n){var r=document.querySelector('input[name="'+n+'"]:checked');return r?r.value:undefined;}
+  function enviar(){var cmsg=document.getElementById('c-msg');next.disabled=true;var txt=next.textContent;next.textContent='Enviando…';cmsg.textContent='';
+    var body={cedula:ced.value,nombres:v('nom'),apellidos:v('ape'),fecha_nacimiento:v('nac'),celular:v('cel'),correo:v('mail'),provincia:v('prov'),canton:v('can'),parroquia:v('parr'),zona:rv('zona'),nivel:v('niv'),carrera:sel.value,modalidad:rv('mod'),tipo_estudiante:rv('tipo'),prioridad_violencia:rv('vio')||'nd',prioridad_discapacidad:rv('dis')||'nd',consentimiento_datos:true,consentimiento_sin_garantia:true,website:document.getElementById('website').value,origen:/[?&]app=1/.test(location.search)?'app':'web'};
+    fetch('/api/becas/registro',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+    .then(function(x){if(x.ok&&x.j.codigo){document.getElementById('code').textContent=x.j.codigo;go(5);}else{cmsg.textContent=(x.j&&x.j.error)||'No pudimos enviar tu registro. Inténtalo de nuevo.';}})
+    .catch(function(){cmsg.textContent='Sin conexión. Revisa tu internet e inténtalo de nuevo.';})
+    .then(function(){next.disabled=false;next.textContent=txt;});}
   prev.addEventListener('click',function(){go(Math.max(1,cur-1));});
   document.getElementById('again').addEventListener('click',function(){document.getElementById('form').reset();msg(cm,'');go(1);});
   document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();});
+  // Video flotante: aparece al entrar, en silencio; con un toque se agranda y suena.
+  (function(){var fv=document.getElementById('fv'),v=document.getElementById('fvv'),snd=document.getElementById('fvs');
+    var closed=false;try{closed=sessionStorage.getItem('becas-video')==='0';}catch(e){}
+    if(closed){fv.hidden=true;return;}
+    setTimeout(function(){fv.classList.add('in');var p=v.play();if(p&&p.catch)p.catch(function(){});},reduce?0:900);
+    function sound(){v.muted=false;v.loop=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});fv.classList.add('big');snd.hidden=true;}
+    snd.addEventListener('click',sound);
+    v.addEventListener('click',function(){if(v.muted)sound();else if(v.paused)v.play();else v.pause();});
+    v.addEventListener('ended',function(){fv.classList.remove('big');v.muted=true;v.loop=true;snd.hidden=false;snd.textContent='↺ Ver otra vez con sonido';v.play();});
+    document.getElementById('fvx').addEventListener('click',function(){v.pause();fv.classList.remove('in');setTimeout(function(){fv.hidden=true;},500);try{sessionStorage.setItem('becas-video','0');}catch(e){}});
+  })();
+
 })();
 </script>
 
