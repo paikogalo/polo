@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Becas De Polo a Polo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+/* Línea gráfica juvenil de la plataforma (NODO): fondo claro, tarjetas muy redondeadas tipo bento, degradado navy-azul-morado, anillo multicolor y etiquetas giradas. Escritorio: teléfono con el formulario fijo a la izquierda y bento a la derecha. Teléfono: héroe, luego formulario. */
+:root{
+  --navy:#183247;--oceanD:#0F6E73;--mist:#DDF3FA;--coral:#E63B32;--purple:#73439A;--pink:#D87DB4;--yellow:#F7A713;--ocean:#27A9AD;--blue:#2471C8;
+  --bg:#F4F7FB;--card:#fff;--muted:#4f6275;--line:#dfe6ee;
+  --ring:linear-gradient(135deg,#27A9AD 0%,#3B8BEA 30%,#73439A 55%,#D87DB4 75%,#F7A713 100%);
+  --font:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.55 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+button{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.proto{background:var(--navy);color:#fff;font:700 .78rem/1.3 var(--font);text-align:center;padding:.45rem 16px}
+.proto b{color:var(--yellow)}
+
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(24,50,71,.08)}
+.ringbar{height:4px;background:linear-gradient(90deg,#27A9AD,#3B8BEA,#73439A,#D87DB4,#F7A713,#27A9AD);background-size:200% 100%;animation:slide 6s linear infinite}
+@keyframes slide{to{background-position:200% 0}}
+.hdr{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand img{height:40px;width:auto}
+.brand b{display:block;font-size:.95rem;line-height:1.1}
+.brand small{font-size:.75rem;font-weight:700;color:var(--oceanD)}
+nav{display:flex;gap:4px;align-items:center}
+nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none}
+nav a:hover{background:var(--mist)}
+nav .go{background:var(--yellow);font-weight:800}
+nav .go:hover{background:var(--navy);color:#fff}
+@media (max-width:760px){nav .lk{display:none}.brand .t{display:none}}
+
+main{max-width:1440px;margin:0 auto;padding:24px 16px 40px;display:grid;gap:24px}
+.col{display:grid;gap:24px;min-width:0}
+@media (min-width:1024px){
+  main{grid-template-columns:400px minmax(0,1fr);column-gap:40px;padding:32px 32px 48px}
+  .hero{grid-column:2;grid-row:1}
+  aside{grid-column:1;grid-row:1/span 2;position:sticky;top:88px;align-self:start}
+  .col{grid-column:2;grid-row:2}
+}
+.box{background:var(--card);border-radius:2.5rem;padding:24px}
+@media (min-width:640px){.box{padding:40px}}
+.kick{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--purple)}
+.box h2{font-size:clamp(1.75rem,3.4vw,2.4rem);line-height:1.12;margin-top:10px;max-width:24ch}
+.sub{color:var(--muted);margin-top:10px;max-width:42rem}
+
+/* Héroe */
+.hero{position:relative;overflow:clip;border-radius:2.5rem;color:#fff;padding:36px 24px 0;isolation:isolate;
+  background:radial-gradient(60rem 40rem at 110% -10%,rgba(216,125,180,.5),transparent 60%),radial-gradient(50rem 36rem at -20% 110%,rgba(39,169,173,.5),transparent 60%),linear-gradient(140deg,#183247 0%,#1f4f8f 45%,#5b3a8c 100%)}
+@media (min-width:640px){.hero{padding:48px 40px 0}}
+.hero::before{content:"";position:absolute;inset:-30%;z-index:-1;background:conic-gradient(from 0deg at 70% 40%,transparent 0 60deg,rgba(247,167,19,.18) 90deg,transparent 140deg,rgba(39,169,173,.2) 220deg,transparent 280deg);animation:turn 18s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+#spark{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hgrid{display:grid;gap:8px;align-items:end}
+@media (min-width:1180px){.hgrid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}}
+.htxt{padding-bottom:36px;min-width:0}
+.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 14px;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--yellow);animation:blink 1.3s ease-in-out infinite}
+@keyframes blink{50%{opacity:.2}}
+.q{font-size:clamp(1.25rem,2.4vw,1.7rem);font-weight:800;line-height:1.2;margin-top:18px;max-width:24ch}
+
+/* El 1000 que se mueve */
+.mil{position:relative;display:flex;align-items:flex-end;margin-top:6px;font-weight:800;font-size:clamp(7.5rem,19vw,13.5rem);line-height:.8;letter-spacing:0}
+.dg{display:inline-block;height:.9em;overflow:hidden;padding:0 .03em;margin-right:-.07em}
+.rl{display:flex;flex-direction:column;will-change:transform}
+.rl span{display:block;height:.9em;line-height:.9;background:linear-gradient(135deg,#F7A713,#ffd36b 30%,#D87DB4 60%,#7fe0e3 85%,#F7A713);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hue 4s ease-in-out infinite alternate}
+@keyframes hue{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.dg:nth-child(2) .rl span{animation-delay:-1s}.dg:nth-child(3) .rl span{animation-delay:-2s}.dg:nth-child(4) .rl span{animation-delay:-3s}
+.mil.live .dg{animation:jump 3s cubic-bezier(.3,1.6,.5,1) infinite}
+.mil.live .dg:nth-child(2){animation-delay:.12s}.mil.live .dg:nth-child(3){animation-delay:.24s}.mil.live .dg:nth-child(4){animation-delay:.36s}
+@keyframes jump{0%,70%,100%{transform:translateY(0) rotate(0)}78%{transform:translateY(-.08em) rotate(-3deg)}88%{transform:translateY(.01em) rotate(1deg)}}
+.becas{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin-top:12px}
+.becas b{display:inline-block;background:var(--yellow);color:var(--navy);font-size:clamp(2rem,5vw,3.4rem);line-height:1;padding:.08em .3em .14em;border-radius:.3em;transform:rotate(-3deg);box-shadow:0 12px 30px rgba(247,167,19,.4);animation:sway 3.6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg) scale(1.05)}}
+.becas span{font-size:clamp(1.2rem,2.6vw,1.8rem);font-weight:800;line-height:1.1}
+.rot{margin-top:18px;font-size:1.08rem;font-weight:700;color:rgba(255,255,255,.88)}
+.slot{display:inline-grid;vertical-align:bottom;height:1.55em;overflow:hidden}
+.slot span{grid-area:1/1;white-space:nowrap;color:var(--yellow);font-weight:800;transition:transform .55s cubic-bezier(.2,.9,.2,1),opacity .4s}
+.lead{margin-top:12px;max-width:34rem;font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,.85)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 28px;border-radius:999px;font-weight:800;font-size:1.05rem;text-decoration:none;border:0;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.b-y{background:var(--yellow);color:var(--navy);box-shadow:0 12px 30px rgba(247,167,19,.4)}
+.b-y:hover{background:#fff}
+.b-w{background:#fff;color:var(--navy)}
+.b-w:hover{background:var(--yellow)}
+.b-n{background:var(--navy);color:#fff}
+.b-g{background:#eef2f7;color:var(--navy)}
+.halo{position:relative}
+.halo::after{content:"";position:absolute;inset:-5px;border-radius:999px;border:2px solid var(--yellow);animation:ping 2.2s ease-out infinite;pointer-events:none}
+@keyframes ping{0%{opacity:.9;transform:scale(.95)}100%{opacity:0;transform:scale(1.15)}}
+
+.hart{position:relative;min-width:0;display:grid;place-items:end center;min-height:320px}
+.disc{position:absolute;left:50%;bottom:8%;width:min(88%,380px);aspect-ratio:1;margin-left:calc(min(88%,380px) / -2);border-radius:50%;background:var(--ring);padding:10px;animation:turn 14s linear infinite}
+.disc::after{content:"";display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 50% 35%,#2a62b8,#183247 75%)}
+.pair{position:relative;z-index:1;width:min(92%,420px);height:auto;filter:drop-shadow(0 22px 26px rgba(0,0,0,.4));transition:transform .25s ease-out}
+.stk{position:absolute;z-index:2;border-radius:16px;padding:8px 12px;font-weight:800;font-size:.88rem;box-shadow:0 12px 26px rgba(0,0,0,.25);white-space:nowrap;animation:bob 4.5s ease-in-out infinite}
+.s1{top:6%;left:2%;background:var(--yellow);color:var(--navy);--r:6deg}
+.s2{top:30%;right:0;background:var(--pink);color:var(--navy);--r:-6deg;animation-delay:-1.4s}
+.s3{bottom:30%;left:0;background:var(--ocean);color:var(--navy);--r:-4deg;animation-delay:-2.6s}
+.s4{bottom:18%;right:2%;background:#fff;color:var(--navy);--r:5deg;animation-delay:-3.4s}
+@keyframes bob{0%,100%{transform:rotate(var(--r)) translateY(0)}50%{transform:rotate(calc(var(--r) * -1)) translateY(-10px)}}
+.who{position:absolute;z-index:3;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;background:#fff;border-radius:18px;padding:7px 10px;box-shadow:0 14px 28px rgba(0,0,0,.3)}
+.who img{height:36px;width:auto}
+
+.tape{border-radius:999px;overflow:hidden;background:var(--navy);color:#fff}
+.tape .tr{display:flex;width:max-content;animation:run 26s linear infinite;padding:14px 0;font-weight:800;font-size:1.05rem}
+.tape span{display:inline-flex;align-items:center;gap:14px;padding-right:14px;white-space:nowrap}
+.tape span::after{content:"";width:11px;height:11px;border-radius:3px;background:var(--ring);transform:rotate(45deg)}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* Formulario en teléfono */
+.phone{position:relative;margin:0 auto;max-width:380px;border-radius:46px;padding:12px;background:var(--navy);box-shadow:0 30px 60px rgba(18,43,64,.28)}
+.phone::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:96px;height:22px;border-radius:999px;background:#0b1a26;z-index:2}
+.screen{position:relative;border-radius:36px;overflow:hidden;background:#fff}
+.scr{scrollbar-width:thin;scrollbar-color:var(--purple) transparent}
+@media (min-width:1024px){.scr{max-height:calc(100vh - 200px);overflow-y:auto}}
+.ph-top{background:radial-gradient(18rem 12rem at 100% 0,rgba(216,125,180,.55),transparent 70%),linear-gradient(140deg,#183247,#1f4f8f 55%,#5b3a8c);color:#fff;padding:52px 20px 22px}
+.ph-top .k{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow)}
+.ph-top h2{font-size:1.55rem;line-height:1.1;margin-top:6px}
+.ph-top p{font-size:.86rem;color:rgba(255,255,255,.8);margin-top:6px}
+.prog{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:16px}
+.prog i{height:6px;border-radius:6px;background:rgba(255,255,255,.22);overflow:hidden;position:relative}
+.prog i::after{content:"";position:absolute;inset:0;background:var(--yellow);transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+.prog i.on::after{transform:scaleX(1)}
+.ph-top .plabel{font-size:.78rem;font-weight:700;margin-top:8px}
+form{padding:20px}
+.step{display:none}
+.step.on{display:block;animation:in .4s ease}
+@keyframes in{from{opacity:.2;transform:translateX(14px)}to{opacity:1;transform:none}}
+.step h3{font-size:1.2rem}
+.hint{font-size:.86rem;color:var(--muted);margin:4px 0 14px}
+.f{display:grid;gap:5px;margin-bottom:12px}
+.f label,.lb{font-weight:800;font-size:.84rem}
+.f label em{font-style:normal;color:var(--coral)}
+.f input,.f select{width:100%;min-height:48px;border:2px solid var(--line);border-radius:16px;padding:0 14px;font:600 1rem var(--font);color:var(--navy);background:var(--bg)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(115,67,154,.14);background:#fff}
+.err{font-size:.78rem;font-weight:700;color:var(--coral);min-height:1em}
+.ok{font-size:.78rem;font-weight:800;color:var(--oceanD);min-height:1em}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-flex;align-items:center;min-height:42px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--bg);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s}
+.opt input:checked+span{background:var(--purple);border-color:var(--purple);color:#fff}
+.opt input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
+.note{background:var(--mist);border-radius:16px;padding:12px 14px;font-size:.84rem;margin-bottom:12px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;margin-bottom:10px}
+.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--purple);flex:none}
+.navb{display:flex;gap:10px;margin-top:6px}
+.navb .btn{min-height:50px;padding:0 22px;font-size:.98rem;flex:1}
+.done{text-align:center;padding:10px 0}
+.code{display:inline-block;margin:12px 0;font-size:1.6rem;font-weight:800;letter-spacing:.06em;background:var(--yellow);color:var(--navy);padding:10px 18px;border-radius:18px;transform:rotate(-2deg);font-variant-numeric:tabular-nums}
+.below{text-align:center;font-size:.78rem;font-weight:700;color:rgba(24,50,71,.7);margin-top:12px}
+.mob{text-align:center;font-size:.86rem;font-weight:800;color:var(--purple);margin-bottom:14px}
+@media (min-width:1024px){.mob{display:none}}
+
+/* Cifras */
+.grad{background:linear-gradient(120deg,#183247 0%,#2471C8 48%,#73439A 100%);color:#fff}
+.grad .kick{color:var(--yellow)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.st{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:1.6rem;padding:18px;min-width:0}
+.st b{display:block;font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
+.st:nth-child(1) b{color:#fff}.st:nth-child(2) b{color:var(--yellow)}.st:nth-child(3) b{color:#7fe0e3}
+.st span{display:block;margin-top:6px;font-weight:700;font-size:.92rem;color:rgba(255,255,255,.88)}
+@media (max-width:640px){.stats{grid-template-columns:1fr}}
+.dots{display:grid;grid-template-columns:repeat(50,1fr);gap:3px;margin-top:24px}
+.dots i{aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.14);transform:scale(.15);transition:transform .5s cubic-bezier(.2,.9,.3,1.5),background .3s}
+.dots.on i{transform:scale(1)}
+.dots.on i.a{background:var(--yellow)}
+.dots.on i.b{background:var(--ocean)}
+.dots i.hi{transform:scale(1.8)!important;background:#fff!important}
+.leg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:.86rem;font-weight:700}
+.leg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.leg span:nth-child(1)::before{background:var(--yellow)}.leg span:nth-child(2)::before{background:var(--ocean)}
+@media (max-width:640px){.dots{grid-template-columns:repeat(25,1fr);gap:2px}}
+
+.purp{margin-top:22px;border-radius:2rem;padding:24px;background:linear-gradient(90deg,var(--yellow),#FFC94D)}
+.purp span{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+.purp p{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:800;line-height:1.2;margin-top:4px}
+
+.pri{display:grid;gap:14px;margin-top:26px}
+@media (min-width:860px){.pri{grid-template-columns:repeat(3,1fr)}}
+.pc{border-radius:1.6rem;padding:22px;border:2px solid;transition:transform .25s}
+.pc:hover{transform:translateY(-4px) rotate(-.5deg)}
+.pc .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:16px}
+.pc h3{font-size:1.12rem;margin-top:14px;line-height:1.25}
+.pc p{font-size:.92rem;color:var(--muted);margin-top:6px;line-height:1.55}
+.pc.p1{border-color:var(--pink);background:rgba(216,125,180,.12)}.pc.p1 .ic{background:var(--pink)}
+.pc.p2{border-color:var(--ocean);background:rgba(39,169,173,.1)}.pc.p2 .ic{background:var(--ocean)}
+.pc.p3{border-color:var(--yellow);background:rgba(247,167,19,.1)}.pc.p3 .ic{background:var(--yellow)}
+.small{font-size:.84rem;color:var(--muted);margin-top:14px}
+
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:22px;background:var(--bg);border-radius:999px;padding:5px}
+.tab{border:0;background:transparent;border-radius:999px;min-height:42px;padding:0 18px;font-weight:800;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--navy);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.chip{border:2px solid;border-radius:999px;min-height:46px;padding:0 18px;font-weight:800;font-size:.95rem;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:pop .45s cubic-bezier(.2,.9,.3,1.4) both}
+.chip:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:0 10px 20px rgba(24,50,71,.12)}
+@keyframes pop{from{opacity:.001;transform:scale(.85)}to{opacity:1;transform:none}}
+
+.steps{display:grid;gap:14px;margin-top:26px;list-style:none;padding:0}
+@media (min-width:1180px){.steps{grid-template-columns:repeat(3,1fr)}}
+.sp{border-radius:1.6rem;padding:22px;border:2px solid}
+.sp .n{display:inline-flex;border-radius:999px;padding:4px 12px;font-weight:800;font-size:.84rem}
+.sp h3{font-size:1.15rem;margin-top:12px}
+.sp p{color:var(--muted);margin-top:6px;font-size:.94rem}
+.sp:nth-child(1){border-color:var(--yellow);background:rgba(247,167,19,.08)}.sp:nth-child(1) .n{background:var(--yellow)}
+.sp:nth-child(2){border-color:var(--ocean);background:rgba(39,169,173,.08)}.sp:nth-child(2) .n{background:var(--ocean)}
+.sp:nth-child(3){border-color:var(--purple);background:rgba(115,67,154,.08)}.sp:nth-child(3) .n{background:var(--purple);color:#fff}
+
+.sign{display:grid;gap:22px;align-items:center}
+@media (min-width:860px){.sign{grid-template-columns:auto 1fr}}
+.logos{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.logos img{height:56px;width:auto;background:var(--bg);border-radius:14px;padding:6px 10px}
+.legal{font-size:.78rem;color:var(--muted);line-height:1.6;margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+
+.rise{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.32s}.d4{animation-delay:.45s}
+@keyframes rise{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.dots i{transform:none}}
+</style>
+</head>
+<body>
+
+
+<div class="proto"><b>PROTOTIPO</b> para revisión · todavía no está en la plataforma y el formulario no guarda datos</div>
+
+<header>
+  <div class="ringbar" aria-hidden="true"></div>
+  <div class="hdr">
+    <a class="brand" href="#inicio" aria-label="Becas De Polo a Polo, inicio">
+      <img src="/becas/logo.webp" alt="">
+      <span class="t"><b>Becas De Polo a Polo</b><small>Cotopaxi avanza con educación</small></span>
+    </a>
+    <nav aria-label="Secciones">
+      <a class="lk" href="#cifras">Cifras</a>
+      <a class="lk" href="#prioridad">Prioridad</a>
+      <a class="lk" href="#carreras">Carreras</a>
+      <a class="go" href="#postula">Postula</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio" aria-labelledby="h1">
+    <canvas id="spark" aria-hidden="true"></canvas>
+    <div class="hgrid">
+      <div class="htxt">
+        <span class="tag rise"><i></i>Polo Carrera y Esther Veloz</span>
+        <p class="q rise d1" id="h1">¿Quieres ser uno de los beneficiarios de las</p>
+        <div class="mil live rise d2" role="img" aria-label="1000">
+          <span class="dg"><span class="rl" data-to="1"></span></span><span class="dg"><span class="rl" data-to="0"></span></span><span class="dg"><span class="rl" data-to="0"></span></span><span class="dg"><span class="rl" data-to="0"></span></span>
+        </div>
+        <div class="becas rise d2"><b>becas</b><span>de tercer nivel?</span></div>
+        <p class="rot rise d3">Para estudiar <span class="slot" id="slot"></span></p>
+        <p class="lead rise d3">Sin límite de edad, en modalidad virtual o híbrida. Regístrate con tu cédula y súmate al programa de becas de Polo Carrera.</p>
+        <div class="cta rise d4">
+          <a class="btn b-y halo" href="#postula">Quiero mi beca <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn b-w" href="#carreras">Ver carreras</a>
+        </div>
+      </div>
+      <div class="hart" id="art">
+        <div class="disc" aria-hidden="true"></div>
+        <img class="pair" id="pair" src="/becas/pair.webp" alt="Polo Carrera y María Esther Veloz">
+        <span class="stk s1" aria-hidden="true">100 al 100 %</span>
+        <span class="stk s2" aria-hidden="true">900 al 70 %</span>
+        <span class="stk s3" aria-hidden="true">Virtual o híbrida</span>
+        <span class="stk s4" aria-hidden="true">Sin límite de edad</span>
+        <div class="who"><img src="/becas/word.webp" alt="Polo Carrera, Prefecto"><img src="/becas/name.webp" alt="Esther Veloz, Viceprefecta"></div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="postula" aria-label="Formulario de postulación">
+    <p class="mob">Postula aquí · desliza dentro del teléfono</p>
+    <div class="phone"><div class="screen"><div class="scr">
+      <div class="ph-top">
+        <span class="k">Becas De Polo a Polo</span>
+        <h2>Postula a tu beca</h2>
+        <p>Unos 3 minutos · gratis · desde tu celular</p>
+        <div class="prog" id="prog"><i class="on"></i><i></i><i></i><i></i></div>
+        <p class="plabel" id="plabel">Paso 1 de 4 · Tus datos</p>
+      </div>
+      <form id="form" novalidate>
+        <div class="step on" data-s="1">
+          <h3>Tus datos</h3><p class="hint">Tal como constan en tu cédula.</p>
+          <div class="f"><label for="ced">Cédula <em>*</em></label><input id="ced" inputmode="numeric" maxlength="10" placeholder="10 dígitos" autocomplete="off"><span class="err"></span></div>
+          <div class="f"><label for="nom">Nombres <em>*</em></label><input id="nom" autocomplete="given-name"><span class="err"></span></div>
+          <div class="f"><label for="ape">Apellidos <em>*</em></label><input id="ape" autocomplete="family-name"><span class="err"></span></div>
+          <div class="f"><label for="nac">Fecha de nacimiento <em>*</em></label><input id="nac" type="date"><span class="err"></span></div>
+          <div class="f"><label for="cel">Celular / WhatsApp <em>*</em></label><input id="cel" inputmode="tel" maxlength="10" placeholder="09XXXXXXXX"><span class="err"></span></div>
+          <div class="f"><label for="mail">Correo</label><input id="mail" type="email" placeholder="tucorreo@ejemplo.com" autocomplete="email"><span class="err"></span></div>
+        </div>
+        <div class="step" data-s="2">
+          <h3>¿Dónde vives?</h3><p class="hint">Para organizar las becas por territorio.</p>
+          <div class="f"><label for="prov">Provincia <em>*</em></label><select id="prov"><option>Cotopaxi</option><option>Otra provincia</option></select><span class="err"></span></div>
+          <div class="f"><label for="can">Cantón <em>*</em></label><select id="can"><option value="">Elige</option><option>Latacunga</option><option>La Maná</option><option>Pangua</option><option>Pujilí</option><option>Salcedo</option><option>Saquisilí</option><option>Sigchos</option></select><span class="err"></span></div>
+          <div class="f"><label for="parr">Parroquia, barrio o comunidad <em>*</em></label><input id="parr"><span class="err"></span></div>
+          <div class="f"><span class="lb">Zona</span><div class="opts"><label class="opt"><input type="radio" name="zona" checked><span>Urbana</span></label><label class="opt"><input type="radio" name="zona"><span>Rural</span></label></div></div>
+        </div>
+        <div class="step" data-s="3">
+          <h3>Tus estudios</h3><p class="hint">De dónde partes y qué quieres estudiar.</p>
+          <div class="f"><label for="niv">Nivel académico <em>*</em></label><select id="niv"><option value="">Elige</option><option>Bachiller</option><option>Último año de bachillerato</option><option>Tercer nivel sin terminar</option><option>Técnico o tecnólogo terminado</option><option>Tercer nivel terminado</option></select><span class="err"></span></div>
+          <div class="f"><label for="car">Carrera de interés <em>*</em></label><select id="car"></select><span class="err"></span></div>
+          <div class="f"><span class="lb">Modalidad</span><div class="opts"><label class="opt"><input type="radio" name="mod" checked><span>Virtual</span></label><label class="opt"><input type="radio" name="mod"><span>Híbrida</span></label></div></div>
+          <div class="f"><span class="lb">Tipo de estudiante</span><div class="opts"><label class="opt"><input type="radio" name="tipo" checked><span>Primera carrera</span></label><label class="opt"><input type="radio" name="tipo"><span>Retomo estudios</span></label><label class="opt"><input type="radio" name="tipo"><span>Trabajo y estudio</span></label></div></div>
+        </div>
+        <div class="step" data-s="4">
+          <h3>Prioridad y envío</h3><p class="hint">Estas dos preguntas son opcionales.</p>
+          <div class="f"><span class="lb">¿Eres mujer víctima de violencia con boleta de auxilio?</span><div class="opts"><label class="opt"><input type="radio" name="vio"><span>Sí</span></label><label class="opt"><input type="radio" name="vio"><span>No</span></label><label class="opt"><input type="radio" name="vio" checked><span>Prefiero no decir</span></label></div></div>
+          <div class="f"><span class="lb">¿Tienes alguna discapacidad?</span><div class="opts"><label class="opt"><input type="radio" name="dis"><span>Sí</span></label><label class="opt"><input type="radio" name="dis"><span>No</span></label><label class="opt"><input type="radio" name="dis" checked><span>Prefiero no decir</span></label></div></div>
+          <p class="note">No subas documentos aquí. Si tu postulación avanza, te pediremos la boleta o el carné solo para verificar la prioridad.</p>
+          <label class="chk"><input type="checkbox" id="c1"><span>Soy mayor de 18 años y autorizo el uso de mis datos solo para este programa, conforme a la Ley Orgánica de Protección de Datos Personales.</span></label>
+          <label class="chk"><input type="checkbox" id="c2"><span>Entiendo que es un registro de interés y que no garantiza la asignación de una beca.</span></label>
+          <span class="err" id="c-msg"></span>
+        </div>
+        <div class="step" data-s="5">
+          <div class="done">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#27A9AD"/><path d="m7.5 12.5 3 3 6-6.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 style="margin-top:8px">¡Ya estás en la lista!</h3>
+            <p class="hint" style="margin:6px 0 0">Tu código de registro:</p>
+            <div class="code" id="code">BP-000000</div>
+            <p class="hint">Te escribiremos al WhatsApp que registraste. En este prototipo no se guardó ningún dato.</p>
+            <button type="button" class="btn b-n" id="again">Nuevo registro</button>
+          </div>
+        </div>
+        <div class="navb" id="navb">
+          <button type="button" class="btn b-g" id="prev" hidden>Atrás</button>
+          <button type="button" class="btn b-n" id="next">Continuar</button>
+        </div>
+      </form>
+    </div></div></div>
+    <p class="below">Gratis · Sin límite de edad · Mayores de 18 años</p>
+  </aside>
+
+  <div class="col">
+    <div class="tape" aria-hidden="true"><div class="tr" id="tape"></div></div>
+
+    <section class="box grad" id="cifras" aria-labelledby="c-t">
+      <span class="kick">Becas en cifras</span>
+      <h2 id="c-t">1000 becas, una por cada punto.</h2>
+      <div class="stats">
+        <div class="st"><b data-n="1000">1000</b><span>becas de tercer nivel</span></div>
+        <div class="st"><b data-n="100">100</b><span>cubren el 100 % de la carrera</span></div>
+        <div class="st"><b data-n="900">900</b><span>cubren el 70 % de la carrera</span></div>
+      </div>
+      <div class="dots" id="dots" role="img" aria-label="1000 puntos: 100 becas del 100 % y 900 del 70 %"></div>
+      <div class="leg"><span>100 becas del 100 %</span><span>900 becas del 70 %</span></div>
+    </section>
+
+    <section class="box" aria-labelledby="p-t">
+      <span class="kick">Qué es</span>
+      <h2 id="p-t">Becas para estudiar una carrera sin salir de Cotopaxi.</h2>
+      <p class="sub">Carreras de tercer nivel en modalidad virtual o híbrida, para que estudies desde tu parroquia, a tu ritmo y a cualquier edad.</p>
+      <div class="purp"><span>Propósito</span><p>Cotopaxi avanza con educación y preparación.</p></div>
+    </section>
+
+    <section class="box" id="prioridad" aria-labelledby="pr-t">
+      <span class="kick">Prioridad</span>
+      <h2 id="pr-t">Primero, quienes más lo necesitan.</h2>
+      <div class="pri">
+        <div class="pc p1"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-4.5-9.3-9A5.3 5.3 0 0 1 12 6.1 5.3 5.3 0 0 1 21.3 12C19 16.5 12 21 12 21Z" stroke="#183247" stroke-width="2.2" stroke-linejoin="round"/></svg></span><h3>Mujeres víctimas de violencia</h3><p>Con boleta de auxilio. El dato es voluntario y confidencial.</p></div>
+        <div class="pc p2"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="2" stroke="#183247" stroke-width="2.2"/><path d="M9 9h6M12 9v5h4l2 5M12 14a5 5 0 1 0 4.5 7" stroke="#183247" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Personas con discapacidad</h3><p>Con una modalidad que se adapta a cada estudiante.</p></div>
+        <div class="pc p3"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 10 12 5l9 5-9 5-9-5Z" stroke="#183247" stroke-width="2.2" stroke-linejoin="round"/><path d="M7 12.5V17c3 2 7 2 10 0v-4.5" stroke="#183247" stroke-width="2.2" stroke-linecap="round"/></svg></span><h3>Sin límite de edad</h3><p>Para jóvenes y adultos con ganas de estudiar y crecer.</p></div>
+      </div>
+      <p class="small">Los datos de prioridad son opcionales, se tratan con reserva y nunca se publican.</p>
+    </section>
+
+    <section class="box" id="carreras" aria-labelledby="ca-t">
+      <span class="kick">Carreras</span>
+      <h2 id="ca-t">¿Qué quieres estudiar?</h2>
+      <div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="true" data-g="tec">Tecnologías</button><button class="tab" role="tab" aria-selected="false" data-g="sup">Tecnólogo superior</button></div>
+      <div class="chips" id="chips"></div>
+      <p class="small">Lista referencial, por confirmar con la institución aliada. Toca una carrera y se elige en el formulario.</p>
+    </section>
+
+    <section class="box" aria-labelledby="co-t">
+      <span class="kick">Cómo funciona</span>
+      <h2 id="co-t">Tres pasos y listo.</h2>
+      <ol class="steps">
+        <li class="sp"><span class="n">Paso 1</span><h3>Postula con tu cédula</h3><p>Llena el formulario desde tu celular.</p></li>
+        <li class="sp"><span class="n">Paso 2</span><h3>Revisamos tu perfil</h3><p>Verificamos tus datos y la prioridad que declaraste.</p></li>
+        <li class="sp"><span class="n">Paso 3</span><h3>Te contactamos</h3><p>Por WhatsApp o correo, con la carrera y la institución.</p></li>
+      </ol>
+    </section>
+
+    <section class="box" aria-label="Quiénes impulsan el programa">
+      <div class="sign">
+        <div class="logos"><img src="/becas/logo.webp" alt="Alianza Avanzamos De Polo a Polo, listas 8-1-21"><img src="/becas/word.webp" alt="Polo Carrera, Prefecto"><img src="/becas/name.webp" alt="Esther Veloz, Viceprefecta"></div>
+        <div><span class="kick">Impulsan</span><h2 style="margin-top:6px;font-size:1.6rem">Polo Carrera y María Esther Veloz</h2><a class="btn b-y" href="#postula" style="margin-top:14px">Quiero mi beca</a></div>
+      </div>
+      <p class="legal">Propuesta de la Alianza Avanzamos De Polo a Polo, listas 8-1-21. Su ejecución depende de la elección y de convenios con instituciones de educación superior. El registro no garantiza la asignación de una beca. Los datos se tratan conforme a la Ley Orgánica de Protección de Datos Personales y no se comparten con terceros.</p>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var C={tec:['Desarrollo de Software','Ciberseguridad','Planificación y Gestión del Tránsito'],
+    sup:['Administración','Asistencia Jurídica','Asistencia Pedagógica','Control de Incendios y Rescate','Entrenamiento Deportivo','Emergencias Médicas','Estética Integral','Rehabilitación Física','Seguridad Ciudadana','Enfermería']};
+  var tones=[['#D87DB4','rgba(216,125,180,.15)'],['#F7A713','rgba(247,167,19,.15)'],['#27A9AD','rgba(39,169,173,.14)'],['#73439A','rgba(115,67,154,.12)'],['#2471C8','rgba(36,113,200,.1)'],['#E63B32','rgba(230,59,50,.09)']];
+
+  // 1000: rodillos que giran al cargar y cada 6 s
+  var reels=[].slice.call(document.querySelectorAll('.rl'));
+  reels.forEach(function(r){var h='';for(var k=0;k<2;k++)for(var d=0;d<10;d++)h+='<span>'+d+'</span>';h+='<span>'+r.dataset.to+'</span>';r.innerHTML=h;});
+  function end(r){return 'translateY(calc(-'+(r.children.length-1)+' * .9em))';}
+  function roll(){reels.forEach(function(r,i){r.style.transition='none';r.style.transform='translateY(0)';r.offsetHeight;r.style.transition='transform '+(1.1+i*.3)+'s cubic-bezier(.2,.9,.2,1)';r.style.transform=end(r);});}
+  if(reduce)reels.forEach(function(r){r.style.transform=end(r);});else{setTimeout(roll,250);setInterval(roll,6000);}
+
+  // Carrera que rota
+  var words=['Desarrollo de Software','Enfermería','Administración','Ciberseguridad','Asistencia Pedagógica','Emergencias Médicas'],slot=document.getElementById('slot'),wi=0;
+  slot.innerHTML=words.map(function(w,i){return '<span style="transform:translateY('+(i?110:0)+'%);opacity:'+(i?0:1)+'">'+w+'</span>';}).join('');
+  if(!reduce)setInterval(function(){var a=slot.children[wi];wi=(wi+1)%words.length;var b=slot.children[wi];a.style.transform='translateY(-110%)';a.style.opacity=0;b.style.transition='none';b.style.transform='translateY(110%)';b.offsetHeight;b.style.transition='';b.style.transform='translateY(0)';b.style.opacity=1;},2200);
+
+  // Destellos en el héroe
+  var cv=document.getElementById('spark'),cx=cv.getContext('2d'),P=[],W=0,H=0,cols=['#F7A713','#D87DB4','#27A9AD','#ffffff','#3B8BEA'];
+  function mk(any){return{x:Math.random()*W,y:any?Math.random()*H:H+12,s:3+Math.random()*7,v:.2+Math.random()*.5,a:Math.random()*6,va:(Math.random()-.5)*.05,t:Math.random()*6,c:cols[Math.floor(Math.random()*cols.length)],k:Math.floor(Math.random()*3)};}
+  function size(){var r=cv.getBoundingClientRect(),dp=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*dp;cv.height=H*dp;cx.setTransform(dp,0,0,dp,0,0);P=[];for(var i=0;i<Math.round(Math.min(40,W/24));i++)P.push(mk(true));}
+  function draw(){cx.clearRect(0,0,W,H);P.forEach(function(p,i){p.y-=p.v;p.a+=p.va;p.t+=.03;if(p.y<-12)P[i]=mk(false);cx.save();cx.translate(p.x+Math.sin(p.t)*8,p.y);cx.rotate(p.a);cx.globalAlpha=.7;cx.fillStyle=p.c;cx.beginPath();
+    if(p.k===0)cx.arc(0,0,p.s/2,0,7);else if(p.k===1)cx.rect(-p.s/2,-p.s/2,p.s,p.s);else{cx.moveTo(0,-p.s);for(var j=1;j<8;j++){var rr=j%2?p.s/3:p.s,an=j*Math.PI/4;cx.lineTo(Math.sin(an)*rr,-Math.cos(an)*rr);}cx.closePath();}
+    cx.fill();cx.restore();});if(!reduce)requestAnimationFrame(draw);}
+  size();draw();addEventListener('resize',size);
+
+  // Foto que sigue al puntero
+  var art=document.getElementById('art'),pair=document.getElementById('pair');
+  if(!reduce)art.addEventListener('pointermove',function(e){var r=art.getBoundingClientRect(),dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;pair.style.transform='translate('+dx*16+'px,'+dy*10+'px) rotate('+dx*3+'deg)';});
+  art.addEventListener('pointerleave',function(){pair.style.transform='';});
+
+  // Cinta
+  var t='';for(var k=0;k<4;k++)['1000 becas','100 % y 70 %','Virtual o híbrida','Sin límite de edad','Cotopaxi avanza'].forEach(function(w){t+='<span>'+w+'</span>';});document.getElementById('tape').innerHTML=t;
+
+  // 1000 puntos y contadores
+  var dots=document.getElementById('dots'),fr=document.createDocumentFragment(),cells=[];
+  for(var i=0;i<1000;i++){var d=document.createElement('i');d.className=i<100?'a':'b';d.style.transitionDelay=(reduce?0:Math.min(i*1.1,1100))+'ms';fr.appendChild(d);cells.push(d);}
+  dots.appendChild(fr);
+  function count(el){var to=+el.dataset.n,t0=null;function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1300);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+  function on(){dots.classList.add('on');if(!reduce)document.querySelectorAll('.st b[data-n]').forEach(count);setTimeout(function(){cells.forEach(function(c){c.style.transitionDelay='0ms';});},2500);}
+  if('IntersectionObserver' in window&&!reduce)new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){on();o.disconnect();}});},{threshold:.2}).observe(dots);else on();
+  var last=null;dots.addEventListener('pointermove',function(e){var t=e.target;if(t.tagName!=='I'||t===last)return;if(last)last.classList.remove('hi');t.classList.add('hi');last=t;});
+  dots.addEventListener('pointerleave',function(){if(last)last.classList.remove('hi');last=null;});
+
+  // Carreras
+  var chips=document.getElementById('chips'),sel=document.getElementById('car');
+  function show(g){chips.innerHTML=C[g].map(function(c,i){var tn=tones[i%tones.length];return '<button type="button" class="chip" style="border-color:'+tn[0]+';background:'+tn[1]+';animation-delay:'+i*45+'ms" data-c="'+c+'">'+c+'</button>';}).join('');
+    document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-selected',b.dataset.g===g?'true':'false');});}
+  document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.g);});});
+  show('tec');
+  sel.innerHTML='<option value="">Elige</option>'+['tec','sup'].map(function(g){return '<optgroup label="'+(g==='tec'?'Tecnologías':'Tecnólogo superior')+'">'+C[g].map(function(c){return '<option>'+c+'</option>';}).join('')+'</optgroup>';}).join('');
+  chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;sel.value=b.dataset.c;go(3);document.getElementById('postula').scrollIntoView({behavior:reduce?'auto':'smooth'});});
+
+  // Cédula (módulo 10)
+  function cedOk(c){if(!/^\d{10}$/.test(c))return false;var p=+c.slice(0,2);if(!((p>=1&&p<=24)||p===30))return false;if(+c[2]>5)return false;var s=0;for(var i=0;i<9;i++){var v=+c[i]*(i%2?1:2);if(v>9)v-=9;s+=v;}return (10-s%10)%10===+c[9];}
+  var ced=document.getElementById('ced'),cm=ced.parentNode.querySelector('.err');
+  function msg(el,text,good){el.className=good?'ok':'err';el.textContent=text||'';}
+  ced.addEventListener('input',function(){ced.value=ced.value.replace(/\D/g,'');if(ced.value.length<10)return msg(cm,'');cedOk(ced.value)?msg(cm,'Cédula válida',true):msg(cm,'Este número no corresponde a una cédula válida.');});
+
+  // Pasos
+  var cur=1,labels=['Tus datos','Ubicación','Estudios','Prioridad y envío'],steps=document.querySelectorAll('.step'),bars=document.querySelectorAll('#prog i'),pl=document.getElementById('plabel'),prev=document.getElementById('prev'),next=document.getElementById('next'),navb=document.getElementById('navb');
+  function v(id){return document.getElementById(id).value.trim();}
+  function err(id,text){var el=document.getElementById(id).parentNode.querySelector('.err,.ok');if(id==='ced'&&!text)msg(el,'Cédula válida',true);else msg(el,text);return !text;}
+  function valid(s){var ok=true;
+    if(s===1){ok=err('ced',cedOk(ced.value)?'':'Ingresa una cédula válida de 10 dígitos.')&&ok;ok=err('nom',v('nom')?'':'Escribe tus nombres.')&&ok;ok=err('ape',v('ape')?'':'Escribe tus apellidos.')&&ok;
+      var n=v('nac'),age=n?(Date.now()-new Date(n))/31557600000:0;ok=err('nac',!n?'Indica tu fecha de nacimiento.':(age<18?'El registro es para mayores de 18 años.':''))&&ok;
+      ok=err('cel',/^09\d{8}$/.test(v('cel'))?'':'Celular de 10 dígitos que empiece con 09.')&&ok;var m=v('mail');ok=err('mail',(!m||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m))?'':'Revisa el correo.')&&ok;}
+    if(s===2){ok=err('can',v('can')?'':'Elige tu cantón.')&&ok;ok=err('parr',v('parr')?'':'Escribe tu parroquia, barrio o comunidad.')&&ok;}
+    if(s===3){ok=err('niv',v('niv')?'':'Elige tu nivel académico.')&&ok;ok=err('car',sel.value?'':'Elige una carrera.')&&ok;}
+    if(s===4){var c=document.getElementById('c1').checked&&document.getElementById('c2').checked;document.getElementById('c-msg').textContent=c?'':'Marca las dos autorizaciones para enviar.';ok=c;}
+    return ok;}
+  function go(s){cur=s;steps.forEach(function(st){st.classList.toggle('on',+st.dataset.s===s);});bars.forEach(function(b,i){b.classList.toggle('on',i<s);});
+    pl.textContent=s===5?'¡Postulación enviada!':'Paso '+s+' de 4 · '+labels[s-1];prev.hidden=s===1||s===5;navb.hidden=s===5;next.textContent=s===4?'Enviar':'Continuar';}
+  next.addEventListener('click',function(){if(!valid(cur))return;if(cur===4){document.getElementById('code').textContent='BP-'+(100000+Math.floor(Math.random()*900000));go(5);return;}go(cur+1);});
+  prev.addEventListener('click',function(){go(Math.max(1,cur-1));});
+  document.getElementById('again').addEventListener('click',function(){document.getElementById('form').reset();msg(cm,'');go(1);});
+  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();});
+})();
+</script>
+
+</body>
+</html>
